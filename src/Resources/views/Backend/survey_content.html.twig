@@ -1,0 +1,6 @@
+{% if headline %}<h1>{{ headline }}</h1>{% endif %}
+<div class="tl_gray">
+    ### {{ survey.title }} ###<br>
+    [ <i>{{ survey.questions|map(q => q.name)|join(', ') }}</i> ]
+</div>
+<br>

@@ -1,0 +1,46 @@
+{% extends '@MvoContaoSurvey/survey.html.twig' %}
+
+{% form_theme current_step.form '@MvoContaoSurvey/Form/survey_theme.html.twig' %}
+{#{% trans_default_domain '...' %}#}
+
+{% block headline %}
+    {{- survey.title -}}
+{% endblock %}
+
+{% block content %}
+    {% set form = current_step.form %}
+    {% set question = current_step.question %}
+
+    {{ form_start(form, {'action': path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')), 'attr': {'novalidate': 'novalidate'}}) }}
+    <h3{% if question.mandatory %} class="required"{% endif %}>{{ question.question }}</h3>
+
+    <label for="survey_progress">{{ current_step.index }}/{{ total_steps }}</label>
+    <progress id="survey_progress" value="{{ current_step.index }}" max="{{ total_steps }}"></progress>
+
+    <div class="description">
+        {{ question.description|raw }}
+        {# todo image #}
+    </div>
+
+    <fieldset data-survey>
+        <legend>{{ question.instruction }}</legend>
+        {{ form_row(form.answer) }}
+        <input type="reset" value="{{ 'clear_current_step'|trans() }}">
+    </fieldset>
+
+    <nav class="navigation">
+        {% if form.previous is defined %}
+            {{- form_widget(form.previous) -}}
+        {% endif %}
+        {{- form_widget(form.next) -}}
+    </nav>
+
+    <div class="footer">
+        <span>{{ 'note_reset'|trans() }}</span>
+        {{ form_widget(form.reset) }}
+    </div>
+
+    <input type="hidden" name="REQUEST_TOKEN" value="{{ contao_csrf_token }}">
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

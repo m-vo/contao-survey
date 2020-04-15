@@ -1,0 +1,65 @@
+{
+  "name": "mvo/contao-survey",
+  "type": "contao-bundle",
+  "description": "Create surveys from the Contao backend.",
+  "keywords": [
+    "contao",
+    "survey",
+    "questionnaire",
+    "poll"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Moritz Vondano",
+      "homepage": "https://github.com/m-vo/contao-survey"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "contao/core-bundle": "^4.9",
+    "symfony/twig-bundle": "^4.4",
+    "codefog/contao-haste": "^4.24",
+    "symfony/form": "^4.4",
+    "symfony/validator": "^4.4"
+  },
+  "require-dev": {
+    "contao/manager-plugin": "^2.0",
+    "friendsofphp/php-cs-fixer": "^2.16",
+    "phpstan/phpstan": "^0.11.8",
+    "phpunit/phpunit": "^8.0",
+    "contao/test-case": "^4.1"
+  },
+  "conflict": {
+    "contao/manager-plugin": "<2.0 || >=3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mvo\\ContaoSurvey\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Mvo\\ContaoSurvey\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "contao-manager-plugin": "Mvo\\ContaoSurvey\\ContaoManager\\Plugin"
+  },
+  "scripts": {
+    "cs": [
+      "vendor/bin/php-cs-fixer fix -v --ansi"
+    ],
+    "phpstan": [
+      "vendor/bin/phpstan analyse src tests --level=7 --ansi"
+    ],
+    "phpunit": [
+      "vendor/bin/phpunit"
+    ],
+    "chain": [
+      "@cs",
+      "@phpstan",
+      "@phpunit"
+    ]
+  }
+}

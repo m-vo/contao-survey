@@ -1,0 +1,72 @@
+{% use "form_div_layout.html.twig" %}
+
+{# Rows #}
+{%- block survey_answer_matrix_row -%}
+    <div class="survey_answer_matrix">
+        <table>
+            <thead>
+            <tr>
+                <td></td>
+                {% for option in form.vars.matrix_columns %}
+                    <td class="option" data-option="{{ loop.index0 }}">{{ option }}</td>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in form.children %}
+                {% set error = row.vars.errors|length > 0 %}
+                {% if error %}
+                    <tr class="error">
+                        <td></td>
+                        <td colspan="{{ form.vars.matrix_columns|length }}">
+                            {{- form_errors(row) -}}
+                        </td>
+                    </tr>
+                {% endif %}
+                <tr{% if error %} class="error"{% endif %}>
+                    <th>{{ form.vars.matrix_rows[loop.index0]|raw }}</th>
+                    {% for column in row.children %}
+                        <td data-option="{{ loop.index0 }}">
+                            {{- form_widget(column) -}}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{%- endblock -%}
+
+
+{%- block survey_answer_rating_row -%}
+    <div class="survey_answer_rating">
+        {# todo: nullable star rating #}
+        {{ form_row(form) }}
+    </div>
+{%- endblock -%}
+
+
+{%- block survey_answer_select_row -%}
+    <div class="survey_answer_select">
+        {% for child in form.children|filter(f => f.vars.errors|length > 0) %}
+            <div class="error">
+                {{- form_errors(child) -}}
+            </div>
+        {% endfor %}
+        {% for child in form.values.children %}
+            <div class="option">
+                {{ form_widget(child) }}
+                {% if child.vars.value != -1 %}
+                    {{ form_label(child) }}
+                {% else %}
+                    {% set placeholder = 'user_option_placeholder'|trans() %}
+                    {{ form_widget(form.user_option, {attr: {
+                        placeholder: placeholder,
+                        class: 'user_option'
+                    }}) }}
+                    <label for="{{ child.vars.id }}" class="invisible">{{ placeholder }}</label>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{%- endblock -%}

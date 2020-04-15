@@ -1,0 +1,9 @@
+{% extends '@MvoContaoSurvey/survey.html.twig' %}
+
+{% block headline %}
+    {{ 'thanks'|trans() }}
+{% endblock %}
+
+{% block content %}
+    {{ survey.noteAfterSubmission|raw }}
+{% endblock %}

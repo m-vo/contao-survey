@@ -1,0 +1,9 @@
+<div class="record" data-js-record-source="{{ path('mvo_survey_question_record', {id: question.id}) }}">
+    {% set class = 'cte_type ' ~ (question.published ? 'published' : 'unpublished') %}
+
+    <div class="survey_question_type {{ class }}">
+        {{ ('survey_question_type.' ~ type)|trans({}, 'contao_survey') }} ({{ question.name }})
+    </div>
+    <span class="survey_question_title">{{ question.question }}</span>
+    {%- if question.mandatory %}<span class="mandatory">*</span>{% endif %}
+</div>

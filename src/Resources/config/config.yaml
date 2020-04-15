@@ -1,0 +1,26 @@
+mvo_contao_survey:
+  types:
+    matrix:
+      question: Mvo\ContaoSurvey\Entity\QuestionMatrix
+      answer: Mvo\ContaoSurvey\Entity\AnswerMatrix
+      form: Mvo\ContaoSurvey\Form\AnswerType\AnswerMatrixType
+    
+    order:
+      question: Mvo\ContaoSurvey\Entity\QuestionOrder
+      answer: Mvo\ContaoSurvey\Entity\AnswerOrder
+      form: Mvo\ContaoSurvey\Form\AnswerType\AnswerOrderType
+      
+    rating:
+      question: Mvo\ContaoSurvey\Entity\QuestionRating
+      answer: Mvo\ContaoSurvey\Entity\AnswerRating
+      form: Mvo\ContaoSurvey\Form\AnswerType\AnswerRatingType
+      
+    select:
+      question: Mvo\ContaoSurvey\Entity\QuestionSelect
+      answer: Mvo\ContaoSurvey\Entity\AnswerSelect
+      form: Mvo\ContaoSurvey\Form\AnswerType\AnswerSelectType
+      
+    text:
+      question: Mvo\ContaoSurvey\Entity\QuestionText
+      answer: Mvo\ContaoSurvey\Entity\AnswerText
+      form: Mvo\ContaoSurvey\Form\AnswerType\AnswerTextType

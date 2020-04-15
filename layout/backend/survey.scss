@@ -1,0 +1,10 @@
+.tl_listing_container {
+  counter-reset: question;
+
+  .survey_question_title::before {
+    counter-increment: question;
+    content: counter(question) ") ";
+    color: #999;
+    margin-right: .3em;
+  }
+}
