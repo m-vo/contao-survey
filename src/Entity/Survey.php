@@ -25,9 +25,9 @@ class Survey extends DcaDefault
     private string $title = '';
 
     /**
-     * @ORM\Column(name="note_submission", type="text", options={"default": ""})
+     * @ORM\Column(name="note_submission", type="text", options={"default": ""}, nullable=true)
      */
-    private string $noteAfterSubmission = '';
+    private ?string $noteAfterSubmission;
 
     /**
      * @ORM\OneToMany(targetEntity="Question", mappedBy="survey")
@@ -65,7 +65,7 @@ class Survey extends DcaDefault
         return $this->title;
     }
 
-    public function getNoteAfterSubmission(): string
+    public function getNoteAfterSubmission(): ?string
     {
         return $this->noteAfterSubmission;
     }

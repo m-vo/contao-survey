@@ -46,7 +46,7 @@ class Evaluator
     {
         $constraintExpression = $question->getConstraintExpression();
 
-        if (null === $constraintExpression) {
+        if (empty($constraintExpression)) {
             return false;
         }
 

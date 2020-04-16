@@ -55,9 +55,9 @@ abstract class Question extends DcaDefault
     private string $question = '';
 
     /**
-     * @ORM\Column(name="description", type="text", options={"default": ""})
+     * @ORM\Column(name="description", type="text", options={"default": ""}, nullable=true)
      */
-    private string $description = '';
+    private ?string $description;
 
     /**
      * @ORM\Column(name="image", type="binary_string", nullable=true, length=16, options={"fixed": true})
@@ -75,9 +75,9 @@ abstract class Question extends DcaDefault
     private bool $mandatory;
 
     /**
-     * @ORM\Column(name="constraint_expression", type="text", options={"default": ""})
+     * @ORM\Column(name="constraint_expression", type="text", options={"default": ""}, nullable=true)
      */
-    private string $constraintExpression = '';
+    private ?string $constraintExpression;
 
     /**
      * @ORM\Column(name="published", type="boolean", options={"default": false})
@@ -109,7 +109,7 @@ abstract class Question extends DcaDefault
         return $this->question;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -131,6 +131,6 @@ abstract class Question extends DcaDefault
 
     public function getConstraintExpression(): ?string
     {
-        return $this->constraintExpression ?: null;
+        return $this->constraintExpression;
     }
 }
