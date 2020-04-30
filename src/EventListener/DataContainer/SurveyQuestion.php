@@ -38,14 +38,10 @@ class SurveyQuestion implements ServiceAnnotationInterface
      */
     public function compileRecord(array $data): string
     {
-        // todo: refactor to use inline rendering instead of duplicating logic
-        $question = $this->getQuestion((int) $data['id']);
-
         return $this->twig->render(
-            '@MvoContaoSurvey/Backend/survey_question_record.html.twig',
+            '@MvoContaoSurvey/Backend/survey_question_record_container.html.twig',
             [
-                'question' => $question,
-                'type' => $this->registry->getTypeForQuestion($question),
+                'id' => (int) $data['id'],
             ],
         );
     }
