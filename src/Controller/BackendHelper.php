@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\Controller;
 
-use Contao\CoreBundle\Controller\AbstractController;
 use Mvo\ContaoSurvey\Entity\Question;
 use Mvo\ContaoSurvey\Registry;
 use Mvo\ContaoSurvey\Repository\QuestionRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
@@ -23,7 +23,7 @@ class BackendHelper extends AbstractController
     private Registry $registry;
     private Security $security;
 
-    public function __construct(QuestionRepository $questionRepository, Registry $registry, \Symfony\Component\Security\Core\Security $security)
+    public function __construct(QuestionRepository $questionRepository, Registry $registry, Security $security)
     {
         $this->questionRepository = $questionRepository;
         $this->registry = $registry;
