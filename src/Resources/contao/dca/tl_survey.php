@@ -52,7 +52,6 @@ $GLOBALS['TL_DCA']['tl_survey'] =
             'title' => [
                 'inputType' => 'text',
                 'search' => true,
-                'exclude' => true,
                 'eval' => [
                     'unique' => true,
                     'mandatory' => true,

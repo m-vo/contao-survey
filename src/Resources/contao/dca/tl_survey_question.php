@@ -117,6 +117,7 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
             'mandatory' => [
                 'inputType' => 'checkbox',
                 'default' => true,
+                'save_callback' => [static fn ($v) => '1' === $v],
             ],
             'type' => [
                 'inputType' => 'select',
@@ -163,12 +164,14 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                 'eval' => [
                     'tl_class' => 'w50 m12',
                 ],
+                'save_callback' => [static fn ($v) => '1' === $v],
             ],
             'allow_multiple' => [
                 'inputType' => 'checkbox',
                 'eval' => [
                     'tl_class' => 'w50 clr',
                 ],
+                'save_callback' => [static fn ($v) => '1' === $v],
             ],
             'text_validation' => [
                 'inputType' => 'select',
