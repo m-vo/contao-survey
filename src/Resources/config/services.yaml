@@ -38,7 +38,7 @@ services:
     arguments:
       - '@mvo.survey.registry'
     tags:
-      - { name: 'doctrine.event_listener', event: 'loadClassMetadata', priority: 5000 }
+      - { name: 'doctrine.event_listener', event: 'loadClassMetadata' }
 
   # form handling
   mvo.survey.session_storage:
