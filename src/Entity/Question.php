@@ -114,6 +114,11 @@ abstract class Question extends DcaDefault
         return $this->description;
     }
 
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
     public function getInstruction(): string
     {
         return $this->instruction;
