@@ -1,7 +1,7 @@
 {% extends '@MvoContaoSurvey/survey.html.twig' %}
 
 {% form_theme current_step.form '@MvoContaoSurvey/Form/survey_theme.html.twig' %}
-{#{% trans_default_domain '...' %}#}
+{% trans_default_domain 'MvoContaoSurveyBundle' %}
 
 {% block headline %}
     {{- survey.title -}}
@@ -12,32 +12,41 @@
     {% set question = current_step.question %}
 
     {{ form_start(form, {'action': path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')), 'attr': {'novalidate': 'novalidate'}}) }}
-    <h3{% if question.mandatory %} class="required"{% endif %}>{{ question.question }}</h3>
-
-    <label for="survey_progress">{{ current_step.index }}/{{ total_steps }}</label>
-    <progress id="survey_progress" value="{{ current_step.index }}" max="{{ total_steps }}"></progress>
+    <h3 class="question{% if question.mandatory %} required{% endif %}">{{ question.question }}</h3>
+    <div class="progress"
+         data-value="{{ current_step.index }}"
+         data-max="{{ total_steps }}"
+         style="--percent: {{ 100 * current_step.index / total_steps }}%; --percent-previous: {{ 100 * (current_step.index - 1) / total_steps }}%"
+         title="{{ current_step.index }}/{{ total_steps }}">
+        <span>{{ current_step.index }}/{{ total_steps }}</span>
+    </div>
 
     <div class="description">
         {{ question.description|raw }}
-        {# todo image #}
+        {% if question.image %}
+            <figure class="image image--survey">
+                {{ picture(question.image, '_survey') }}
+            </figure>
+        {% endif %}
     </div>
 
     <fieldset data-survey>
         <legend>{{ question.instruction }}</legend>
         {{ form_row(form.answer) }}
-        <input type="reset" value="{{ 'clear_current_step'|trans() }}">
+        <input type="reset" value="{{ 'form.button.clear_current'|trans() }}"
+               title="{{ 'form.button.clear_current_title'|trans() }}">
     </fieldset>
 
     <nav class="navigation">
         {% if form.previous is defined %}
-            {{- form_widget(form.previous) -}}
+            {{- form_widget(form.previous, {label: 'form.button.previous'|trans(), attr: {class: 'previous'}}) -}}
         {% endif %}
-        {{- form_widget(form.next) -}}
+        {{- form_widget(form.next, {label: 'form.button.next'|trans(), attr: {class: 'next'}}) -}}
     </nav>
 
     <div class="footer">
-        <span>{{ 'note_reset'|trans() }}</span>
-        {{ form_widget(form.reset) }}
+        <span>{{ 'form.note_reset_all'|trans() }}</span>
+        {{ form_widget(form.reset, {label: 'form.reset_all'|trans(), attr: {class: 'reset'}}) }}
     </div>
 
     <input type="hidden" name="REQUEST_TOKEN" value="{{ contao_csrf_token }}">

@@ -1,0 +1,8 @@
+form:
+  button:
+    clear_current: '↺'
+    clear_current_title: 'Reset this step'
+    next: 'Next'
+    previous: 'Previous'
+  note_reset_all: 'You can reset all previously entered data by clicking here:'
+  reset_all: 'Start again'

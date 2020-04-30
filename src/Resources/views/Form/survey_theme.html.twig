@@ -2,7 +2,7 @@
 
 {# Rows #}
 {%- block survey_answer_matrix_row -%}
-    <div class="survey_answer_matrix">
+    <div class="survey_answer survey_answer--matrix">
         <table>
             <thead>
             <tr>
@@ -39,7 +39,7 @@
 
 
 {%- block survey_answer_rating_row -%}
-    <div class="survey_answer_rating">
+    <div class="survey_answer survey_answer--rating">
         {# todo: nullable star rating #}
         {{ form_row(form) }}
     </div>
@@ -47,7 +47,7 @@
 
 
 {%- block survey_answer_select_row -%}
-    <div class="survey_answer_select">
+    <div class="survey_answer survey_answer--select">
         {% for child in form.children|filter(f => f.vars.errors|length > 0) %}
             <div class="error">
                 {{- form_errors(child) -}}
