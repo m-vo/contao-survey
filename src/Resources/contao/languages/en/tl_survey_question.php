@@ -25,6 +25,7 @@ $GLOBALS['TL_LANG']['tl_survey_question']['matrix_columns'] = ['Columns', 'Speci
 $GLOBALS['TL_LANG']['tl_survey_question']['options'] = ['Options', 'Specify a number of selectable options.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['rating_range'] = ['Rating range', 'Define the maximum range for this rating.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['add_user_option'] = ['Add user option', 'Allow the user to specify an extra option herself.'];
+$GLOBALS['TL_LANG']['tl_survey_question']['user_option_label'] = ['User option label', 'Add an optional label to be displayed before the user option. To surround it use \'%\' as a placeholder for the input field.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['allow_multiple'] = ['Allow multiple', 'Allow to select multiple options.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['text_validation'] = ['Validation', 'Choose how to validate this input field.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][\Mvo\ContaoSurvey\Entity\QuestionText::VALIDATION__NONE] = 'None';

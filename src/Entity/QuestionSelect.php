@@ -32,6 +32,11 @@ class QuestionSelect extends Question
     private bool $allowUserOption = false;
 
     /**
+     * @ORM\Column(name="user_option_label", options={"default": ""})
+     */
+    private string $userOptionLabel = '';
+
+    /**
      * @ORM\Column(name="allow_multiple", type="boolean", options={"default": false})
      */
     private bool $allowMultiple = false;
@@ -62,5 +67,19 @@ class QuestionSelect extends Question
     public function allowUserOption(): bool
     {
         return $this->allowUserOption;
+    }
+
+    public function getUserOptionLabels(): array
+    {
+        if (empty($this->userOptionLabel)) {
+            return [null, null];
+        }
+
+        [$left, $right] = explode('%', $this->userOptionLabel, 2);
+
+        return array_map(
+            static fn ($v) => null !== $v ? trim($v) : null,
+            [$left, $right]
+        );
     }
 }

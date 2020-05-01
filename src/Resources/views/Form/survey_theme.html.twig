@@ -60,10 +60,13 @@
                     {{ form_label(child) }}
                 {% else %}
                     {% set placeholder = 'user_option_placeholder'|trans() %}
-                    {{ form_widget(form.user_option, {attr: {
+                    {% set user_option_labels = form.vars.data.question.userOptionLabels %}
+                    {% if user_option_labels[0] %}<span class="user_option_prefix">{{ user_option_labels[0] }}</span> {% endif %}
+                    {{- form_widget(form.user_option, {attr: {
                         placeholder: placeholder,
                         class: 'user_option'
-                    }}) }}
+                    }}) -}}
+                    {% if user_option_labels[1] %} <span class="user_option_postfix">{{ user_option_labels[1] }}</span>{% endif %}
                     <label for="{{ child.vars.id }}" class="invisible">{{ placeholder }}</label>
                 {% endif %}
             </div>

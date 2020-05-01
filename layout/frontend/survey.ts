@@ -1,7 +1,11 @@
 function clickingOnUserValueSelectsOption(container: HTMLElement) {
-    container.querySelectorAll<HTMLInputElement>('input+input.user_option').forEach(userInput => {
+    container.querySelectorAll<HTMLInputElement>('input.user_option').forEach(userInput => {
         userInput.addEventListener('click', () => {
-            const input = userInput.previousElementSibling as HTMLInputElement;
+            const input = userInput.parentElement.querySelector<HTMLInputElement>('input[type="checkbox"]');
+            if(null === input) {
+                return;
+            }
+
             input.checked = true;
         });
     })

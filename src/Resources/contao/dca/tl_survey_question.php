@@ -54,15 +54,16 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
             ],
         ],
         'palettes' => [
-            '__selector__' => ['type'],
+            '__selector__' => ['type', 'add_user_option'],
             'default' => '{header_legend},question,name,description,image,instruction;{options_legend},mandatory;{type_legend},type;{expert_legend:hide},constraint_expression;{visibility_legend},published',
         ],
         'subpalettes' => [
             'type_matrix' => 'matrix_rows,matrix_columns',
             'type_order' => 'options',
             'type_rating' => 'rating_range',
-            'type_select' => 'options,add_user_option,allow_multiple',
+            'type_select' => 'options,allow_multiple,add_user_option',
             'type_text' => 'text_validation',
+            'add_user_option' => 'user_option_label',
         ],
         'fields' => [
             'id' => [],
@@ -162,14 +163,22 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
             'add_user_option' => [
                 'inputType' => 'checkbox',
                 'eval' => [
-                    'tl_class' => 'w50 m12',
+                    'tl_class' => 'clr w50',
+                    'submitOnChange' => true,
                 ],
                 'save_callback' => [static fn ($v) => '1' === $v],
+            ],
+            'user_option_label' => [
+                'inputType' => 'text',
+                'eval' => [
+                    'maxlength' => 255,
+                    'tl_class' => 'clr',
+                ],
             ],
             'allow_multiple' => [
                 'inputType' => 'checkbox',
                 'eval' => [
-                    'tl_class' => 'w50 clr',
+                    'tl_class' => 'w50 m12',
                 ],
                 'save_callback' => [static fn ($v) => '1' === $v],
             ],
