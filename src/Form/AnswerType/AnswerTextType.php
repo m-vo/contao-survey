@@ -31,8 +31,20 @@ class AnswerTextType extends AbstractType
         ];
 
         if (QuestionText::VALIDATION__AGE === $question->getValidationType()) {
-            $fieldOptions['constraints'][] = new GreaterThan(3);
-            $fieldOptions['constraints'][] = new LessThan(120);
+            $minAge = 3;
+            $maxAge = 120;
+
+            $fieldOptions = array_merge($fieldOptions, [
+                'constraints' => [
+                    new GreaterThan($minAge),
+                    new LessThan($maxAge),
+                ],
+                'property_path' => 'age',
+                'attr' => [
+                    'min' => $minAge,
+                    'max' => $maxAge,
+                ],
+            ]);
 
             $builder->add('text', IntegerType::class, $fieldOptions);
 

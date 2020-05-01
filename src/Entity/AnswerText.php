@@ -30,4 +30,18 @@ class AnswerText extends Answer
     {
         $this->text = $text;
     }
+
+    public function getAge(): ?int
+    {
+        if (null === $this->text) {
+            return null;
+        }
+
+        return (int) $this->text;
+    }
+
+    public function setAge(?int $age): void
+    {
+        $this->text = null !== $age ? (string) $age : null;
+    }
 }
