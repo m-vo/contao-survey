@@ -30,6 +30,7 @@ class AnswerSelectType extends AbstractType
             'required' => $question->isMandatory(),
             'constraints' => $question->isMandatory() ? [new NotBlank()] : [],
             'placeholder' => false,
+            'property_path' => $question->allowMultiple() ? 'multiple' : 'single',
         ]);
 
         if ($question->allowUserOption()) {

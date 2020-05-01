@@ -46,21 +46,28 @@ class AnswerSelect extends Answer
         }
     }
 
-    /**
-     * @return array|int|null
-     */
-    public function getValues()
+    public function getMultiple(): ?array
     {
-        return 1 === \count($this->values ?? []) ?
-            $this->values[0] : $this->values;
+        return $this->values;
     }
 
-    /**
-     * @param array|int|null $values
-     */
-    public function setValues($values): void
+    public function setMultiple(?array $values): void
     {
-        $this->values = (array) $values;
+        $this->values = $values;
+    }
+
+    public function getSingle(): ?int
+    {
+        if (null === $this->values) {
+            return null;
+        }
+
+        return $this->values[0] ?? null;
+    }
+
+    public function setSingle(?int $value): void
+    {
+        $this->values = null !== $value ? [$value] : null;
     }
 
     public function getUserOption(): ?string
