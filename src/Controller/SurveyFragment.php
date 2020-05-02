@@ -48,6 +48,9 @@ class SurveyFragment extends AbstractContentElementController
 
     protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
     {
+        // load form helper asset
+        $GLOBALS['TL_JAVASCRIPT']['like_widget'] = 'bundles/mvocontaosurvey/survey_frontend.js';
+
         /** @var Survey|null $survey */
         $survey = $this->surveyRepository->find((int) $model->survey);
 
