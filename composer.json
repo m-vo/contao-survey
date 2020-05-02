@@ -61,6 +61,10 @@
       "@cs",
       "@phpstan",
       "@phpunit"
+    ],
+    "release": [
+      "@chain",
+      "yarn build"
     ]
   }
 }

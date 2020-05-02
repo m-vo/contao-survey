@@ -1,5 +1,7 @@
 /.idea/
 /vendor/
+/node_modules/
 .php_cs.cache
 .phpunit.result.cache
 composer.lock
+/yarn-error.log

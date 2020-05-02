@@ -12,3 +12,5 @@ function handlePublishStateChanges() {
 document.addEventListener('DOMContentLoaded', () => {
     handlePublishStateChanges();
 })
+
+import './survey.scss'
