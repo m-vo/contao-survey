@@ -42,7 +42,7 @@ $GLOBALS['TL_DCA']['tl_survey'] =
         ],
         'palettes' => [
             '__selector__' => [],
-            'default' => 'title;{details_legend},note_submission',
+            'default' => 'title;{details_legend},note_submission,button_label,button_href',
         ],
         'subpalettes' => [
         ],
@@ -64,6 +64,22 @@ $GLOBALS['TL_DCA']['tl_survey'] =
                 'eval' => [
                     'rte' => 'tinyMCE',
                     'tl_class' => 'clr',
+                ],
+            ],
+            'button_label' => [
+                'inputType' => 'text',
+                'eval' => [
+                    'tl_class' => 'w50',
+                ],
+            ],
+            'button_href' => [
+                'inputType' => 'text',
+                'eval' => [
+                    'tl_class' => 'w50',
+                    'rgxp' => 'url',
+                    'decodeEntities' => true,
+                    'dcaPicker' => true,
+                    'addWizardClass' => false,
                 ],
             ],
         ],

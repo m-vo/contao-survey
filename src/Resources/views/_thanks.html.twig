@@ -6,4 +6,9 @@
 
 {% block content %}
     {{ survey.noteAfterSubmission|raw }}
+    {% if survey.buttonLabel -%}
+        <div class="button">
+            <a href="{{ survey.buttonHref }}">{{ survey.buttonLabel }}</a>
+        </div>
+    {%- endif %}
 {% endblock %}

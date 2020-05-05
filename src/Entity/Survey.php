@@ -30,6 +30,16 @@ class Survey extends DcaDefault
     private ?string $noteAfterSubmission;
 
     /**
+     * @ORM\Column(name="button_href", options={"default": ""})
+     */
+    private string $buttonHref = '';
+
+    /**
+     * @ORM\Column(name="button_label", options={"default": ""})
+     */
+    private string $buttonLabel = '';
+
+    /**
      * @ORM\OneToMany(targetEntity="Question", mappedBy="survey")
      *
      * @var Collection<Question>
@@ -68,5 +78,15 @@ class Survey extends DcaDefault
     public function getNoteAfterSubmission(): ?string
     {
         return $this->noteAfterSubmission;
+    }
+
+    public function getButtonHref(): string
+    {
+        return $this->buttonHref ?: '/';
+    }
+
+    public function getButtonLabel(): string
+    {
+        return $this->buttonLabel;
     }
 }
