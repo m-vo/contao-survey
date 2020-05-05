@@ -28,6 +28,7 @@ class AnswerMatrixType extends AbstractType
             'required' => $question->isMandatory(),
             'constraints' => $question->isMandatory() ? [new NotBlank()] : [],
             'expanded' => true,
+            'placeholder' => false,
             'choices' => $question->getChoices(),
         ];
 

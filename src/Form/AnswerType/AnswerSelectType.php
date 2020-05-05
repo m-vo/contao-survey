@@ -36,6 +36,9 @@ class AnswerSelectType extends AbstractType
         if ($question->allowUserOption()) {
             $builder->add('user_option', TextType::class, [
                 'required' => false,
+                'attr' => [
+                    'maxlength' => 50,
+                ],
             ]);
         }
     }
