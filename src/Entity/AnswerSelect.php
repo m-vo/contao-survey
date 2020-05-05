@@ -25,6 +25,7 @@ class AnswerSelect extends Answer
 
     /**
      * @ORM\Column(name="user_value_text", type="string", nullable=true)
+     * @Assert\Length(max="50")
      */
     private ?string $userOption = null;
 
