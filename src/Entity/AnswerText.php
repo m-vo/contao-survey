@@ -21,6 +21,11 @@ class AnswerText extends Answer
      */
     private ?string $text = null;
 
+    /**
+     * @ORM\Column(name="value_int", type="integer", nullable=true)
+     */
+    private ?int $valueInt = null;
+
     public function getText(): ?string
     {
         return $this->text;
@@ -33,15 +38,11 @@ class AnswerText extends Answer
 
     public function getAge(): ?int
     {
-        if (null === $this->text) {
-            return null;
-        }
-
-        return (int) $this->text;
+        return $this->valueInt;
     }
 
     public function setAge(?int $age): void
     {
-        $this->text = null !== $age ? (string) $age : null;
+        $this->valueInt = $age;
     }
 }
