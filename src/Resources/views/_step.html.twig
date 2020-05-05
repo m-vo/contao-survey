@@ -3,10 +3,6 @@
 {% form_theme current_step.form '@MvoContaoSurvey/Form/survey_theme.html.twig' %}
 {% trans_default_domain 'MvoContaoSurveyBundle' %}
 
-{% block headline %}
-    {{- survey.title -}}
-{% endblock %}
-
 {% block content %}
     {% set form = current_step.form %}
     {% set question = current_step.question %}
@@ -33,15 +29,24 @@
     <fieldset data-survey>
         <legend>{{ question.instruction }}</legend>
         {{ form_row(form.answer) }}
-        <input type="reset" value="{{ 'form.button.clear_current'|trans() }}"
-               title="{{ 'form.button.clear_current_title'|trans() }}">
+        <div class="reset_current">
+            <input type="reset" value="{{ 'form.button.clear_current'|trans() }}"
+                   title="{{ 'form.button.clear_current_title'|trans() }}">
+        </div>
     </fieldset>
 
     <nav class="navigation">
+        {% if not question.mandatory -%}
+            <span class="note_skip">{{ 'form.skip'|trans() }}</span>
+        {%- endif %}
         {% if form.previous is defined %}
             {{- form_widget(form.previous, {label: 'form.button.previous'|trans(), attr: {class: 'previous'}}) -}}
         {% endif %}
-        {{- form_widget(form.next, {label: 'form.button.next'|trans(), attr: {class: 'next'}}) -}}
+        {% if current_step.is_last %}
+            {{- form_widget(form.next, {label: 'form.button.submit'|trans(), attr: {class: 'next submit'}}) -}}
+        {% else %}
+            {{- form_widget(form.next, {label: 'form.button.next'|trans(), attr: {class: 'next'}}) -}}
+        {% endif %}
     </nav>
 
     <div class="footer">
