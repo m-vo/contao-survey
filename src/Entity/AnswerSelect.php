@@ -41,7 +41,7 @@ class AnswerSelect extends Answer
         // the user cannot be empty once it is selected
         if (null === $this->userOption && \in_array(QuestionSelect::USER_OPTION_VALUE, $this->values, true)) {
             $context
-                ->buildViolation('The user option cannot be blank.')
+                ->buildViolation('Your own option cannot be blank.')
                 ->atPath('user_option')
                 ->addViolation();
         }

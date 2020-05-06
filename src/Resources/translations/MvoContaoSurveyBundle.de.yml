@@ -1,0 +1,17 @@
+form:
+  button:
+    clear_current: '↺'
+    clear_current_title: 'Diesen Schritt zurücksetzen'
+    next: 'Weiter'
+    previous: 'Zurück'
+    submit: 'Absenden'
+  note_reset_all: 'Sie können alle bisher eingegebenen Daten zurücksetzen, indem Sie hier klicken:'
+  reset_all: 'Neu starten'
+  skip: 'Diese Frage ist optional. Sie können Sie bei Bedarf überspringen.'
+
+element:
+  user_option_placeholder: 'Ihre Option'
+  scroll_note: 'Scrollen Sie die Tabelle links/rechts, um alle Optionen aufzudecken.'
+
+thanks:
+  headline: 'Vielen Dank!'
