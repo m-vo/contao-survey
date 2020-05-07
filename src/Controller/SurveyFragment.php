@@ -55,7 +55,8 @@ class SurveyFragment extends AbstractContentElementController
         $survey = $this->surveyRepository->find((int) $model->survey);
 
         if (null === $survey) {
-            throw new \RuntimeException('Survey could not be found.');
+            // return empty response if survey wasn't found
+            return new Response();
         }
 
         if ($this->scopeMatcher->isBackendRequest($request)) {
