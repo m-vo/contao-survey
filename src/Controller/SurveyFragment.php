@@ -59,9 +59,11 @@ class SurveyFragment extends AbstractContentElementController
             return new Response();
         }
 
+        $headline = $model->survey_headline ?: $survey->getTitle();
+
         if ($this->scopeMatcher->isBackendRequest($request)) {
             return $this->render('@MvoContaoSurvey/Backend/survey_content.html.twig', [
-                'headline' => $model->survey_headline,
+                'headline' => $headline,
                 'survey' => $survey,
             ]);
         }
@@ -74,6 +76,7 @@ class SurveyFragment extends AbstractContentElementController
             $manager->reset();
 
             return $this->render('@MvoContaoSurvey/_thanks.html.twig', [
+                'headline' => $headline,
                 'survey' => $survey,
                 'class' => 'survey survey--thanks',
             ]);
@@ -84,6 +87,7 @@ class SurveyFragment extends AbstractContentElementController
 
         return $this->render('@MvoContaoSurvey/_step.html.twig', [
             // survey
+            'headline' => $headline,
             'survey' => $survey,
             'total_steps' => $manager->getTotalSteps(),
             'class' => sprintf('survey survey--id_%d survey--step_%d', $survey->getId(), $currentStep),
