@@ -15,6 +15,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity()
+ *
+ * @property QuestionSelect $question
  */
 class AnswerSelect extends Answer
 {

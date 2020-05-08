@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
+ *
+ * @property QuestionOrder $question
  */
 class AnswerOrder extends Answer
 {

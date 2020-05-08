@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
+ *
+ * @property QuestionRating $question
  */
 class AnswerRating extends Answer
 {
