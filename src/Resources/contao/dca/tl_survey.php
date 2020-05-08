@@ -33,6 +33,10 @@ $GLOBALS['TL_DCA']['tl_survey'] =
                     'href' => 'table=tl_survey_question',
                     'icon' => 'articles.svg',
                 ],
+                'csv_export' => [
+                    'icon' => 'bundles/mvocontaosurvey/icons/csv.svg',
+                    'route' => 'mvo_survey_export',
+                ],
                 'delete' => [
                     'href' => 'act=delete',
                     'icon' => 'delete.svg',
