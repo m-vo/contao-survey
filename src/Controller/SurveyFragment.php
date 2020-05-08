@@ -72,7 +72,7 @@ class SurveyFragment extends AbstractContentElementController
         $manager->form->handleRequest($request);
 
         if ($this->proceedUntilCompleted($manager)) {
-            $this->storeRecord($manager->getAnswers());
+            $this->storeRecord($survey, $manager->getAnswers());
             $manager->reset();
 
             return $this->render('@MvoContaoSurvey/_thanks.html.twig', [
@@ -137,9 +137,9 @@ class SurveyFragment extends AbstractContentElementController
         return false;
     }
 
-    private function storeRecord(array $answers): void
+    private function storeRecord(Survey $survey, array $answers): void
     {
-        $record = new Record($answers);
+        $record = new Record($survey, $answers);
 
         // todo validate
 

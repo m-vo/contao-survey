@@ -46,11 +46,22 @@ class Survey extends DcaDefault
      */
     private Collection $questions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Mvo\ContaoSurvey\Entity\Record", mappedBy="survey")
+     *
+     * @var Collection<Question>
+     */
+    private Collection $records;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->records = new ArrayCollection();
     }
 
+    /**
+     * @return Question[]
+     */
     public function getQuestions(): array
     {
         $questions = $this->questions->toArray();
@@ -68,6 +79,14 @@ class Survey extends DcaDefault
         );
 
         return array_values($questions);
+    }
+
+    /**
+     * @return Record[]
+     */
+    public function getRecords(): array
+    {
+        return $this->records->toArray();
     }
 
     public function getTitle(): string
