@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mvo\ContaoSurvey\Report\Data;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -51,7 +52,11 @@ class AnswerSelect extends Answer
 
     public function getMultiple(): ?array
     {
-        return $this->values;
+        if (null === $this->values) {
+            return null;
+        }
+
+        return array_map(fn ($v) => (int) $v, $this->values);
     }
 
     public function setMultiple(?array $values): void
@@ -61,11 +66,11 @@ class AnswerSelect extends Answer
 
     public function getSingle(): ?int
     {
-        if (null === $this->values) {
+        if (null === $this->values || !isset($this->values[0])) {
             return null;
         }
 
-        return $this->values[0] ?? null;
+        return (int) $this->values[0];
     }
 
     public function setSingle(?int $value): void
@@ -81,5 +86,26 @@ class AnswerSelect extends Answer
     public function setUserOption(?string $userOption): void
     {
         $this->userOption = $userOption;
+    }
+
+    public function addData(Data $data): void
+    {
+        if ($this->question->allowUserOption()) {
+            $data->setValue($this->getUserOption(), QuestionSelect::USER_OPTION_VALUE);
+        }
+
+        if ($this->question->allowMultiple()) {
+            $values = $this->getMultiple();
+
+            if (null !== $values && 0 !== \count($values)) {
+                $data->markOptions(...$values);
+            }
+
+            return;
+        }
+
+        if (null !== ($value = $this->getSingle())) {
+            $data->markOptions($value);
+        }
     }
 }

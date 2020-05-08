@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mvo\ContaoSurvey\Report\Data;
 
 /**
  * @ORM\Entity()
@@ -31,5 +32,10 @@ class AnswerRating extends Answer
     public function setRating(?int $rating): void
     {
         $this->rating = $rating;
+    }
+
+    public function addData(Data $data): void
+    {
+        $data->setValue($this->getRating());
     }
 }

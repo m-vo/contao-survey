@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mvo\ContaoSurvey\Report\Data;
 
 /**
  * @ORM\Entity(repositoryClass="Mvo\ContaoSurvey\Repository\AnswerRepository")
@@ -100,4 +101,6 @@ abstract class Answer
         $this->question = null;
         $this->record = null;
     }
+
+    abstract public function addData(Data $data): void;
 }

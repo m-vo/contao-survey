@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mvo\ContaoSurvey\Report\Data;
 
 /**
  * @ORM\Entity()
@@ -46,5 +47,18 @@ class AnswerText extends Answer
     public function setAge(?int $age): void
     {
         $this->valueInt = $age;
+    }
+
+    public function addData(Data $data): void
+    {
+        $validationType = $this->question->getValidationType();
+
+        if (QuestionText::VALIDATION__AGE === $validationType) {
+            $data->setValue($this->getAge());
+
+            return;
+        }
+
+        $data->setValue($this->getText());
     }
 }

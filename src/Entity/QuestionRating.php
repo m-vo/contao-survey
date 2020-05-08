@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mvo\ContaoSurvey\Report\Data;
 
 /**
  * @ORM\Entity()
@@ -24,5 +25,10 @@ class QuestionRating extends Question
     public function getRange(): int
     {
         return $this->range;
+    }
+
+    protected function defineData(Data $data): void
+    {
+        $data->defineValue(Data::EMPTY_LABEL);
     }
 }

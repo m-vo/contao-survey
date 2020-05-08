@@ -12,6 +12,7 @@ namespace Mvo\ContaoSurvey\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mvo\ContaoSurvey\Report\Data;
 
 /**
  * @ORM\Entity(repositoryClass="Mvo\ContaoSurvey\Repository\QuestionRepository")
@@ -138,4 +139,14 @@ abstract class Question extends DcaDefault
     {
         return $this->constraintExpression;
     }
+
+    public function getDataDefinition(): Data
+    {
+        $data = new Data($this->name);
+        $this->defineData($data);
+
+        return $data;
+    }
+
+    abstract protected function defineData(Data $data): void;
 }

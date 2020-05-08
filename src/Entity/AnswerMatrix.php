@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mvo\ContaoSurvey\Report\Data;
 
 /**
  * @ORM\Entity()
@@ -50,11 +51,11 @@ class AnswerMatrix extends Answer
 
     public function getRowIndex(int $index): ?int
     {
-        if (null === $this->rowIndices) {
+        if (null === $this->rowIndices || !isset($this->rowIndices[$index])) {
             return null;
         }
 
-        return $this->rowIndices[$index] ?? null;
+        return (int) $this->rowIndices[$index];
     }
 
     public function setRowIndex(int $index, int $value): void
@@ -76,6 +77,19 @@ class AnswerMatrix extends Answer
 
         if (empty($this->rowIndices)) {
             $this->rowIndices = null;
+        }
+    }
+
+    public function addData(Data $data): void
+    {
+        if (null === $this->rowIndices) {
+            return;
+        }
+
+        $choiceLabels = array_flip($this->question->getChoices());
+
+        foreach ($this->rowIndices as $index => $rowIndex) {
+            $data->setValue($choiceLabels[(int) $rowIndex] ?? null, $index);
         }
     }
 

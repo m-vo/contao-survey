@@ -11,6 +11,7 @@ namespace Mvo\ContaoSurvey\Entity;
 
 use Contao\StringUtil;
 use Doctrine\ORM\Mapping as ORM;
+use Mvo\ContaoSurvey\Report\Data;
 
 /**
  * @ORM\Entity()
@@ -81,5 +82,10 @@ class QuestionSelect extends Question
             static fn ($v) => null !== $v ? trim($v) : null,
             [$left, $right]
         );
+    }
+
+    protected function defineData(Data $data): void
+    {
+        $data->defineValueOptions($this->getChoices());
     }
 }
