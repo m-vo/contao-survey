@@ -8,6 +8,7 @@ declare(strict_types=1);
  */
 
 $GLOBALS['TL_LANG']['tl_survey']['questions'] = 'Fragen bearbeiten';
+$GLOBALS['TL_LANG']['tl_survey']['csv_export'] = 'Ergebnisse exportieren (csv)';
 
 $GLOBALS['TL_LANG']['tl_survey']['title'] = ['Titel', 'Geben Sie den Titel dieser Umfrage ein.'];
 $GLOBALS['TL_LANG']['tl_survey']['details_legend'] = 'Details zur Danke-Seite';

@@ -38,10 +38,17 @@ class Record
      */
     private Collection $answers;
 
-    public function __construct(array $answers)
+    /**
+     * @ORM\ManyToOne(targetEntity="Mvo\ContaoSurvey\Entity\Survey", inversedBy="records")
+     * @ORM\JoinColumn(name="survey", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     */
+    private Survey $survey;
+
+    public function __construct(Survey $survey, array $answers)
     {
         $this->submittedAt = new \DateTime();
 
+        $this->survey = $survey;
         $this->answers = new ArrayCollection($answers ?? []);
 
         /** @var Answer $answer */
@@ -50,13 +57,21 @@ class Record
         }
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function getSubmittedAt(): \DateTime
     {
         return $this->submittedAt;
     }
 
-    public function getAnswers(): Collection
+    /**
+     * @return Answer[]
+     */
+    public function getAnswers(): array
     {
-        return $this->answers;
+        return $this->answers->toArray();
     }
 }

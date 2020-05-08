@@ -10,9 +10,12 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mvo\ContaoSurvey\Report\Data;
 
 /**
  * @ORM\Entity()
+ *
+ * @property QuestionOrder $question
  */
 class AnswerOrder extends Answer
 {
@@ -29,5 +32,17 @@ class AnswerOrder extends Answer
     public function setOrder(?array $order): void
     {
         $this->order = $order;
+    }
+
+    public function addData(Data $data): void
+    {
+        if (null === $this->order) {
+            return;
+        }
+
+        foreach ($this->order as $index => $optionId) {
+            $position = $index + 1;
+            $data->setValue($position, $optionId);
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace Mvo\ContaoSurvey\Entity;
 
 use Contao\StringUtil;
 use Doctrine\ORM\Mapping as ORM;
+use Mvo\ContaoSurvey\Report\Data;
 
 /**
  * @ORM\Entity()
@@ -36,5 +37,10 @@ class QuestionOrder extends Question
         $options = StringUtil::deserialize(stream_get_contents($this->options), true);
 
         return array_flip($options);
+    }
+
+    protected function defineData(Data $data): void
+    {
+        $data->defineValueOptions($this->getChoices());
     }
 }

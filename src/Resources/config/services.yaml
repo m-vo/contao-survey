@@ -87,6 +87,15 @@ services:
     tags:
       - { name: 'form.type' }
 
+  # reports
+  mvo.survey.report.data_collector:
+    class: Mvo\ContaoSurvey\Report\DataCollector
+
+  mvo.survey.report.csv_exporter:
+    class: Mvo\ContaoSurvey\Report\CsvExporter
+    arguments:
+      - '@mvo.survey.report.data_collector'
+
   # contao backend
   Mvo\ContaoSurvey\Controller\BackendHelper:
     public: true
@@ -94,6 +103,14 @@ services:
       - '@mvo.survey.repository.question'
       - '@mvo.survey.registry'
       - '@security.helper'
+
+  Mvo\ContaoSurvey\Controller\ExportController:
+    public: true
+    arguments:
+      - '@security.helper'
+      - '@mvo.survey.repository.survey'
+      - '@mvo.survey.report.csv_exporter'
+      - '@contao.slug.generator'
 
   Mvo\ContaoSurvey\Controller\SurveyFragment:
     arguments:

@@ -22,7 +22,8 @@
     "codefog/contao-haste": "^4.24",
     "symfony/form": "^4.4",
     "symfony/validator": "^4.4",
-    "sensio/framework-extra-bundle": "^5.5"
+    "sensio/framework-extra-bundle": "^5.5",
+    "league/csv": "^9.6"
   },
   "require-dev": {
     "contao/manager-plugin": "^2.0",
