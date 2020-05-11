@@ -122,7 +122,7 @@ class DataCollector
         return array_merge(...$rowSets);
     }
 
-    private function formatValues(array $data, string $nullValue = '', string $trueValue = 'x'): array
+    private function formatValues(array $data, string $nullValue = '', string $trueValue = '1'): array
     {
         return array_map(
             static function ($value) use ($trueValue, $nullValue): string {
