@@ -23,11 +23,21 @@ class DataCollector
         /** @var string[] $headers */
         $headers = $this->createHeaders($dataDefinitions);
 
+        // add additional columns for running number (index) and date
+        array_unshift($headers, '#', '@');
+        $index = 1;
+
         /** @var array<string[]> $rows */
         $rows = array_map(
-            fn (Record $record) => $this->formatValues(
-                $this->createRow($dataDefinitions, $questionsInOrder, $record)
-            ),
+            function (Record $record) use ($dataDefinitions, $questionsInOrder, &$index) {
+                $values = $this->formatValues(
+                    $this->createRow($dataDefinitions, $questionsInOrder, $record)
+                );
+
+                array_unshift($values, $index++, $record->getSubmittedAt()->format('d.m.Y H:i'));
+
+                return $values;
+            },
             $survey->getRecords()
         );
 
