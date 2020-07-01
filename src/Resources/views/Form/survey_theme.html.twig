@@ -32,9 +32,12 @@
 
 {# Errors #}
 {%- block form_errors -%}
-    <div class="error--note">
-        {{ parent() }}
-    </div>
+    {% set note = parent() %}
+    {% if note %}
+        <div class="error--note">
+            {{ note|raw }}
+        </div>
+    {% endif %}
 {%- endblock -%}
 
 {# Rows #}
@@ -82,7 +85,7 @@
 
 {%- block survey_answer_select_row -%}
     <div class="survey_answer survey_answer--select">
-        {% for child in form.children|filter(f => f.vars.errors|length > 0) %}
+        {% for child in form.children %}
             {{ form_errors(child) }}
         {% endfor %}
         {% for child in form.values.children %}
