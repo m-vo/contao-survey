@@ -20,7 +20,7 @@ use Mvo\ContaoSurvey\Report\Data;
 class AnswerMatrix extends Answer
 {
     /**
-     * @ORM\Column(name="values_text", type="simple_array", nullable=true)
+     * @ORM\Column(name="values_json", type="json", nullable=true)
      */
     private ?array $rowIndices = null;
 
