@@ -90,6 +90,11 @@ abstract class Question extends DcaDefault
         $this->answers = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->name.'_'.$this->timestamp;
+    }
+
     public function getSurvey(): Survey
     {
         return $this->survey;

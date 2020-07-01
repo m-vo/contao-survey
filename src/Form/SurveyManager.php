@@ -135,14 +135,17 @@ class SurveyManager
     private function bind(Survey $survey): void
     {
         $this->survey = $survey;
+        $questions = $survey->getQuestions();
+
+        // reset storage if question set has changed
+        if (!$this->checkQuestionSetUntouched($questions)) {
+            $this->resetStorage();
+        }
 
         // answers given (or skipped) so far
-        $id = $survey->getId();
         $answers = $this->loadAnswers();
 
         // get current step
-        $questions = $survey->getQuestions();
-
         $totalSteps = \count($questions);
         $currentStep = min(
             $this->loadStep(),
@@ -230,5 +233,22 @@ class SurveyManager
         $this->storage->remove((string) $this->survey->getId());
 
         // todo: should we completely clear the storage after a certain time?
+    }
+
+    /**
+     * @param array<Question> $questions
+     */
+    private function checkQuestionSetUntouched(array $questions): bool
+    {
+        $hash = md5(implode('|', $questions));
+        $currentHash = $this->storage->get($this->survey->getId().'/hash');
+
+        if (null === $currentHash) {
+            $this->storage->set($this->survey->getId().'/hash', $hash);
+
+            return true;
+        }
+
+        return $hash === $currentHash;
     }
 }
