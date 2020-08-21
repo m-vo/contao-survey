@@ -106,6 +106,9 @@ class DataCollector
                     throw new \LogicException('Invalid question - was not mapped.');
                 }
 
+                // operate on a new instance for each row
+                $dataDefinition = clone $dataDefinition;
+
                 if (isset($answerMap[$questionId])) {
                     $answerMap[$questionId]->addData($dataDefinition);
                 }
