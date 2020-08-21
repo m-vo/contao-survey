@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mvo\ContaoSurvey\Report\Data;
+use Mvo\ContaoSurvey\Report\DataContainer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -88,24 +88,24 @@ class AnswerSelect extends Answer
         $this->userOption = $userOption;
     }
 
-    public function addData(Data $data): void
+    public function exportData(DataContainer $container): void
     {
         if ($this->question->allowUserOption()) {
-            $data->setValue($this->getUserOption(), QuestionSelect::USER_OPTION_VALUE);
+            $container->setValue($this->getUserOption(), QuestionSelect::USER_OPTION_VALUE);
         }
 
         if ($this->question->allowMultiple()) {
             $values = $this->getMultiple();
 
             if (null !== $values && 0 !== \count($values)) {
-                $data->markOptions(...$values);
+                $container->markOptions(...$values);
             }
 
             return;
         }
 
         if (null !== ($value = $this->getSingle())) {
-            $data->markOptions($value);
+            $container->markOptions($value);
         }
     }
 }

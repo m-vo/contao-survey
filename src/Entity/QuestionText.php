@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mvo\ContaoSurvey\Report\Data;
+use Mvo\ContaoSurvey\Report\DataContainer;
 
 /**
  * @ORM\Entity()
@@ -30,8 +30,8 @@ class QuestionText extends Question
         return $this->validationType;
     }
 
-    protected function defineData(Data $data): void
+    protected function defineData(DataContainer $container): void
     {
-        $data->defineValue(Data::EMPTY_LABEL);
+        $container->defineValue(DataContainer::EMPTY_LABEL);
     }
 }

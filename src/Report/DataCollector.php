@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\Report;
 
+use Mvo\ContaoSurvey\Entity\Answer;
 use Mvo\ContaoSurvey\Entity\Question;
 use Mvo\ContaoSurvey\Entity\Record;
 use Mvo\ContaoSurvey\Entity\Survey;
@@ -63,7 +64,7 @@ class DataCollector
         }
 
         $headerSets = array_map(
-            static function (Data $dataDefinition): array {
+            static function (DataContainer $dataDefinition): array {
                 // create an array of column labels for each data definition
                 $groupLabel = $dataDefinition->getLabel();
 
@@ -99,7 +100,7 @@ class DataCollector
             static function (Question $question) use ($dataDefinitions, $answerMap) {
                 $questionId = $question->getId();
 
-                /** @var Data|null $dataDefinition */
+                /** @var DataContainer|null $dataDefinition */
                 $dataDefinition = $dataDefinitions[$questionId] ?? null;
 
                 if (null === $dataDefinition) {
@@ -110,7 +111,7 @@ class DataCollector
                 $dataDefinition = clone $dataDefinition;
 
                 if (isset($answerMap[$questionId])) {
-                    $answerMap[$questionId]->addData($dataDefinition);
+                    $answerMap[$questionId]->exportData($dataDefinition);
                 }
 
                 return $dataDefinition->getValues();

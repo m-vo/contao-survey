@@ -11,7 +11,7 @@ namespace Mvo\ContaoSurvey\Entity;
 
 use Contao\StringUtil;
 use Doctrine\ORM\Mapping as ORM;
-use Mvo\ContaoSurvey\Report\Data;
+use Mvo\ContaoSurvey\Report\DataContainer;
 
 /**
  * @ORM\Entity()
@@ -84,8 +84,8 @@ class QuestionSelect extends Question
         );
     }
 
-    protected function defineData(Data $data): void
+    protected function defineData(DataContainer $container): void
     {
-        $data->defineValueOptions($this->getChoices());
+        $container->defineValueOptions($this->getChoices());
     }
 }

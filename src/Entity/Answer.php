@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mvo\ContaoSurvey\Report\Data;
+use Mvo\ContaoSurvey\Report\DataContainer;
 
 /**
  * @ORM\Entity(repositoryClass="Mvo\ContaoSurvey\Repository\AnswerRepository")
@@ -102,5 +102,5 @@ abstract class Answer
         $this->record = null;
     }
 
-    abstract public function addData(Data $data): void;
+    abstract public function exportData(DataContainer $container): void;
 }
