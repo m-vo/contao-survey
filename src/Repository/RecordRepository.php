@@ -25,4 +25,11 @@ class RecordRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Record::class);
     }
+
+    public function countBySurveyId(int $surveyId): int
+    {
+        return $this->count([
+            'survey' => $surveyId,
+        ]);
+    }
 }

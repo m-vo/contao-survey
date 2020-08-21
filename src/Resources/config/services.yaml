@@ -123,6 +123,13 @@ services:
     tags:
       - { name: 'terminal42_service_annotation' }
 
+  mvo.survey.listener.datacontainer.survey:
+    class: Mvo\ContaoSurvey\EventListener\DataContainer\Survey
+    tags:
+      - { name: 'terminal42_service_annotation' }
+    arguments:
+      - '@mvo.survey.repository.record'
+
   mvo.survey.listener.datacontainer.question:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveyQuestion
     tags:

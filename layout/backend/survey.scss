@@ -1,10 +1,18 @@
 .tl_listing_container {
   counter-reset: question;
 
+  $color-muted: #999;
+  $default-margin: .3em;
+
   .survey_question_title::before {
     counter-increment: question;
     content: counter(question) ") ";
-    color: #999;
-    margin-right: .3em;
+    color: $color-muted;
+    margin-right: $default-margin;
+  }
+
+  .survey_answer_count {
+    color: $color-muted;
+    margin-left: $default-margin;
   }
 }

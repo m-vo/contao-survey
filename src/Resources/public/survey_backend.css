@@ -4,4 +4,7 @@
     counter-increment: question;
     content: counter(question) ") ";
     color: #999;
-    margin-right: .3em; }
+    margin-right: 0.3em; }
+  .tl_listing_container .survey_answer_count {
+    color: #999;
+    margin-left: 0.3em; }
