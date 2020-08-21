@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mvo\ContaoSurvey\Report\Data;
+use Mvo\ContaoSurvey\Report\DataContainer;
 
 /**
  * @ORM\Entity()
@@ -34,7 +34,7 @@ class AnswerOrder extends Answer
         $this->order = $order;
     }
 
-    public function addData(Data $data): void
+    public function exportData(DataContainer $container): void
     {
         if (null === $this->order) {
             return;
@@ -42,7 +42,7 @@ class AnswerOrder extends Answer
 
         foreach ($this->order as $index => $optionId) {
             $position = $index + 1;
-            $data->setValue($position, $optionId);
+            $container->setValue($position, $optionId);
         }
     }
 }

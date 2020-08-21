@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mvo\ContaoSurvey\Report\Data;
+use Mvo\ContaoSurvey\Report\DataContainer;
 
 /**
  * @ORM\Entity()
@@ -80,7 +80,7 @@ class AnswerMatrix extends Answer
         }
     }
 
-    public function addData(Data $data): void
+    public function exportData(DataContainer $container): void
     {
         if (null === $this->rowIndices) {
             return;
@@ -89,7 +89,7 @@ class AnswerMatrix extends Answer
         $choiceLabels = array_flip($this->question->getChoices());
 
         foreach ($this->rowIndices as $index => $rowIndex) {
-            $data->setValue($choiceLabels[(int) $rowIndex] ?? null, $index);
+            $container->setValue($choiceLabels[(int) $rowIndex] ?? null, $index);
         }
     }
 

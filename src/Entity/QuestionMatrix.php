@@ -11,7 +11,7 @@ namespace Mvo\ContaoSurvey\Entity;
 
 use Contao\StringUtil;
 use Doctrine\ORM\Mapping as ORM;
-use Mvo\ContaoSurvey\Report\Data;
+use Mvo\ContaoSurvey\Report\DataContainer;
 
 /**
  * @ORM\Entity()
@@ -60,8 +60,8 @@ class QuestionMatrix extends Question
         return array_flip($options);
     }
 
-    protected function defineData(Data $data): void
+    protected function defineData(DataContainer $container): void
     {
-        $data->defineValueOptions($this->getRows());
+        $container->defineValueOptions($this->getRows());
     }
 }

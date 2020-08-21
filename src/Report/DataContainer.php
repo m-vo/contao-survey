@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\Report;
 
-class Data
+class DataContainer
 {
     public const EMPTY_LABEL = '';
 
