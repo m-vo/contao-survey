@@ -20,7 +20,7 @@ use Mvo\ContaoSurvey\Report\DataContainer;
 class AnswerText extends Answer
 {
     /**
-     * @ORM\Column(name="user_value_text", type="string", nullable=true)
+     * @ORM\Column(name="user_value_text", type="text", nullable=true)
      */
     private ?string $text = null;
 
