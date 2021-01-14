@@ -21,7 +21,7 @@ class QuestionText extends Question
     public const VALIDATION__AGE = 1;
 
     /**
-     * @ORM\Column(name="text_validation", type="integer", options={"unsigned": true})
+     * @ORM\Column(name="text_validation", type="integer", options={"unsigned": true, "default"=0})
      */
     private int $validationType = self::VALIDATION__NONE;
 
