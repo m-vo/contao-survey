@@ -31,7 +31,7 @@ class SurveyManager
     /** @var array<SurveyStep> */
     private array $steps;
 
-    /** @var array<array<Answer|null>> */
+    /** @var array<int,array<string,Answer|null>|null> */
     private array $answers;
 
     private int $currentStep;
@@ -52,6 +52,7 @@ class SurveyManager
     public function getAnswers(): array
     {
         $answers = array_filter($this->answers);
+
         if ([] === $answers) {
             return [];
         }
@@ -254,7 +255,7 @@ class SurveyManager
     private function loadAnswers(): void
     {
         // step answers given (or skipped) so far
-        /** @var array<int,array<string,Answer>> $answers */
+        /** @var array<int,array<string,Answer|null>|null> $answers */
         $answers = $this->storage->get($this->survey->getId().'/answers', []);
 
         foreach ($answers as $stepIndex => $stepAnswers) {
@@ -276,7 +277,7 @@ class SurveyManager
         $this->answers = $answers;
     }
 
-    /** @param array<Answer>|null */
+    /** @param array<Answer|null>|null $answers */
     private function storeAnswers(int $step, ?array $answers): void
     {
         $this->storage->set($this->survey->getId().'/answers/'.$step, $answers);

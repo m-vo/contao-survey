@@ -32,6 +32,11 @@ class SurveyStep
         }
     }
 
+    public function __toString(): string
+    {
+        return $this->section.'.'.implode('|', $this->getQuestions());
+    }
+
     public function getSection(): Section
     {
         return $this->section;
@@ -49,10 +54,5 @@ class SurveyStep
         }
 
         return $this->questions[$questionName];
-    }
-
-    public function __toString(): string
-    {
-        return $this->section.'.'.implode('|', $this->getQuestions());
     }
 }
