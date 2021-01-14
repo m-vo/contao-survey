@@ -50,11 +50,9 @@
     {% endfor %}
 
     <nav class="navigation">
-        {#
-        {% if not question.mandatory -%}
-            <span class="note_skip">{{ 'form.skip'|trans() }}</span>
+        {% if not current_step.mandatory -%}
+            <span class="note_skip">{{ 'form.skip'|trans({'%count%': current_step.questions|length}) }}</span>
         {%- endif %}
-        #}
         {% if form.previous is defined %}
             {{- form_widget(form.previous, {label: 'form.button.previous'|trans(), attr: {class: 'previous'}}) -}}
         {% endif %}

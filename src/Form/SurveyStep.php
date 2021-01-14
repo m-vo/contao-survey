@@ -55,4 +55,15 @@ class SurveyStep
 
         return $this->questions[$questionName];
     }
+
+    public function isMandatory(): bool
+    {
+        foreach ($this->questions as $question) {
+            if ($question->isMandatory()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
