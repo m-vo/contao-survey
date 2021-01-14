@@ -10,16 +10,24 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\EventListener\DataContainer;
 
 use Contao\CoreBundle\ServiceAnnotation\Callback;
+use Contao\DataContainer;
+use Doctrine\ORM\EntityManagerInterface;
+use Mvo\ContaoSurvey\Entity\Survey as SurveyEntity;
 use Mvo\ContaoSurvey\Repository\RecordRepository;
+use Mvo\ContaoSurvey\Repository\SurveyRepository;
 use Terminal42\ServiceAnnotationBundle\ServiceAnnotationInterface;
 
 class Survey implements ServiceAnnotationInterface
 {
+    private SurveyRepository $surveyRepository;
     private RecordRepository $recordRepository;
+    private EntityManagerInterface $entityManager;
 
-    public function __construct(RecordRepository $recordRepository)
+    public function __construct(SurveyRepository $surveyRepository, RecordRepository $recordRepository, EntityManagerInterface $entityManager)
     {
+        $this->surveyRepository = $surveyRepository;
         $this->recordRepository = $recordRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -30,5 +38,27 @@ class Survey implements ServiceAnnotationInterface
         $submittedRecordsCount = $this->recordRepository->countBySurveyId((int) $row['id']);
 
         return sprintf('%s <span class="survey_answer_count">(%d)</span>', $label, $submittedRecordsCount);
+    }
+
+    /**
+     * @Callback(table="tl_survey", target="config.onsubmit")
+     */
+    public function resetOnPublish(DataContainer $dataContainer): void
+    {
+        /** @var SurveyEntity $survey */
+        $survey = $this->surveyRepository->find((int) $dataContainer->id);
+
+        // Use active record to make sure it's the latest value
+        if (!$dataContainer->activeRecord->published) {
+            $survey->resetCleared();
+        } elseif (!$survey->isCleared()) {
+            foreach ($survey->getRecords() as $record) {
+                $this->entityManager->remove($record);
+            }
+            $survey->setCleared();
+        }
+
+        $this->entityManager->persist($survey);
+        $this->entityManager->flush();
     }
 }

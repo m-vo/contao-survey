@@ -9,11 +9,15 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\EventListener\DataContainer;
 
+use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
+use Contao\Message;
 use Mvo\ContaoSurvey\Entity\Question;
+use Mvo\ContaoSurvey\Entity\Section;
 use Mvo\ContaoSurvey\Registry;
 use Mvo\ContaoSurvey\Repository\QuestionRepository;
+use Mvo\ContaoSurvey\Repository\SectionRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Terminal42\ServiceAnnotationBundle\ServiceAnnotationInterface;
 use Twig\Environment;
@@ -21,16 +25,45 @@ use Twig\Environment;
 class SurveyQuestion implements ServiceAnnotationInterface
 {
     private QuestionRepository $questionRepository;
-    private Registry $registry;
+    private SectionRepository  $sectionRepository;
+    private Registry           $registry;
     private TranslatorInterface $translator;
     private Environment $twig;
+    private ContaoFramework $framework;
 
-    public function __construct(QuestionRepository $questionRepository, Registry $registry, TranslatorInterface $translator, Environment $twig)
+    public function __construct(QuestionRepository $questionRepository, SectionRepository $sectionRepository, Registry $registry, TranslatorInterface $translator, Environment $twig, ContaoFramework $framework)
     {
         $this->questionRepository = $questionRepository;
+        $this->sectionRepository = $sectionRepository;
         $this->registry = $registry;
         $this->translator = $translator;
         $this->twig = $twig;
+        $this->framework = $framework;
+    }
+
+    /**
+     * @Callback(table="tl_survey_question", target="config.onload")
+     */
+    public function checkEditRestrictions(): void
+    {
+        $section = $this->sectionRepository->find(CURRENT_ID);
+        if (!$section instanceof Section) {
+            return;
+        }
+
+        $GLOBALS['TL_DCA']['tl_survey_question']['config']['notCopyable'] = true;
+        $GLOBALS['TL_DCA']['tl_survey_question']['config']['notCreatable'] = true;
+        $GLOBALS['TL_DCA']['tl_survey_question']['config']['notDeletable'] = true;
+        $GLOBALS['TL_DCA']['tl_survey_question']['config']['notSortable'] = true;
+        $GLOBALS['TL_DCA']['tl_survey_question']['config']['notEditable'] = true;
+
+        unset($GLOBALS['TL_DCA']['tl_survey_question']['list']['operations']['toggle']);
+        unset($GLOBALS['TL_DCA']['tl_survey_question']['list']['operations']['edit']);
+        unset($GLOBALS['TL_DCA']['tl_survey_question']['list']['operations']['delete']);
+
+        $this->framework->getAdapter(Message::class)->addInfo(
+            $this->translator->trans('tl_survey_question.published_survey', [], 'contao_tl_survey_question')
+        );
     }
 
     /**

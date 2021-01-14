@@ -32,6 +32,13 @@ services:
     tags:
       - { name: 'doctrine.repository_service' }
 
+  mvo.survey.repository.section:
+    class: Mvo\ContaoSurvey\Repository\SectionRepository
+    arguments:
+      - '@doctrine'
+    tags:
+      - { name: 'doctrine.repository_service' }
+
   # entity registration
   mvo.survey.listener.class_metadata:
     class: Mvo\ContaoSurvey\EventListener\ClassMetadataListener
@@ -128,12 +135,18 @@ services:
     tags:
       - { name: 'terminal42_service_annotation' }
     arguments:
+      - '@mvo.survey.repository.survey'
       - '@mvo.survey.repository.record'
+      - '@doctrine.orm.entity_manager'
 
   mvo.survey.listener.datacontainer.section:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveySection
     tags:
       - { name: 'terminal42_service_annotation' }
+    arguments:
+      - '@mvo.survey.repository.survey'
+      - '@translator'
+      - '@contao.framework'
 
   mvo.survey.listener.datacontainer.question:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveyQuestion
@@ -141,6 +154,8 @@ services:
       - { name: 'terminal42_service_annotation' }
     arguments:
       - '@mvo.survey.repository.question'
+      - '@mvo.survey.repository.section'
       - '@mvo.survey.registry'
       - '@translator'
       - '@twig'
+      - '@contao.framework'

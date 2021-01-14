@@ -16,3 +16,23 @@
     margin-left: $default-margin;
   }
 }
+
+#pal_published_legend {
+  margin-top: 0;
+  padding-top: 5px;
+  transition: 0.15s background-color ease-out;
+
+  &:not(.collapsed) {
+    background: #faebeb;
+    color: #c33;
+
+    > legend {
+      width: 100%;
+      background-color: #faebeb;
+    }
+
+    .tl_help, .tl_help a {
+      color: #cc3333;
+    }
+  }
+}

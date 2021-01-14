@@ -54,6 +54,16 @@ class Survey extends DcaDefault
      */
     private Collection $records;
 
+    /**
+     * @ORM\Column(name="published", type="boolean", options={"default": false})
+     */
+    private bool $published;
+
+    /**
+     * @ORM\Column(name="cleared", type="boolean", options={"default": false})
+     */
+    private bool $cleared;
+
     public function __construct()
     {
         $this->sections = new ArrayCollection();
@@ -121,5 +131,25 @@ class Survey extends DcaDefault
     public function getButtonLabel(): string
     {
         return $this->buttonLabel;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    public function isCleared(): bool
+    {
+        return $this->cleared;
+    }
+
+    public function resetCleared(): void
+    {
+        $this->cleared = false;
+    }
+
+    public function setCleared(): void
+    {
+        $this->cleared = true;
     }
 }

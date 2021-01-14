@@ -15,3 +15,6 @@ $GLOBALS['TL_LANG']['tl_survey']['details_legend'] = 'Details zur Danke-Seite';
 $GLOBALS['TL_LANG']['tl_survey']['note_submission'] = ['Nachricht', 'Fügen Sie eine "Danke"-Nachricht hinzu, die nach erfolgreichem Absenden angezeigt wird.'];
 $GLOBALS['TL_LANG']['tl_survey']['button_label'] = ['Button Bezeichner', 'Fügen Sie einen optionalen Button hinzu.'];
 $GLOBALS['TL_LANG']['tl_survey']['button_href'] = ['Button Ziel'];
+
+$GLOBALS['TL_LANG']['tl_survey']['published_legend'] = 'Veröffentlichung';
+$GLOBALS['TL_LANG']['tl_survey']['published'] = ['Veröffentlichen und alle Ergebnisse zurücksetzen', 'Das Veröffentlichen einer Umfrage setzt alle Datensätze zurück.'];

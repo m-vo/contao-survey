@@ -15,3 +15,6 @@ $GLOBALS['TL_LANG']['tl_survey']['details_legend'] = 'Submission details';
 $GLOBALS['TL_LANG']['tl_survey']['note_submission'] = ['Submission note', 'Add a "thank you" message that will be shown after successful submission.'];
 $GLOBALS['TL_LANG']['tl_survey']['button_label'] = ['Button label', 'Add an optional button.'];
 $GLOBALS['TL_LANG']['tl_survey']['button_href'] = ['Button target'];
+
+$GLOBALS['TL_LANG']['tl_survey']['published_legend'] = 'Published';
+$GLOBALS['TL_LANG']['tl_survey']['published'] = ['Publish and reset all records', 'Publishing a form will reset all records. Make sure you exported all required data before.'];

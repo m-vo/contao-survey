@@ -15,3 +15,5 @@ $GLOBALS['TL_LANG']['tl_survey_section']['grouped'] = ['Fragen gruppieren', 'All
 $GLOBALS['TL_LANG']['tl_survey_section']['details_legend'] = 'Details';
 $GLOBALS['TL_LANG']['tl_survey_section']['headline'] = ['Headline', 'Geben Sie eine optionale Überschrift ein, die über dem Abschnitt dargestellt wird.'];
 $GLOBALS['TL_LANG']['tl_survey_section']['description'] = ['Beschreibung', 'Geben Sie eine optionale Beschreibung ein, die über dem Abschnitt dargestellt wird.'];
+
+$GLOBALS['TL_LANG']['tl_survey_section']['published_survey'] = 'Die Bearbeitung veröffentlichter Umfragen ist stark beschränkt zur Vermeidung von inkompatiblen Datensätzen.';

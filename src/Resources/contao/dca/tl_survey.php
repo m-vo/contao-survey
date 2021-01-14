@@ -46,7 +46,7 @@ $GLOBALS['TL_DCA']['tl_survey'] =
         ],
         'palettes' => [
             '__selector__' => [],
-            'default' => 'title;{details_legend},note_submission,button_label,button_href',
+            'default' => 'title;{details_legend},note_submission,button_label,button_href;{published_legend},published',
         ],
         'subpalettes' => [
         ],
@@ -85,6 +85,17 @@ $GLOBALS['TL_DCA']['tl_survey'] =
                     'dcaPicker' => true,
                     'addWizardClass' => false,
                 ],
+            ],
+            'published' => [
+                'inputType' => 'checkbox',
+                'filter' => true,
+                'eval' => [
+                    'tl_class' => 'w50',
+                ],
+                'default' => true,
+                'save_callback' => [static fn ($v) => '1' === $v],
+                // Keep this for MySQL Strict mode. Otherwise Contao would save an empty string
+                'sql' => ['type' => 'boolean', 'default' => false],
             ],
         ],
     ];
