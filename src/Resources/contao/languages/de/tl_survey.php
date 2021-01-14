@@ -7,7 +7,7 @@ declare(strict_types=1);
  * @license MIT
  */
 
-$GLOBALS['TL_LANG']['tl_survey']['questions'] = 'Fragen bearbeiten';
+$GLOBALS['TL_LANG']['tl_survey']['questions'] = 'Abschnitte bearbeiten';
 $GLOBALS['TL_LANG']['tl_survey']['csv_export'] = 'Ergebnisse exportieren (csv)';
 
 $GLOBALS['TL_LANG']['tl_survey']['title'] = ['Titel', 'Geben Sie den Titel dieser Umfrage ein.'];

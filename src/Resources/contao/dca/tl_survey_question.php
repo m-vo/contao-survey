@@ -12,7 +12,7 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
         'config' => [
             'dataContainer' => 'Table',
             'enableVersioning' => true,
-            'ptable' => 'tl_survey',
+            'ptable' => 'tl_survey_section',
         ],
         'list' => [
             'sorting' => [
@@ -122,6 +122,7 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
             ],
             'type' => [
                 'inputType' => 'select',
+                'default' => '',
                 'eval' => [
                     'tl_class' => 'w50',
                     'chosen' => true,
@@ -167,6 +168,8 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                     'submitOnChange' => true,
                 ],
                 'save_callback' => [static fn ($v) => '1' === $v],
+                // Keep this for MySQL Strict mode. Otherwise Contao would save an empty string
+                'sql' => ['type' => 'boolean', 'default' => false],
             ],
             'user_option_label' => [
                 'inputType' => 'text',
@@ -181,6 +184,8 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                     'tl_class' => 'w50 m12',
                 ],
                 'save_callback' => [static fn ($v) => '1' === $v],
+                // Keep this for MySQL Strict mode. Otherwise Contao would save an empty string
+                'sql' => ['type' => 'boolean', 'default' => false],
             ],
             'text_validation' => [
                 'inputType' => 'select',
@@ -210,6 +215,8 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                 ],
                 'default' => true,
                 'save_callback' => [static fn ($v) => '1' === $v],
+                // Keep this for MySQL Strict mode. Otherwise Contao would save an empty string
+                'sql' => ['type' => 'boolean', 'default' => false],
             ],
         ],
     ];

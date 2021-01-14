@@ -82,8 +82,7 @@ class SurveyFragment extends AbstractContentElementController
             ]);
         }
 
-        $currentQuestion = $manager->getCurrentQuestion();
-        $currentStep = $manager->getCurrentStep(false);
+        $currentStep = $manager->getCurrentStepIndex(false);
 
         return $this->render('@MvoContaoSurvey/_step.html.twig', [
             // survey
@@ -97,9 +96,9 @@ class SurveyFragment extends AbstractContentElementController
                 'index' => $currentStep,
                 'is_first' => $manager->isFirstStep(),
                 'is_last' => $manager->isLastStep(),
-                'type' => $manager->getCurrentType(),
                 'form' => $manager->form->createView(),
-                'question' => $currentQuestion,
+                'questions' => $manager->getCurrentStep()->getQuestions(),
+                'section' => $manager->getCurrentStep()->getSection(),
             ],
 
             // we cannot disable Contao's CSRF token protection for fragments, so we just pass the token

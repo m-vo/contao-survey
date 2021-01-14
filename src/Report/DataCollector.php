@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\Report;
 
-use Mvo\ContaoSurvey\Entity\Answer;
 use Mvo\ContaoSurvey\Entity\Question;
 use Mvo\ContaoSurvey\Entity\Record;
 use Mvo\ContaoSurvey\Entity\Survey;

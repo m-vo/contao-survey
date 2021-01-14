@@ -12,6 +12,7 @@ namespace Mvo\ContaoSurvey\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use function array_merge;
 
 /**
  * @ORM\Entity()
@@ -40,11 +41,11 @@ class Survey extends DcaDefault
     private string $buttonLabel = '';
 
     /**
-     * @ORM\OneToMany(targetEntity="Question", mappedBy="survey")
+     * @ORM\OneToMany(targetEntity="Section", mappedBy="survey")
      *
-     * @var Collection<Question>
+     * @var Collection<Section>
      */
-    private Collection $questions;
+    private Collection $sections;
 
     /**
      * @ORM\OneToMany(targetEntity="Mvo\ContaoSurvey\Entity\Record", mappedBy="survey")
@@ -55,30 +56,43 @@ class Survey extends DcaDefault
 
     public function __construct()
     {
-        $this->questions = new ArrayCollection();
+        $this->sections = new ArrayCollection();
         $this->records = new ArrayCollection();
     }
 
     /**
-     * @return Question[]
+     * @return Section[]
      */
-    public function getQuestions(): array
+    public function getSections(): array
     {
-        $questions = $this->questions->toArray();
-
-        // filter unpublished
-        $questions = array_filter(
-            $questions,
-            static fn (Question $question) => $question->isPublished()
-        );
+        $questions = $this->sections->toArray();
 
         // apply custom sorting
         usort(
             $questions,
-            static fn (Question $a, Question $b) => $a->getSorting() <=> $b->getSorting()
+            static fn (Section $a, Section $b) => $a->getSorting() <=> $b->getSorting()
         );
 
         return array_values($questions);
+    }
+
+    /**
+     * @return array<Question>
+     */
+    public function getQuestions(): array
+    {
+        $sectionsInOrder = $this->getSections();
+        $questionsInOrder = [];
+
+        foreach ($sectionsInOrder as $section) {
+            $questionsInOrder[] = $section->getQuestions();
+        }
+
+        if ([] === $questionsInOrder) {
+            return [];
+        }
+
+        return array_merge(...$questionsInOrder);
     }
 
     /**

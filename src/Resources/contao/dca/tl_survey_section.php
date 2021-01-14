@@ -7,21 +7,22 @@ declare(strict_types=1);
  * @license MIT
  */
 
-$GLOBALS['TL_DCA']['tl_survey'] =
+$GLOBALS['TL_DCA']['tl_survey_section'] =
     [
         'config' => [
             'dataContainer' => 'Table',
+            'ptable' => 'tl_survey',
             'enableVersioning' => true,
         ],
         'list' => [
             'sorting' => [
-                'mode' => 1,
-                'flag' => 1,
-                'fields' => ['title'],
+                'mode' => 4,
+                'fields' => ['sorting'],
                 'panelLayout' => 'search,limit',
+                'headerFields' => ['title'],
             ],
             'label' => [
-                'fields' => ['title'],
+                'fields' => [],
             ],
             'global_operations' => [],
             'operations' => [
@@ -29,13 +30,9 @@ $GLOBALS['TL_DCA']['tl_survey'] =
                     'href' => 'act=edit',
                     'icon' => 'edit.svg',
                 ],
-                'sections' => [
-                    'href' => 'table=tl_survey_section',
+                'questions' => [
+                    'href' => 'table=tl_survey_question',
                     'icon' => 'articles.svg',
-                ],
-                'csv_export' => [
-                    'icon' => 'bundles/mvocontaosurvey/icons/csv.svg',
-                    'route' => 'mvo_survey_export',
                 ],
                 'delete' => [
                     'href' => 'act=delete',
@@ -46,7 +43,7 @@ $GLOBALS['TL_DCA']['tl_survey'] =
         ],
         'palettes' => [
             '__selector__' => [],
-            'default' => 'title;{details_legend},note_submission,button_label,button_href',
+            'default' => 'title,name,grouped;{details_legend},description',
         ],
         'subpalettes' => [
         ],
@@ -63,27 +60,22 @@ $GLOBALS['TL_DCA']['tl_survey'] =
                     'tl_class' => 'w50',
                 ],
             ],
-            'note_submission' => [
+            'grouped' => [
+                'inputType' => 'checkbox',
+                'default' => true,
+                'eval' => [
+                    'tl_class' => 'w50 m12',
+                ],
+                'save_callback' => [static fn ($v) => '1' === $v],
+                // Keep this for MySQL Strict mode. Otherwise Contao would save an empty string
+                'sql' => ['type' => 'boolean', 'default' => false],
+            ],
+            'description' => [
                 'inputType' => 'textarea',
                 'eval' => [
                     'rte' => 'tinyMCE',
+                    'style' => 'max-height: 100px',
                     'tl_class' => 'clr',
-                ],
-            ],
-            'button_label' => [
-                'inputType' => 'text',
-                'eval' => [
-                    'tl_class' => 'w50',
-                ],
-            ],
-            'button_href' => [
-                'inputType' => 'text',
-                'eval' => [
-                    'tl_class' => 'w50',
-                    'rgxp' => 'url',
-                    'decodeEntities' => true,
-                    'dcaPicker' => true,
-                    'addWizardClass' => false,
                 ],
             ],
         ],
