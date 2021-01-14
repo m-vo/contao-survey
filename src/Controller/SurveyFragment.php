@@ -100,7 +100,7 @@ class SurveyFragment extends AbstractContentElementController
                 'form' => $manager->form->createView(),
                 'questions' => $currentStep->getQuestions(),
                 'section' => $currentStep->getSection(),
-                'mandatory' => $currentStep->isMandatory()
+                'mandatory' => $currentStep->isMandatory(),
             ],
 
             // we cannot disable Contao's CSRF token protection for fragments, so we just pass the token

@@ -74,7 +74,6 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                 'inputType' => 'text',
                 'search' => true,
                 'eval' => [
-                    'unique' => true, // todo: unique only for all with same pid
                     'mandatory' => true,
                     'nospace' => true,
                     'rgxp' => 'fieldname',
