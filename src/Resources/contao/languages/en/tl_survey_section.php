@@ -9,8 +9,9 @@ declare(strict_types=1);
 
 $GLOBALS['TL_LANG']['tl_survey_section']['questions'] = 'Edit questions';
 
-$GLOBALS['TL_LANG']['tl_survey_section']['title'] = ['Title', 'Enter the title of this section.'];
-$GLOBALS['TL_LANG']['tl_survey_section']['grouped'] = ['Group questions', 'Group questions on a single step.'];
+$GLOBALS['TL_LANG']['tl_survey_section']['name'] = ['Name', 'Enter a name for this section (won\'t be displayed in the frontend).'];
+$GLOBALS['TL_LANG']['tl_survey_section']['grouped'] = ['Group questions', 'Show all questions of this section in a single step.'];
 
 $GLOBALS['TL_LANG']['tl_survey_section']['details_legend'] = 'Details';
-$GLOBALS['TL_LANG']['tl_survey_section']['description'] = ['Description', 'Add an optional description.'];
+$GLOBALS['TL_LANG']['tl_survey_section']['title'] = ['Headline', 'Add an optional headline that will be displayed above the section.'];
+$GLOBALS['TL_LANG']['tl_survey_section']['description'] = ['Description', 'Add an optional description that will be displayed above the section.'];

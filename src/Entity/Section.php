@@ -35,6 +35,11 @@ class Section extends DcaDefault
     private int $sorting = 0;
 
     /**
+     * @ORM\Column(name="name", options={"default": ""})
+     */
+    private string $name = '';
+
+    /**
      * @ORM\Column(name="title", options={"default": ""})
      */
     private string $title = '';
@@ -91,6 +96,11 @@ class Section extends DcaDefault
         );
 
         return array_values($questions);
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function getTitle(): string

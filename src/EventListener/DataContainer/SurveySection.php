@@ -18,6 +18,6 @@ class SurveySection
      */
     public function compileRecord(array $data): string
     {
-        return $data['title'];
+        return $data['name'];
     }
 }
