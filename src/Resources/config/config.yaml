@@ -24,13 +24,3 @@ mvo_contao_survey:
       question: Mvo\ContaoSurvey\Entity\QuestionText
       answer: Mvo\ContaoSurvey\Entity\AnswerText
       form: Mvo\ContaoSurvey\Form\AnswerType\AnswerTextType
-
-contao:
-  image:
-    sizes:
-      mvo_survey:
-        width: 500
-        height: 400
-        resize_mode: proportional
-        sizes: '0.5,1,2'
-        lazy_loading: true

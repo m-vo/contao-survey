@@ -37,7 +37,7 @@
                             {% endif %}
                             {% if question.image %}
                                 {% block image %}
-                                    {{ contao_figure(question.image, '_mvo_survey') }}
+                                    {{ contao_figure(question.image, picture_config({width: 600, height: 450, resizeMode: 'proportional', sizes: '0.5,1,2'})) }}
                                 {% endblock %}
                             {% endif %}
                             <fieldset data-survey>
