@@ -27,6 +27,13 @@ class SurveyManager
     private NamespacedAttributeBag $storage;
 
     private Survey $survey;
+
+    /** @var array<SurveyStep> */
+    private array $steps;
+
+    /** @var array<int,array<string,Answer|null>|null> */
+    private array $answers;
+
     private int $currentStep;
     private int $totalSteps;
 
@@ -44,24 +51,31 @@ class SurveyManager
      */
     public function getAnswers(): array
     {
-        // filter out skipped
-        return array_filter($this->loadAnswers());
+        return array_values(
+            // flatten and remove skipped
+            array_filter(array_merge(...array_filter($this->answers)))
+        );
     }
 
     public function saveCurrentStep($skipStep = false): void
     {
         if (!$skipStep) {
-            /** @var Answer $answer */
-            $answer = $this->form->getData()->getAnswer();
+            /** @var array<Answer> $answers */
+            $answers = $this->form->getData();
+            $detached = [];
 
             // we're detaching references before storing to avoid unnecessarily
             // large storage sizes
-            $answer->detach();
+            foreach ($answers as $name => $answer) {
+                $answer = clone $answer;
+                $answer->detach();
+                $detached[$name] = $answer;
+            }
         } else {
-            $answer = null;
+            $detached = null;
         }
 
-        $this->storeAnswer($this->currentStep, $answer);
+        $this->storeAnswers($this->currentStep, $detached);
     }
 
     public function reset(): void
@@ -72,14 +86,15 @@ class SurveyManager
         $this->bind($this->survey);
     }
 
-    public function getCurrentQuestion(): Question
+    /** @return array<Question> */
+    public function getCurrentQuestions(): array
     {
-        return $this->form->getData()->getAnswer()->getQuestion();
-    }
-
-    public function getCurrentType(): string
-    {
-        return $this->registry->getTypeForQuestion($this->getCurrentQuestion());
+        return array_values(
+            array_map(
+                static fn (Answer $answer) => $answer->getQuestion(),
+                $this->form->getData()
+            )
+        );
     }
 
     public function isFirstStep(): bool
@@ -92,14 +107,19 @@ class SurveyManager
         return $this->currentStep === $this->totalSteps - 1;
     }
 
-    public function getCurrentStep(bool $zeroIndexed = true): int
+    public function getCurrentStep(): SurveyStep
+    {
+        return $this->steps[$this->currentStep];
+    }
+
+    public function getCurrentStepIndex(bool $zeroIndexed = true): int
     {
         return $this->currentStep + ($zeroIndexed ? 0 : 1);
     }
 
     public function getTotalSteps(): int
     {
-        return $this->totalSteps;
+        return \count($this->steps);
     }
 
     public function nextStep(): bool
@@ -132,39 +152,66 @@ class SurveyManager
         return true;
     }
 
+    public function buildSteps(): void
+    {
+        $steps = [];
+
+        foreach ($this->survey->getSections() as $section) {
+            if ([] === $section->getQuestions()) {
+                continue;
+            }
+
+            if ($section->groupQuestions()) {
+                $steps[] = new SurveyStep($section, $section->getQuestions());
+                continue;
+            }
+
+            foreach ($section->getQuestions() as $question) {
+                $steps[] = new SurveyStep($section, [$question]);
+            }
+        }
+
+        $this->steps = $steps;
+    }
+
     private function bind(Survey $survey): void
     {
         $this->survey = $survey;
-        $questions = $survey->getQuestions();
+        $this->buildSteps();
 
         // reset storage if question set has changed
-        if (!$this->checkQuestionSetUntouched($questions)) {
+        if (!$this->checkQuestionSetUntouched()) {
             $this->resetStorage();
         }
 
         // answers given (or skipped) so far
-        $answers = $this->loadAnswers();
+        $this->loadAnswers();
 
         // get current step
-        $totalSteps = \count($questions);
-        $currentStep = min(
-            $this->loadStep(),
-            \count($answers),
-            $totalSteps - 1
-        );
+        $totalSteps = $this->getTotalSteps();
+        $currentStep = $this->loadStepIndex();
 
-        // todo: consider calling reset and returning instead if
-        //       currentStep was constrained by the stored value
+        if (\count($this->answers) > ($totalSteps - 1) || $currentStep > ($totalSteps - 1)) {
+            $this->resetStorage();
+            $this->answers = [];
+        }
 
         // reuse previously stored data, fallback to create a new prototype
-        $answer = $answers[$currentStep] ?? $this->createAnswer($questions[$currentStep]);
+        if (!isset($this->answers[$currentStep])) {
+            $questions = $this->steps[$currentStep]->getQuestions();
+
+            foreach ($questions as $index => $question) {
+                $questionName = $question->getName();
+                $this->answers[$currentStep][$questionName] = $this->answers[$currentStep][$questionName] ?? $this->createAnswer($question);
+            }
+        }
 
         $this->currentStep = $currentStep;
         $this->totalSteps = $totalSteps;
 
         $this->form = $this->formFactory->create(
             SurveyStepFormType::class,
-            new SurveyStepModel($answer),
+            $this->answers[$currentStep] ?? [],
             [
                 'first_step' => $this->isFirstStep(),
                 'last_step' => $this->isLastStep(),
@@ -186,46 +233,48 @@ class SurveyManager
     /**
      * Retrieve step from storage, fallback to '0'.
      */
-    private function loadStep(): int
+    private function loadStepIndex(): int
     {
         return $this->storage->get($this->survey->getId().'/step', 0);
     }
 
-    private function storeStep(int $step): void
+    private function storeStep(int $stepIndex): void
     {
-        $this->storage->set($this->survey->getId().'/step', $step);
+        $this->storage->set($this->survey->getId().'/step', $stepIndex);
     }
 
     /**
-     * Retrieve answers from storage, fallback to '[]'.
-     *
-     * @return array<Answer|null>
+     * Retrieve answers from storage grouped by step, fallback to '[]'.
      */
-    private function loadAnswers(): array
+    private function loadAnswers(): void
     {
-        // questions
-        $questions = $this->survey->getQuestions();
-
-        // answers given (or skipped) so far
+        // step answers given (or skipped) so far
+        /** @var array<int,array<string,Answer|null>|null> $answers */
         $answers = $this->storage->get($this->survey->getId().'/answers', []);
 
-        /** @var Answer|null $answer */
-        foreach ($answers as $index => $answer) {
-            if (null === $answer) {
-                // skipped questions
+        foreach ($answers as $stepIndex => $stepAnswers) {
+            if (null === $stepAnswers) {
+                // skipped step
                 continue;
             }
 
-            // reconstruct referenced questions (they were removed when storing)
-            $answer->setQuestion($questions[$index]);
+            foreach ($stepAnswers as $questionName => $answer) {
+                if (null === $answer) {
+                    continue;
+                }
+
+                // reconstruct referenced questions (they were removed when storing)
+                $answer->setQuestion($this->steps[$stepIndex]->getQuestion($questionName));
+            }
         }
 
-        return $answers;
+        $this->answers = $answers;
     }
 
-    private function storeAnswer(int $step, ?Answer $answer): void
+    /** @param array<Answer|null>|null $answers */
+    private function storeAnswers(int $step, ?array $answers): void
     {
-        $this->storage->set($this->survey->getId().'/answers/'.$step, $answer);
+        $this->storage->set($this->survey->getId().'/answers/'.$step, $answers);
     }
 
     private function resetStorage(): void
@@ -235,12 +284,9 @@ class SurveyManager
         // todo: should we completely clear the storage after a certain time?
     }
 
-    /**
-     * @param array<Question> $questions
-     */
-    private function checkQuestionSetUntouched(array $questions): bool
+    private function checkQuestionSetUntouched(): bool
     {
-        $hash = md5(implode('|', $questions));
+        $hash = md5(implode('|', $this->steps));
         $currentHash = $this->storage->get($this->survey->getId().'/hash');
 
         if (null === $currentHash) {

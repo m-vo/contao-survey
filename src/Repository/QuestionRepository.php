@@ -39,4 +39,20 @@ class QuestionRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->execute();
     }
+
+    public function isNameAlreadyUsed(string $name, Question $question): bool
+    {
+        $qb = $this->createQueryBuilder('sq')
+            ->select('count(sq.id)')
+            ->innerJoin('sq.section', 'section')
+            ->innerJoin('section.survey', 'survey')
+            ->where('survey.id = :surveyId')
+            ->andWhere('sq.name = :name')
+            ->andWhere('sq.id != :questionId')
+            ->setParameter('surveyId', $question->getSection()->getSurvey()->getId())
+            ->setParameter('name', $name)
+            ->setParameter('questionId', $question->getId());
+
+        return $qb->getQuery()->getSingleScalarResult() > 0;
+    }
 }

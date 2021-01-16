@@ -130,6 +130,11 @@ services:
     arguments:
       - '@mvo.survey.repository.record'
 
+  mvo.survey.listener.datacontainer.section:
+    class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveySection
+    tags:
+      - { name: 'terminal42_service_annotation' }
+
   mvo.survey.listener.datacontainer.question:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveyQuestion
     tags:

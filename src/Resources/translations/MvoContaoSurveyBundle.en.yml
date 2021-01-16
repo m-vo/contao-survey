@@ -7,7 +7,7 @@ form:
     submit: 'Submit'
   note_reset_all: 'You can reset all previously entered data by clicking here:'
   reset_all: 'Start again'
-  skip: 'This is an optional question. You can skip it by preceding.'
+  skip: '{1}This is an optional question. You can skip it by preceding.|[2, +Inf[These are optional questions. You can skip them by preceding.'
 
 element:
   user_option_placeholder: 'Your option'
@@ -15,3 +15,6 @@ element:
 
 thanks:
   headline: 'Thanks!'
+
+error:
+  duplcicate_question_name: 'The name "%name%" is already used in the survey.'

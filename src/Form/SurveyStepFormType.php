@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\Form;
 
+use Mvo\ContaoSurvey\Entity\Answer;
 use Mvo\ContaoSurvey\Registry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -27,21 +28,21 @@ class SurveyStepFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var SurveyStepModel $stepModel */
-        $stepModel = $builder->getData();
+        /** @var array<string, Answer> */
+        $answers = $builder->getData();
 
-        $answer = $stepModel->getAnswer();
-
-        $builder->add(
-            'answer',
-            $this->registry->getFormTypeClassForAnswer($answer),
-            [
-                'constraints' => [
-                    new Valid(),
-                ],
-                'data' => $answer,
-            ]
-        );
+        foreach ($answers as $name => $answer) {
+            $builder->add(
+                $name,
+                $this->registry->getFormTypeClassForAnswer($answer),
+                [
+                    'constraints' => [
+                        new Valid(),
+                    ],
+                    'data' => $answer,
+                ]
+            );
+        }
 
         if (!$options['first_step']) {
             $builder->add('previous', SubmitType::class);

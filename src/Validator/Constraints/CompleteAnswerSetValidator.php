@@ -64,7 +64,7 @@ class CompleteAnswerSetValidator extends ConstraintValidator
         /** @var Survey[] $surveys */
         $surveys = array_unique(
             array_map(
-                static fn (Question $question) => $question->getSurvey(),
+                static fn (Question $question) => $question->getSection()->getSurvey(),
                 $questions
             )
         );

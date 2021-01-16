@@ -8,3 +8,5 @@ declare(strict_types=1);
  */
 
 $GLOBALS['TL_LANG']['MOD']['survey'] = ['Umfragen'];
+$GLOBALS['TL_LANG']['MOD']['tl_survey_section'] = 'Abschnitt';
+$GLOBALS['TL_LANG']['MOD']['tl_survey_question'] = 'Frage';

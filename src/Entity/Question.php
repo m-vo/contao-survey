@@ -28,10 +28,10 @@ use Mvo\ContaoSurvey\Report\DataContainer;
 abstract class Question extends DcaDefault
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Mvo\ContaoSurvey\Entity\Survey", inversedBy="questions")
+     * @ORM\ManyToOne(targetEntity="Section", inversedBy="questions")
      * @ORM\JoinColumn(name="pid", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
-    private Survey $survey;
+    private Section $section;
 
     /**
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
@@ -95,9 +95,9 @@ abstract class Question extends DcaDefault
         return $this->name.'_'.$this->timestamp;
     }
 
-    public function getSurvey(): Survey
+    public function getSection(): Section
     {
-        return $this->survey;
+        return $this->section;
     }
 
     public function getName(): string

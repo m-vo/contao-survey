@@ -79,6 +79,20 @@ class SurveyQuestion implements ServiceAnnotationInterface
         return '';
     }
 
+    /**
+     * @Callback(table="tl_survey_question", target="fields.name.save")
+     */
+    public function validateName(string $name, DataContainer $dc): string
+    {
+        $question = $this->getQuestion((int) $dc->id);
+
+        if ($this->questionRepository->isNameAlreadyUsed($name, $question)) {
+            throw new \InvalidArgumentException($this->translator->trans('error.duplcicate_question_name', ['%name%' => $name], 'MvoContaoSurveyBundle'));
+        }
+
+        return $name;
+    }
+
     private function getQuestion(int $id): Question
     {
         /** @var Question|null $question */

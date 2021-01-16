@@ -5,39 +5,53 @@
 
 {% block content %}
     {% set form = current_step.form %}
-    {% set question = current_step.question %}
 
-    {{ form_start(form, {'action': path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')), 'attr': {'novalidate': 'novalidate'}}) }}
-    <h3 class="question{% if question.mandatory %} required{% endif %}">{{ question.question }}</h3>
-    <div class="progress"
-         data-value="{{ current_step.index }}"
-         data-max="{{ total_steps }}"
-         style="--percent: {{ 100 * current_step.index / total_steps }}%; --percent-previous: {{ 100 * (current_step.index - 1) / total_steps }}%"
-         title="{{ current_step.index }}/{{ total_steps }}">
-        <span>{{ current_step.index }}/{{ total_steps }}</span>
-    </div>
-
-    <div class="description">
-        {{ question.description|raw }}
-        {% if question.image %}
-            <figure class="image image--survey">
-                {{ picture(question.image, '_survey') }}
-            </figure>
+    {% if current_step.section is defined %}
+    <div class="section">
+        <h3 class="section">{{ current_step.section.title }}</h3>
+        {% if current_step.section.description %}
+          {{ current_step.section.description|raw }}
         {% endif %}
     </div>
+    {% endif %}
 
-    <fieldset data-survey>
-        <legend>{{ question.instruction }}</legend>
-        {{ form_row(form.answer) }}
-        <div class="reset_current">
-            <input type="reset" value="{{ 'form.button.clear_current'|trans() }}"
-                   title="{{ 'form.button.clear_current_title'|trans() }}">
+    {{ form_start(form, {'action': path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')), 'attr': {'novalidate': 'novalidate'}}) }}
+    {% for question in current_step.questions %}
+    <div class="question">
+        <h4 class="question{% if question.mandatory %} required{% endif %}">{{ question.question }}</h4>
+        <div class="progress"
+             data-value="{{ current_step.index }}"
+             data-max="{{ total_steps }}"
+             style="--percent: {{ 100 * current_step.index / total_steps }}%; --percent-previous: {{ 100 * (current_step.index - 1) / total_steps }}%"
+             title="{{ current_step.index }}/{{ total_steps }}">
+            <span>{{ current_step.index }}/{{ total_steps }}</span>
         </div>
-    </fieldset>
+
+        <div class="description">
+            {{ question.description|raw }}
+            {#
+            {% if question.image and false %}
+                <figure class="image image--survey">
+                    {{ picture(question.image, '_survey') }}
+                </figure>
+            {% endif %}
+            #}
+        </div>
+
+        <fieldset data-survey>
+            <legend>{{ question.instruction }}</legend>
+            {{ form_row(form[question.name]) }}
+            <div class="reset_current">
+                <input type="reset" value="{{ 'form.button.clear_current'|trans() }}"
+                       title="{{ 'form.button.clear_current_title'|trans() }}">
+            </div>
+        </fieldset>
+    </div>
+    {% endfor %}
 
     <nav class="navigation">
-        {% if not question.mandatory -%}
-            <span class="note_skip">{{ 'form.skip'|trans() }}</span>
+        {% if not current_step.mandatory -%}
+            <span class="note_skip">{{ 'form.skip'|trans({'%count%': current_step.questions|length}) }}</span>
         {%- endif %}
         {% if form.previous is defined %}
             {{- form_widget(form.previous, {label: 'form.button.previous'|trans(), attr: {class: 'previous'}}) -}}

@@ -8,7 +8,7 @@ declare(strict_types=1);
  */
 
 $GLOBALS['BE_MOD']['content']['survey'] = [
-    'tables' => ['tl_survey', 'tl_survey_question', 'tl_survey_question_dependency'],
+    'tables' => ['tl_survey', 'tl_survey_section', 'tl_survey_question', 'tl_survey_question_dependency'],
     'javascript' => ['bundles/mvocontaosurvey/survey_backend.js'],
     'stylesheet' => ['bundles/mvocontaosurvey/survey_backend.css'],
 ];

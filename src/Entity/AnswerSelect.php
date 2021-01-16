@@ -56,7 +56,7 @@ class AnswerSelect extends Answer
             return null;
         }
 
-        return array_map(fn ($v) => (int) $v, $this->values);
+        return array_map(static fn ($v) => (int) $v, $this->values);
     }
 
     public function setMultiple(?array $values): void

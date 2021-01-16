@@ -7,7 +7,7 @@ declare(strict_types=1);
  * @license MIT
  */
 
-$GLOBALS['TL_LANG']['tl_survey']['questions'] = 'Edit questions';
+$GLOBALS['TL_LANG']['tl_survey']['sections'] = 'Edit sections';
 $GLOBALS['TL_LANG']['tl_survey']['csv_export'] = 'Export results (csv)';
 
 $GLOBALS['TL_LANG']['tl_survey']['title'] = ['Title', 'Enter the title of this survey.'];

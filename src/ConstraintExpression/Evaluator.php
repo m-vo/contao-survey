@@ -53,7 +53,7 @@ class Evaluator
         $predecessors = array_map(
             static fn (Question $question) => $question->getId(),
             array_filter(
-                $question->getSurvey()->getQuestions(),
+                $question->getSection()->getSurvey()->getQuestions(),
                 static fn (Question $other) => $other->getSorting() < $question->getSorting()
             )
         );
