@@ -26,13 +26,13 @@ $GLOBALS['TL_DCA']['tl_survey_section'] =
             ],
             'global_operations' => [],
             'operations' => [
-                'edit' => [
-                    'href' => 'act=edit',
-                    'icon' => 'edit.svg',
-                ],
                 'questions' => [
                     'href' => 'table=tl_survey_question',
-                    'icon' => 'articles.svg',
+                    'icon' => 'edit.svg',
+                ],
+                'edit' => [
+                    'href' => 'act=edit',
+                    'icon' => 'header.svg',
                 ],
                 'delete' => [
                     'href' => 'act=delete',
