@@ -51,16 +51,10 @@ class SurveyManager
      */
     public function getAnswers(): array
     {
-        $answers = array_filter($this->answers);
-
-        if ([] === $answers) {
-            return [];
-        }
-
-        $answers = array_merge(...$answers);
-
-        // filter out skipped
-        return array_values(array_filter($answers));
+        return array_values(
+            // flatten and remove skipped
+            array_filter(array_merge(...array_filter($this->answers)))
+        );
     }
 
     public function saveCurrentStep($skipStep = false): void
