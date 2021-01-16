@@ -54,7 +54,6 @@ $GLOBALS['TL_DCA']['tl_survey_section'] =
                 'inputType' => 'text',
                 'search' => true,
                 'eval' => [
-                    'unique' => true,
                     'mandatory' => true,
                     'maxlength' => 255,
                     'tl_class' => 'w50',
