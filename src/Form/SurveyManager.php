@@ -22,16 +22,21 @@ class SurveyManager
     // The managed form is kept transparent to reduce the error of referencing
     // an old form (on the consumer side) when we are switching steps.
     public FormInterface $form;
+
     private FormFactoryInterface $formFactory;
     private Registry $registry;
     private NamespacedAttributeBag $storage;
 
     private Survey $survey;
 
-    /** @var array<SurveyStep> */
+    /**
+     * @var array<SurveyStep>
+     */
     private array $steps;
 
-    /** @var array<int,array<string,Answer|null>|null> */
+    /**
+     * @var array<int,array<string,Answer|null>|null>
+     */
     private array $answers;
 
     private int $currentStep;
@@ -47,7 +52,7 @@ class SurveyManager
     }
 
     /**
-     * @return Answer[]
+     * @return array<Answer>
      */
     public function getAnswers(): array
     {
@@ -86,7 +91,9 @@ class SurveyManager
         $this->bind($this->survey);
     }
 
-    /** @return array<Question> */
+    /**
+     * @return array<Question>
+     */
     public function getCurrentQuestions(): array
     {
         return array_values(
@@ -191,7 +198,7 @@ class SurveyManager
         $totalSteps = $this->getTotalSteps();
         $currentStep = $this->loadStepIndex();
 
-        if (\count($this->answers) > ($totalSteps - 1) || $currentStep > ($totalSteps - 1)) {
+        if (\count($this->answers) > ($totalSteps - 1) || $currentStep > $totalSteps - 1) {
             $this->resetStorage();
             $this->answers = [];
         }
@@ -200,7 +207,7 @@ class SurveyManager
         if (!isset($this->answers[$currentStep])) {
             $questions = $this->steps[$currentStep]->getQuestions();
 
-            foreach ($questions as $index => $question) {
+            foreach ($questions as $question) {
                 $questionName = $question->getName();
                 $this->answers[$currentStep][$questionName] = $this->answers[$currentStep][$questionName] ?? $this->createAnswer($question);
             }
@@ -271,7 +278,9 @@ class SurveyManager
         $this->answers = $answers;
     }
 
-    /** @param array<Answer|null>|null $answers */
+    /**
+     * @param array<Answer|null>|null $answers
+     */
     private function storeAnswers(int $step, ?array $answers): void
     {
         $this->storage->set($this->survey->getId().'/answers/'.$step, $answers);

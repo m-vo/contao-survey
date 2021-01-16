@@ -15,9 +15,6 @@ use Mvo\ContaoSurvey\Entity\Answer;
 
 /**
  * @method Answer|null find($id, $lockMode = null, $lockVersion = null)
- * @method Answer|null findOneBy(array $criteria, array $orderBy = null)
- * @method Answer[]    findAll()
- * @method Answer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class AnswerRepository extends ServiceEntityRepository
 {

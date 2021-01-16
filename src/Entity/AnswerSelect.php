@@ -46,7 +46,8 @@ class AnswerSelect extends Answer
             $context
                 ->buildViolation('Your own option cannot be blank.')
                 ->atPath('user_option')
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 

@@ -49,7 +49,7 @@ class Record
         $this->submittedAt = new \DateTime();
 
         $this->survey = $survey;
-        $this->answers = new ArrayCollection($answers ?? []);
+        $this->answers = new ArrayCollection($answers);
 
         /** @var Answer $answer */
         foreach ($answers as $answer) {
@@ -68,7 +68,7 @@ class Record
     }
 
     /**
-     * @return Answer[]
+     * @return array<Answer>
      */
     public function getAnswers(): array
     {

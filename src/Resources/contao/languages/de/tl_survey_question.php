@@ -7,6 +7,8 @@ declare(strict_types=1);
  * @license MIT
  */
 
+use Mvo\ContaoSurvey\Entity\QuestionText;
+
 $GLOBALS['TL_LANG']['tl_survey_question']['header_legend'] = 'Meta-Daten';
 $GLOBALS['TL_LANG']['tl_survey_question']['question'] = ['Frage / Titel'];
 $GLOBALS['TL_LANG']['tl_survey_question']['name'] = ['Name', 'Ein eindeutiger Bezeichner, der im Export und zur Definition von Abhängigkeiten benutzt wird.'];
@@ -28,8 +30,8 @@ $GLOBALS['TL_LANG']['tl_survey_question']['add_user_option'] = ['Benutzer-Option
 $GLOBALS['TL_LANG']['tl_survey_question']['user_option_label'] = ['Bezeichner der Benutzer-Option', 'Fügen Sie der Benutzer-Option einen optionalen Bezeichner hinzu. Zum Umschließen kann \'%\' als Platzhalter für das Eingabefeld verwendet werden.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['allow_multiple'] = ['Mehrfachauswahl zulassen', 'Es können mehrere Optionen gewählt werden.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['text_validation'] = ['Validierung', 'Wählen Sie wie die Eingabe validiert werden soll.'];
-$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][\Mvo\ContaoSurvey\Entity\QuestionText::VALIDATION__NONE] = 'Keine';
-$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][\Mvo\ContaoSurvey\Entity\QuestionText::VALIDATION__AGE] = 'Alter';
+$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][QuestionText::VALIDATION__NONE] = 'Keine';
+$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][QuestionText::VALIDATION__AGE] = 'Alter';
 
 $GLOBALS['TL_LANG']['tl_survey_question']['expert_legend'] = 'Experten-Einstellungen';
 $GLOBALS['TL_LANG']['tl_survey_question']['constraint_expression'] = ['Constraint Expression', 'Fügen Sie ein Anzeigekriterium in Form einer Expression hinzu.'];

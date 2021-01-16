@@ -50,7 +50,7 @@ class AnswerOrderType extends AbstractType
                             return null;
                         }
 
-                        $values = array_map('intval', explode(',', $order ?? ''));
+                        $values = array_map('intval', explode(',', $order));
                         $numberOfItems = \count($question->getChoices());
 
                         // make sure every index is found
@@ -61,7 +61,8 @@ class AnswerOrderType extends AbstractType
                         return $values;
                     }
                 )
-            );
+            )
+        ;
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

@@ -21,6 +21,8 @@ class AnswerOrder extends Answer
 {
     /**
      * @ORM\Column(name="values_json", type="json", nullable=true)
+     *
+     * @var array<int, int>|null
      */
     private ?array $order = null;
 

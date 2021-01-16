@@ -17,7 +17,9 @@ class SurveyStep
 {
     private Section $section;
 
-    /** @var array<string,Question> */
+    /**
+     * @var array<string,Question>
+     */
     private array $questions;
 
     /**

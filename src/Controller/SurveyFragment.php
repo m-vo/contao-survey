@@ -76,7 +76,8 @@ class SurveyFragment extends AbstractContentElementController
             ]);
         }
 
-        $manager = $this->managerFactory->__invoke($survey);
+        $manager = ($this->managerFactory)($survey);
+
         $manager->form->handleRequest($request);
 
         if ($this->proceedUntilCompleted($manager)) {
