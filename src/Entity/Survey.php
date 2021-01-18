@@ -48,7 +48,7 @@ class Survey extends DcaDefault
     private Collection $sections;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mvo\ContaoSurvey\Entity\Record", mappedBy="survey")
+     * @ORM\OneToMany(targetEntity="Mvo\ContaoSurvey\Entity\Record", mappedBy="survey", orphanRemoval=true)
      *
      * @var Collection<Question>
      */
@@ -148,8 +148,9 @@ class Survey extends DcaDefault
         $this->cleared = false;
     }
 
-    public function setCleared(): void
+    public function clearRecords(): void
     {
+        $this->records->clear();
         $this->cleared = true;
     }
 }

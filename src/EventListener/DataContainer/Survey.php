@@ -56,10 +56,7 @@ class Survey implements ServiceAnnotationInterface
         if (!$dataContainer->activeRecord->published) {
             $survey->resetCleared();
         } elseif (!$survey->isCleared()) {
-            foreach ($survey->getRecords() as $record) {
-                $this->entityManager->remove($record);
-            }
-            $survey->setCleared();
+            $survey->clearRecords();
         }
 
         $this->entityManager->persist($survey);
