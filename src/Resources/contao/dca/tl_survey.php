@@ -97,5 +97,11 @@ $GLOBALS['TL_DCA']['tl_survey'] =
                 // Keep this for MySQL Strict mode. Otherwise Contao would save an empty string
                 'sql' => ['type' => 'boolean', 'default' => false],
             ],
+            'cleared' => [
+                'eval' => [
+                    'versionize' => false,
+                ],
+                'default' => true,
+            ],
         ],
     ];
