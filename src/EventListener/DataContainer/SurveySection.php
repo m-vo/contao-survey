@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\EventListener\DataContainer;
 
+use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\Message;
@@ -37,6 +38,7 @@ class SurveySection
     public function checkEditRestrictions(): void
     {
         $survey = $this->surveyRepository->find(CURRENT_ID);
+
         if (!$survey instanceof SurveyEntity || !$survey->isPublished()) {
             return;
         }
@@ -50,7 +52,9 @@ class SurveySection
 
         unset($GLOBALS['TL_DCA']['tl_survey_section']['list']['operations']['delete']);
 
-        $this->framework->getAdapter(Message::class)->addInfo(
+        /** @var Adapter<Message> */
+        $message = $this->framework->getAdapter(Message::class);
+        $message->addInfo(
             $this->translator->trans('tl_survey_section.published_survey', [], 'contao_tl_survey_section')
         );
     }

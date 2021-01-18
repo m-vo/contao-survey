@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\EventListener\DataContainer;
 
+use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
@@ -47,6 +48,7 @@ class SurveyQuestion implements ServiceAnnotationInterface
     public function checkEditRestrictions(): void
     {
         $section = $this->sectionRepository->find(CURRENT_ID);
+
         if (!$section instanceof Section) {
             return;
         }
@@ -57,11 +59,15 @@ class SurveyQuestion implements ServiceAnnotationInterface
         $GLOBALS['TL_DCA']['tl_survey_question']['config']['notSortable'] = true;
         $GLOBALS['TL_DCA']['tl_survey_question']['config']['notEditable'] = true;
 
-        unset($GLOBALS['TL_DCA']['tl_survey_question']['list']['operations']['toggle']);
-        unset($GLOBALS['TL_DCA']['tl_survey_question']['list']['operations']['edit']);
-        unset($GLOBALS['TL_DCA']['tl_survey_question']['list']['operations']['delete']);
+        unset(
+            $GLOBALS['TL_DCA']['tl_survey_question']['list']['operations']['toggle'],
+            $GLOBALS['TL_DCA']['tl_survey_question']['list']['operations']['edit'],
+            $GLOBALS['TL_DCA']['tl_survey_question']['list']['operations']['delete']
+        );
 
-        $this->framework->getAdapter(Message::class)->addInfo(
+        /** @var Adapter<Message> */
+        $message = $this->framework->getAdapter(Message::class);
+        $message->addInfo(
             $this->translator->trans('tl_survey_question.published_survey', [], 'contao_tl_survey_question')
         );
     }

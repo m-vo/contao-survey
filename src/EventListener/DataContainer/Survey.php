@@ -45,6 +45,10 @@ class Survey implements ServiceAnnotationInterface
      */
     public function resetOnPublish(DataContainer $dataContainer): void
     {
+        if (null === $dataContainer->activeRecord) {
+            return;
+        }
+
         /** @var SurveyEntity $survey */
         $survey = $this->surveyRepository->find((int) $dataContainer->id);
 
