@@ -16,5 +16,9 @@ element:
 thanks:
   headline: 'Vielen Dank!'
 
+unpublished:
+  headline: 'Umfrage nicht veröffentlicht'
+  message: 'Diese Umfrage ist nicht veröffentlicht.'
+
 error:
   duplicate_question_name: 'Der Name "%name%" wird bereits in der Umfrage verwendet.'

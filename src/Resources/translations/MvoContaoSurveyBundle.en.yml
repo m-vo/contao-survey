@@ -16,5 +16,9 @@ element:
 thanks:
   headline: 'Thanks!'
 
+unpublished:
+  headline: 'Survey is not published'
+  message: 'This survey is not published yet.'
+
 error:
   duplicate_question_name: 'The name "%name%" is already used in the survey.'
