@@ -122,6 +122,10 @@ abstract class Question extends DcaDefault
 
     public function getImage(): ?string
     {
+        if (null === $this->image || empty(trim($this->image))) {
+            return null;
+        }
+
         return $this->image;
     }
 

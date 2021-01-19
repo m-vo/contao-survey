@@ -90,7 +90,7 @@ class SurveyFragment extends AbstractContentElementController
             'headline' => $headline,
             'survey' => $survey,
             'total_steps' => $manager->getTotalSteps(),
-            'class' => sprintf('survey survey--id_%d survey--step_%d', $survey->getId(), $currentStepIndex),
+            'class' => sprintf('survey survey--id_%d', $survey->getId()),
 
             // current step
             'current_step' => [
