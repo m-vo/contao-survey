@@ -25,13 +25,13 @@ $GLOBALS['TL_DCA']['tl_survey'] =
             ],
             'global_operations' => [],
             'operations' => [
-                'edit' => [
-                    'href' => 'act=edit',
-                    'icon' => 'edit.svg',
-                ],
                 'sections' => [
                     'href' => 'table=tl_survey_section',
                     'icon' => 'articles.svg',
+                ],
+                'edit' => [
+                    'href' => 'act=edit',
+                    'icon' => 'edit.svg',
                 ],
                 'csv_export' => [
                     'icon' => 'bundles/mvocontaosurvey/icons/csv.svg',

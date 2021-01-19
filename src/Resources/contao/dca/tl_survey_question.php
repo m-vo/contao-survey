@@ -19,7 +19,7 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                 'mode' => 4,
                 'fields' => ['sorting'],
                 'panelLayout' => 'search,limit',
-                'headerFields' => ['title'],
+                'headerFields' => ['name', 'title'],
             ],
             'label' => [
                 'fields' => [],
