@@ -17,4 +17,4 @@ thanks:
   headline: 'Thanks!'
 
 error:
-  duplcicate_question_name: 'The name "%name%" is already used in the survey.'
+  duplicate_question_name: 'The name "%name%" is already used in the survey.'
