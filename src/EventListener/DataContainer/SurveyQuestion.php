@@ -87,7 +87,7 @@ class SurveyQuestion implements ServiceAnnotationInterface
         $question = $this->getQuestion((int) $dc->id);
 
         if ($this->questionRepository->isNameAlreadyUsed($name, $question)) {
-            throw new \InvalidArgumentException($this->translator->trans('error.duplcicate_question_name', ['%name%' => $name], 'MvoContaoSurveyBundle'));
+            throw new \InvalidArgumentException($this->translator->trans('error.duplicate_question_name', ['%name%' => $name], 'MvoContaoSurveyBundle'));
         }
 
         return $name;
