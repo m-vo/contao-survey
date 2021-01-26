@@ -55,14 +55,9 @@ class Survey extends DcaDefault
     private Collection $records;
 
     /**
-     * @ORM\Column(name="published", type="boolean", options={"default": false})
+     * @ORM\Column(name="frozen", type="boolean", options={"default": false})
      */
-    private bool $published;
-
-    /**
-     * @ORM\Column(name="cleared", type="boolean", options={"default": false})
-     */
-    private bool $cleared;
+    private bool $frozen;
 
     public function __construct()
     {
@@ -133,24 +128,18 @@ class Survey extends DcaDefault
         return $this->buttonLabel;
     }
 
-    public function isPublished(): bool
+    public function isFrozen(): bool
     {
-        return $this->published;
-    }
-
-    public function isCleared(): bool
-    {
-        return $this->cleared;
-    }
-
-    public function resetCleared(): void
-    {
-        $this->cleared = false;
+        return $this->frozen;
     }
 
     public function clearRecords(): void
     {
         $this->records->clear();
-        $this->cleared = true;
+    }
+
+    public function hasRecords(): bool
+    {
+        return $this->records->count() > 0;
     }
 }

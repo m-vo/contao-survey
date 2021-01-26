@@ -17,22 +17,16 @@
   }
 }
 
-#pal_published_legend {
-  margin-top: 0;
-  padding-top: 5px;
-  transition: 0.15s background-color ease-out;
+.clear-records-form {
+  display: inline-block;
+}
 
-  &:not(.collapsed) {
-    background: #faebeb;
-    color: #c33;
-
-    > legend {
-      width: 100%;
-      background-color: #faebeb;
-    }
-
-    .tl_help, .tl_help a {
-      color: #cc3333;
-    }
-  }
+#clear_records_form_submit {
+  background: url("/system/themes/flexible/icons/deleteAll.svg") transparent;
+  width: 16px;
+  height: 16px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  border: none;
 }

@@ -94,6 +94,14 @@ services:
     tags:
       - { name: 'form.type' }
 
+  mvo.survey.form.type.clear_records:
+    class: Mvo\ContaoSurvey\Form\ClearRecordsFormType
+    arguments:
+      - '@router'
+      - '@translator'
+    tags:
+      - { name: 'form.type' }
+
   # reports
   mvo.survey.report.data_collector:
     class: Mvo\ContaoSurvey\Report\DataCollector
@@ -110,6 +118,15 @@ services:
       - '@mvo.survey.repository.question'
       - '@mvo.survey.registry'
       - '@security.helper'
+
+  Mvo\ContaoSurvey\Controller\ClearRecordsController:
+    public: true
+    arguments:
+      - '@security.helper'
+      - '@mvo.survey.repository.survey'
+      - '@doctrine.orm.entity_manager'
+      - '@form.factory'
+      - '@translator'
 
   Mvo\ContaoSurvey\Controller\ExportController:
     public: true
@@ -138,6 +155,10 @@ services:
       - '@mvo.survey.repository.survey'
       - '@mvo.survey.repository.record'
       - '@doctrine.orm.entity_manager'
+      - '@form.factory'
+      - '@translator'
+      - '@twig'
+      - '@contao.framework'
 
   mvo.survey.listener.datacontainer.section:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveySection

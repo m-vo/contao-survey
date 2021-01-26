@@ -39,7 +39,7 @@ class SurveySection
     {
         $survey = $this->surveyRepository->find(CURRENT_ID);
 
-        if (!$survey instanceof SurveyEntity || !$survey->isPublished()) {
+        if (!$survey instanceof SurveyEntity || !$survey->isFrozen()) {
             return;
         }
 

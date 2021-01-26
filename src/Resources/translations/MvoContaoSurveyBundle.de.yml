@@ -17,8 +17,13 @@ thanks:
   headline: 'Vielen Dank!'
 
 unpublished:
-  headline: 'Umfrage nicht veröffentlicht'
-  message: 'Diese Umfrage ist nicht veröffentlicht.'
+  headline: 'Umfrage nicht eingefroren'
+  message: 'Nur eingefrorene Umfragen dürfen beantwortet werden.'
 
 error:
   duplicate_question_name: 'Der Name "%name%" wird bereits in der Umfrage verwendet.'
+
+clear_records:
+  submit_button: 'Alle Ergebnisse löschen'
+  confirm: 'Möchten Sie wirklich alle Ergebnisse der Umfrage %surveyId% löschen?'
+  success_message: 'Alle Ergebnisse der Umfrage "%id%" wurden gelöscht.'

@@ -9,15 +9,14 @@
     color: #999;
     margin-left: 0.3em; }
 
-#pal_published_legend {
-  margin-top: 0;
-  padding-top: 5px;
-  transition: 0.15s background-color ease-out; }
-  #pal_published_legend:not(.collapsed) {
-    background: #faebeb;
-    color: #c33; }
-    #pal_published_legend:not(.collapsed) > legend {
-      width: 100%;
-      background-color: #faebeb; }
-    #pal_published_legend:not(.collapsed) .tl_help, #pal_published_legend:not(.collapsed) .tl_help a {
-      color: #c33; }
+.clear-records-form {
+  display: inline-block; }
+
+#clear_records_form_submit {
+  background: url("/system/themes/flexible/icons/deleteAll.svg") transparent;
+  width: 16px;
+  height: 16px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  border: none; }

@@ -68,11 +68,11 @@ class SurveyFragment extends AbstractContentElementController
             ]);
         }
 
-        if (!$survey->isPublished()) {
-            return $this->render('@MvoContaoSurvey/_unpublished.html.twig', [
+        if (!$survey->isFrozen()) {
+            return $this->render('@MvoContaoSurvey/_frozen.html.twig', [
                 'headline' => $model->survey_headline ?: $survey->getTitle(),
                 'survey' => $survey,
-                'class' => 'survey survey--unpublished',
+                'class' => 'survey survey--frozen',
             ]);
         }
 

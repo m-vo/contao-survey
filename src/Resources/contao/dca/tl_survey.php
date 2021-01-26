@@ -37,6 +37,7 @@ $GLOBALS['TL_DCA']['tl_survey'] =
                     'icon' => 'bundles/mvocontaosurvey/icons/csv.svg',
                     'route' => 'mvo_survey_export',
                 ],
+                'clearRecords' => [],
                 'delete' => [
                     'href' => 'act=delete',
                     'icon' => 'delete.svg',
@@ -46,7 +47,7 @@ $GLOBALS['TL_DCA']['tl_survey'] =
         ],
         'palettes' => [
             '__selector__' => [],
-            'default' => 'title;{details_legend},note_submission,button_label,button_href;{published_legend},published',
+            'default' => 'title,frozen;{details_legend},note_submission,button_label,button_href',
         ],
         'subpalettes' => [
         ],
@@ -86,22 +87,16 @@ $GLOBALS['TL_DCA']['tl_survey'] =
                     'addWizardClass' => false,
                 ],
             ],
-            'published' => [
+            'frozen' => [
                 'inputType' => 'checkbox',
                 'filter' => true,
                 'eval' => [
-                    'tl_class' => 'w50',
+                    'tl_class' => 'w50 m12',
                 ],
                 'default' => true,
                 'save_callback' => [static fn ($v) => '1' === $v],
                 // Keep this for MySQL Strict mode. Otherwise Contao would save an empty string
                 'sql' => ['type' => 'boolean', 'default' => false],
-            ],
-            'cleared' => [
-                'eval' => [
-                    'versionize' => false,
-                ],
-                'default' => true,
             ],
         ],
     ];

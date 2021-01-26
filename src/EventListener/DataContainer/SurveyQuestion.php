@@ -49,7 +49,7 @@ class SurveyQuestion implements ServiceAnnotationInterface
     {
         $section = $this->sectionRepository->find(CURRENT_ID);
 
-        if (!$section instanceof Section) {
+        if (!$section instanceof Section || !$section->getSurvey()->isFrozen()) {
             return;
         }
 

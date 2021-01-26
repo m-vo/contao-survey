@@ -10,7 +10,3 @@ parameters:
     -
       message: '#Constant CURRENT_ID not found.#'
       path: src/EventListener/DataContainer
-
-    -
-      message: '#Access to an undefined property object::\$published.#'
-      path: src/EventListener/DataContainer/Survey.php
