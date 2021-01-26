@@ -36,5 +36,3 @@ $GLOBALS['TL_LANG']['tl_survey_question']['constraint_expression'] = ['Constrain
 
 $GLOBALS['TL_LANG']['tl_survey_question']['visibility_legend'] = 'Visibility';
 $GLOBALS['TL_LANG']['tl_survey_question']['published'] = ['Published', 'Make this question available in the survey.'];
-
-$GLOBALS['TL_LANG']['tl_survey_question']['published_survey'] = 'Editing published surveys is very restricted to avoid incompatible data records.';

@@ -160,14 +160,21 @@ services:
       - '@twig'
       - '@contao.framework'
 
-  mvo.survey.listener.datacontainer.section:
-    class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveySection
+  mvo.survey.listener.datacontainer.frozen_survey:
+    class: Mvo\ContaoSurvey\EventListener\DataContainer\FrozenSurvey
     tags:
       - { name: 'terminal42_service_annotation' }
     arguments:
       - '@mvo.survey.repository.survey'
-      - '@translator'
+      - '@mvo.survey.repository.section'
+      - '@request_stack'
       - '@contao.framework'
+      - '@translator'
+
+  mvo.survey.listener.datacontainer.section:
+    class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveySection
+    tags:
+      - { name: 'terminal42_service_annotation' }
 
   mvo.survey.listener.datacontainer.question:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveyQuestion
@@ -175,7 +182,6 @@ services:
       - { name: 'terminal42_service_annotation' }
     arguments:
       - '@mvo.survey.repository.question'
-      - '@mvo.survey.repository.section'
       - '@mvo.survey.registry'
       - '@translator'
       - '@twig'

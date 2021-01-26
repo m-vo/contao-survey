@@ -51,6 +51,10 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                         ],
                     ],
                 ],
+                'show' => [
+                    'href' => 'act=show',
+                    'icon' => 'show.svg',
+                ],
             ],
         ],
         'palettes' => [

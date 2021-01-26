@@ -17,4 +17,5 @@ $GLOBALS['TL_LANG']['tl_survey']['note_submission'] = ['Nachricht', 'Fügen Sie 
 $GLOBALS['TL_LANG']['tl_survey']['button_label'] = ['Button Bezeichner', 'Fügen Sie einen optionalen Button hinzu.'];
 $GLOBALS['TL_LANG']['tl_survey']['button_href'] = ['Button Ziel'];
 
-$GLOBALS['TL_LANG']['tl_survey']['frozenDisabled'] = 'Die Umfrage hat bestehende Ergebnisse und kann nicht eingefroren werden. Sie müssen diese löschen bevor die Umfrage eingefrieren können.';
+$GLOBALS['TL_LANG']['tl_survey']['frozen_disabled'] = 'Die Umfrage hat bestehende Ergebnisse und kann nicht eingefroren werden. Sie müssen diese löschen bevor die Umfrage eingefrieren können.';
+$GLOBALS['TL_LANG']['tl_survey']['frozen_survey'] = 'Das Bearbeiten und eingefrorenen Umfragen ist untersagt um die Konsistenz von Umfrageergebnissen zu gewährleisten.';

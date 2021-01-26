@@ -36,5 +36,3 @@ $GLOBALS['TL_LANG']['tl_survey_question']['constraint_expression'] = ['Constrain
 
 $GLOBALS['TL_LANG']['tl_survey_question']['visibility_legend'] = 'Sichtbarkeit';
 $GLOBALS['TL_LANG']['tl_survey_question']['published'] = ['Veröffentlicht', 'Diese Frage im Fragebogen anzeigen.'];
-
-$GLOBALS['TL_LANG']['tl_survey_question']['published_survey'] = 'Die Bearbeitung veröffentlichter Umfragen ist stark beschränkt zur Vermeidung von inkompatiblen Datensätzen.';

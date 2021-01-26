@@ -75,7 +75,7 @@ class Survey implements ServiceAnnotationInterface
 
         /** @var Adapter<Message> $message */
         $message = $this->framework->getAdapter(Message::class);
-        $message->addInfo($this->translator->trans('tl_survey.frozenDisabled', [], 'contao_tl_survey'));
+        $message->addInfo($this->translator->trans('tl_survey.frozen_disabled', [], 'contao_tl_survey'));
     }
 
     /**

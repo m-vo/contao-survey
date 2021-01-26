@@ -17,4 +17,5 @@ $GLOBALS['TL_LANG']['tl_survey']['note_submission'] = ['Submission note', 'Add a
 $GLOBALS['TL_LANG']['tl_survey']['button_label'] = ['Button label', 'Add an optional button.'];
 $GLOBALS['TL_LANG']['tl_survey']['button_href'] = ['Button target'];
 
-$GLOBALS['TL_LANG']['tl_survey']['frozenDisabled'] = 'Survey has existing records and cannot be frozen. You have to clear records before freez it to ensure consistent data.';
+$GLOBALS['TL_LANG']['tl_survey']['frozen_disabled'] = 'Survey has existing records and cannot be frozen. You have to clear records before freez it to ensure consistent data.';
+$GLOBALS['TL_LANG']['tl_survey']['frozen_survey'] = 'Editing frozen surveys is not allow to ensure consistent data records.';

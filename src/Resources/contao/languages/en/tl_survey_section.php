@@ -15,5 +15,3 @@ $GLOBALS['TL_LANG']['tl_survey_section']['grouped'] = ['Group questions', 'Show 
 $GLOBALS['TL_LANG']['tl_survey_section']['details_legend'] = 'Details';
 $GLOBALS['TL_LANG']['tl_survey_section']['title'] = ['Headline', 'Add an optional headline that will be displayed above the section.'];
 $GLOBALS['TL_LANG']['tl_survey_section']['description'] = ['Description', 'Add an optional description that will be displayed above the section.'];
-
-$GLOBALS['TL_LANG']['tl_survey_section']['published_survey'] = 'Editing published surveys is very restricted to avoid incompatible data records.';

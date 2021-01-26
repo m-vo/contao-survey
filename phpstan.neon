@@ -6,7 +6,3 @@ parameters:
     -
       message: '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)#'
       path: src/DependencyInjection/Configuration
-
-    -
-      message: '#Constant CURRENT_ID not found.#'
-      path: src/EventListener/DataContainer
