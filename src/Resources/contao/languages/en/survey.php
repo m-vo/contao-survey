@@ -12,3 +12,4 @@ $GLOBALS['TL_LANG']['survey_question_type']['order'] = 'Order';
 $GLOBALS['TL_LANG']['survey_question_type']['rating'] = 'Rating';
 $GLOBALS['TL_LANG']['survey_question_type']['select'] = 'Select';
 $GLOBALS['TL_LANG']['survey_question_type']['text'] = 'Text';
+$GLOBALS['TL_LANG']['survey_question_type']['longtext'] = 'Long text';

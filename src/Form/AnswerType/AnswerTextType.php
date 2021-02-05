@@ -12,7 +12,7 @@ namespace Mvo\ContaoSurvey\Form\AnswerType;
 use Mvo\ContaoSurvey\Entity\QuestionText;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
@@ -62,7 +62,7 @@ class AnswerTextType extends AbstractType
             'label' => 'Free text',
         ]);
 
-        $builder->add('text', TextareaType::class, $fieldOptions);
+        $builder->add('text', TextType::class, $fieldOptions);
     }
 
     public function getBlockPrefix()

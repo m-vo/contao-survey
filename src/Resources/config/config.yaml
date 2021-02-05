@@ -24,3 +24,8 @@ mvo_contao_survey:
       question: Mvo\ContaoSurvey\Entity\QuestionText
       answer: Mvo\ContaoSurvey\Entity\AnswerText
       form: Mvo\ContaoSurvey\Form\AnswerType\AnswerTextType
+
+    longtext:
+      question: Mvo\ContaoSurvey\Entity\QuestionLongText
+      answer: Mvo\ContaoSurvey\Entity\AnswerLongText
+      form: Mvo\ContaoSurvey\Form\AnswerType\AnswerLongTextType
