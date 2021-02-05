@@ -12,13 +12,23 @@ namespace Mvo\ContaoSurvey\Report;
 use League\Csv\Writer;
 use Mvo\ContaoSurvey\Entity\Survey;
 
-class CsvExporter
+class CsvExporter implements ExporterInterface
 {
     private DataCollector $dataCollector;
 
     public function __construct(DataCollector $dataCollector)
     {
         $this->dataCollector = $dataCollector;
+    }
+
+    public static function getExtension(): string
+    {
+        return 'csv';
+    }
+
+    public static function getMimeType(): string
+    {
+        return 'text/csv';
     }
 
     public function getContent(Survey $survey): string

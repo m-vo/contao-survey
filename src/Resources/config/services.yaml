@@ -102,6 +102,8 @@ services:
     class: Mvo\ContaoSurvey\Report\CsvExporter
     arguments:
       - '@mvo.survey.report.data_collector'
+    tags:
+      - { name: mvo.survey.report.exporter }
 
   # contao backend
   Mvo\ContaoSurvey\Controller\BackendHelper:
@@ -128,7 +130,7 @@ services:
     arguments:
       - '@security.helper'
       - '@mvo.survey.repository.survey'
-      - '@mvo.survey.report.csv_exporter'
+      - !tagged_locator { tag: 'mvo.survey.report.exporter', default_index_method: 'getExtension' }
       - '@contao.slug.generator'
     calls:
       - [setContainer, ['@service_container']]
