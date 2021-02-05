@@ -16,7 +16,7 @@ element:
 thanks:
   headline: 'Vielen Dank!'
 
-unpublished:
+frozen:
   headline: 'Umfrage nicht eingefroren'
   message: 'Nur eingefrorene Umfragen dürfen beantwortet werden.'
 
