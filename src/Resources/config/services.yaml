@@ -141,6 +141,7 @@ services:
       - { name: 'terminal42_service_annotation' }
     arguments:
       - '@mvo.survey.repository.question'
+      - '@doctrine.orm.entity_manager'
       - '@mvo.survey.registry'
       - '@translator'
       - '@twig'
