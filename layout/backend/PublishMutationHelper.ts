@@ -1,5 +1,5 @@
 export default class PublishMutationHelper {
-    private readonly sourceAttribute: string = 'data-haste-ajax-operation-value';
+    private readonly sourceAttribute: string = 'data-state';
     private readonly targetAttribute: string = 'data-js-record-source';
 
     private readonly container: HTMLElement;
@@ -46,7 +46,9 @@ export default class PublishMutationHelper {
                 }
 
                 // replace html
-                fetch(target.getAttribute(this.targetAttribute))
+                const state = source.getAttribute(this.sourceAttribute);
+
+                fetch(`${target.getAttribute(this.targetAttribute)}?state=${state}`)
                     .then(response => response.text())
                     .then(html => {
                         target.innerHTML = html;
