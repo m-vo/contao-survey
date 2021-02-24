@@ -103,6 +103,8 @@ services:
       - '@mvo.survey.repository.question'
       - '@mvo.survey.registry'
       - '@security.helper'
+    calls:
+      - [setContainer, ['@service_container']]
 
   Mvo\ContaoSurvey\Controller\ExportController:
     public: true
@@ -111,6 +113,8 @@ services:
       - '@mvo.survey.repository.survey'
       - '@mvo.survey.report.csv_exporter'
       - '@contao.slug.generator'
+    calls:
+      - [setContainer, ['@service_container']]
 
   Mvo\ContaoSurvey\Controller\SurveyFragment:
     arguments:
