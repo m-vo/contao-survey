@@ -126,6 +126,8 @@ services:
       - '%contao.csrf_token_name%'
     tags:
       - { name: 'terminal42_service_annotation' }
+    calls:
+      - [setContainer, ['@service_container']]
 
   mvo.survey.listener.datacontainer.survey:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\Survey
