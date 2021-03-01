@@ -10,8 +10,15 @@ declare(strict_types=1);
 namespace Mvo\ContaoSurvey\EventListener\DataContainer;
 
 use Contao\CoreBundle\Framework\ContaoFramework;
+use Contao\BackendUser;
+use Contao\Controller;
+use Contao\CoreBundle\Exception\AccessDeniedException;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
+use Contao\Image;
+use Contao\Input;
+use Contao\StringUtil;
+use Doctrine\ORM\EntityManagerInterface;
 use Mvo\ContaoSurvey\Entity\Question;
 use Mvo\ContaoSurvey\Registry;
 use Mvo\ContaoSurvey\Repository\QuestionRepository;
@@ -23,17 +30,17 @@ class SurveyQuestion implements ServiceAnnotationInterface
 {
     private QuestionRepository $questionRepository;
     private Registry           $registry;
+    private EntityManagerInterface $entityManager;
     private TranslatorInterface $translator;
     private Environment $twig;
-    private ContaoFramework $framework;
 
-    public function __construct(QuestionRepository $questionRepository, Registry $registry, TranslatorInterface $translator, Environment $twig, ContaoFramework $framework)
+    public function __construct(QuestionRepository $questionRepository, EntityManagerInterface $entityManager, Registry $registry, TranslatorInterface $translator, Environment $twig)
     {
         $this->questionRepository = $questionRepository;
+        $this->entityManager = $entityManager;
         $this->registry = $registry;
         $this->translator = $translator;
         $this->twig = $twig;
-        $this->framework = $framework;
     }
 
     /**
@@ -47,6 +54,46 @@ class SurveyQuestion implements ServiceAnnotationInterface
                 'id' => (int) $data['id'],
             ],
         );
+    }
+
+    /**
+     * @Callback(table="tl_survey_question", target="list.operations.toggle.button")
+     */
+    public function togglePublishedStateButton($row, $href, $label, $title, $icon, $attributes): string
+    {
+        if (null === ($tid = Input::get('tid'))) {
+            // Render the button
+            $href .= sprintf('&amp;tid=%s&amp;state=%s', $row['id'], $row['published']);
+
+            if (!$row['published']) {
+                $icon = 'invisible.svg';
+            }
+
+            return sprintf(
+                '<a href="%s" title="%s"%s>%s</a> ',
+                Controller::addToUrl($href),
+                StringUtil::specialchars($title),
+                $attributes,
+                Image::getHtml($icon, $label, sprintf('data-state="%d"', $row['published'] ? 1 : 0))
+            );
+        }
+
+        // Toggle published state
+        /** @var BackendUser $user */
+        $user = BackendUser::getInstance();
+
+        if (!$user->hasAccess('tl_survey_question::published', 'alexf')) {
+            throw new AccessDeniedException("Not enough permissions to publish/unpublish survey question ID {$tid}.");
+        }
+
+        if (null === ($question = $this->questionRepository->find($tid))) {
+            throw new \RuntimeException('Could not find question.');
+        }
+
+        $question->setPublished('1' === Input::get('state'));
+        $this->entityManager->flush();
+
+        return '';
     }
 
     /**

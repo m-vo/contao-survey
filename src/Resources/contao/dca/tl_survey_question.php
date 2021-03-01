@@ -36,20 +36,8 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                     'attributes' => 'onclick="if(!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\'))return false;Backend.getScrollOffset()"',
                 ],
                 'toggle' => [
-                    'attributes' => 'onclick="Backend.getScrollOffset();"',
-                    'haste_ajax_operation' => [
-                        'field' => 'published',
-                        'options' => [
-                            [
-                                'value' => '0',
-                                'icon' => 'invisible.svg',
-                            ],
-                            [
-                                'value' => '1',
-                                'icon' => 'visible.svg',
-                            ],
-                        ],
-                    ],
+                    'icon' => 'visible.svg',
+                    'attributes' => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
                 ],
                 'show' => [
                     'href' => 'act=show',

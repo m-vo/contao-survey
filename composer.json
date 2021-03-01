@@ -18,11 +18,10 @@
   "require": {
     "php": ">=7.4",
     "contao/core-bundle": "^4.10",
-    "symfony/twig-bundle": "^4.4",
-    "codefog/contao-haste": "^4.24",
-    "symfony/form": "^4.4",
-    "symfony/validator": "^4.4",
-    "sensio/framework-extra-bundle": "^5.5",
+    "symfony/twig-bundle": "^4.4|^5.0",
+    "symfony/form": "^4.4|^5.0",
+    "symfony/validator": "^4.4|^5.0",
+    "symfony/framework-bundle": "^4.4|^5.0",
     "league/csv": "^9.6"
   },
   "require-dev": {

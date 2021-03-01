@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Mvo\ContaoSurvey\Repository\SectionRepository")
  * @ORM\Table(name="tl_survey_section",
  *     uniqueConstraints={
- *          @ORM\UniqueConstraint(name="name_unique", columns={"pid","title"})
+ *          @ORM\UniqueConstraint(name="name_unique", columns={"pid","name"})
  *     }
  * )
  */

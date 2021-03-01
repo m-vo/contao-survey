@@ -144,6 +144,11 @@ abstract class Question extends DcaDefault
         return $this->published;
     }
 
+    public function setPublished(bool $published): void
+    {
+        $this->published = $published;
+    }
+
     public function getConstraintExpression(): ?string
     {
         return $this->constraintExpression;
