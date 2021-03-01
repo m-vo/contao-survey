@@ -21,12 +21,17 @@ class CsvExporter implements ExporterInterface
         $this->dataCollector = $dataCollector;
     }
 
-    public static function getExtension(): string
+    public static function getName(): string
     {
         return 'csv';
     }
 
-    public static function getMimeType(): string
+    public function getExtension(Survey $survey): string
+    {
+        return 'csv';
+    }
+
+    public function getMimeType(Survey $survey): string
     {
         return 'text/csv';
     }

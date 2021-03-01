@@ -66,13 +66,13 @@ class ExportController extends AbstractController
                 (new SlugOptions())->setValidChars('a-zA-z0-9')->setDelimiter('-')
             ),
             date('y-m-d'),
-            $exporter::getExtension()
+            $exporter->getExtension($survey)
         );
 
         $content = $exporter->getContent($survey);
 
         return new Response($content, Response::HTTP_OK, [
-            'Content-Type' => $exporter::getMimeType(),
+            'Content-Type' => $exporter->getMimeType($survey),
             'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ]);
     }

@@ -13,9 +13,11 @@ use Mvo\ContaoSurvey\Entity\Survey;
 
 interface ExporterInterface
 {
-    public static function getExtension(): string;
+    public static function getName(): string;
 
-    public static function getMimeType(): string;
+    public function getExtension(Survey $survey): string;
+
+    public function getMimeType(Survey $survey): string;
 
     public function getContent(Survey $survey): string;
 }

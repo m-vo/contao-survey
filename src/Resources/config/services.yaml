@@ -130,7 +130,7 @@ services:
     arguments:
       - '@security.helper'
       - '@mvo.survey.repository.survey'
-      - !tagged_locator { tag: 'mvo.survey.report.exporter', default_index_method: 'getExtension' }
+      - !tagged_locator { tag: 'mvo.survey.report.exporter', default_index_method: 'getName' }
       - '@contao.slug.generator'
     calls:
       - [setContainer, ['@service_container']]
