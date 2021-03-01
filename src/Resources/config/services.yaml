@@ -94,14 +94,6 @@ services:
     tags:
       - { name: 'form.type' }
 
-  mvo.survey.form.type.clear_records:
-    class: Mvo\ContaoSurvey\Form\ClearRecordsFormType
-    arguments:
-      - '@router'
-      - '@translator'
-    tags:
-      - { name: 'form.type' }
-
   # reports
   mvo.survey.report.data_collector:
     class: Mvo\ContaoSurvey\Report\DataCollector
@@ -125,7 +117,6 @@ services:
       - '@security.helper'
       - '@mvo.survey.repository.survey'
       - '@doctrine.orm.entity_manager'
-      - '@form.factory'
       - '@translator'
 
   Mvo\ContaoSurvey\Controller\ExportController:

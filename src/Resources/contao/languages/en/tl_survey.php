@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 $GLOBALS['TL_LANG']['tl_survey']['sections'] = 'Edit sections';
 $GLOBALS['TL_LANG']['tl_survey']['csv_export'] = 'Export results (csv)';
+$GLOBALS['TL_LANG']['tl_survey']['clearRecords'] = ['Clear all records', 'Clear all records of sruvey ID "%s"'];
 
 $GLOBALS['TL_LANG']['tl_survey']['title'] = ['Title', 'Enter the title of this survey.'];
 $GLOBALS['TL_LANG']['tl_survey']['frozen'] = ['Freeze survey', 'Only a frozen survey allow new records. Editing isn\'t possible after freezing a survey.'];

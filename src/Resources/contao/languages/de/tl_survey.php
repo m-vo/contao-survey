@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 $GLOBALS['TL_LANG']['tl_survey']['questions'] = 'Abschnitte bearbeiten';
 $GLOBALS['TL_LANG']['tl_survey']['csv_export'] = 'Ergebnisse exportieren (csv)';
+$GLOBALS['TL_LANG']['tl_survey']['clearRecords'] = ['Alle Ergebnisse löschen', 'Alle Ergebnisse der Umfrage ID "%s" löschen'];
 
 $GLOBALS['TL_LANG']['tl_survey']['title'] = ['Titel', 'Geben Sie den Titel dieser Umfrage ein.'];
 $GLOBALS['TL_LANG']['tl_survey']['frozen'] = ['Umfrage einfrieren', 'Nur eingefrorene Umfragen können beantwortet werden. Bearbeiten einer eingefrorenen Umfrage ist nicht möglich.'];

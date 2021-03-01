@@ -37,7 +37,11 @@ $GLOBALS['TL_DCA']['tl_survey'] =
                     'icon' => 'bundles/mvocontaosurvey/icons/csv.svg',
                     'route' => 'mvo_survey_export',
                 ],
-                'clearRecords' => [],
+                'clearRecords' => [
+                    'route' => 'mvo_survey_clear_records',
+                    'icon'  => 'deleteAll.svg',
+                    'attributes' => 'onclick="if(!confirm(\''.$GLOBALS['TL_LANG']['MSC']['surveyClearRecordsConfirm'].'\'))return false;Backend.getScrollOffset()"',
+                ],
                 'delete' => [
                     'href' => 'act=delete',
                     'icon' => 'delete.svg',

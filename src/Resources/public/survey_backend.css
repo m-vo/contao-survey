@@ -8,15 +8,3 @@
   .tl_listing_container .survey_answer_count {
     color: #999;
     margin-left: 0.3em; }
-
-.clear-records-form {
-  display: inline-block; }
-
-#clear_records_form_submit {
-  background: url("/system/themes/flexible/icons/deleteAll.svg") transparent;
-  width: 16px;
-  height: 16px;
-  text-indent: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  border: none; }

@@ -87,14 +87,4 @@ class Survey implements ServiceAnnotationInterface
 
         return sprintf('%s <span class="survey_answer_count">(%d)</span>', $label, $submittedRecordsCount);
     }
-
-    /**
-     * @Callback(table="tl_survey", target="list.operations.clearRecords.button")
-     */
-    public function clearRecordsForm(array $row): string
-    {
-        $form = $this->formFactory->create(ClearRecordsFormType::class, null, ['surveyId' => $row['id']]);
-
-        return $this->twig->render('@MvoContaoSurvey/Backend/survey_clear_records.html.twig', ['form' => $form->createView()]);
-    }
 }

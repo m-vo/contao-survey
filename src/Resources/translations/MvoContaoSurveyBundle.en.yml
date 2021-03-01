@@ -22,8 +22,3 @@ frozen:
 
 error:
   duplicate_question_name: 'The name "%name%" is already used in the survey.'
-
-clear_records:
-  submit_button: 'Clear all records'
-  confirm: 'Do you really want to delete all records of survey ID %surveyId%?'
-  success_message: 'Cleared all records of survey "%id%"'

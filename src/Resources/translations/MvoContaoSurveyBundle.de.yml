@@ -22,8 +22,3 @@ frozen:
 
 error:
   duplicate_question_name: 'Der Name "%name%" wird bereits in der Umfrage verwendet.'
-
-clear_records:
-  submit_button: 'Alle Ergebnisse löschen'
-  confirm: 'Möchten Sie wirklich alle Ergebnisse der Umfrage %surveyId% löschen?'
-  success_message: 'Alle Ergebnisse der Umfrage "%id%" wurden gelöscht.'
