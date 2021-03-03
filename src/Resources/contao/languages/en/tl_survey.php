@@ -17,6 +17,3 @@ $GLOBALS['TL_LANG']['tl_survey']['details_legend'] = 'Submission details';
 $GLOBALS['TL_LANG']['tl_survey']['note_submission'] = ['Submission note', 'Add a "thank you" message that will be shown after successful submission.'];
 $GLOBALS['TL_LANG']['tl_survey']['button_label'] = ['Button label', 'Add an optional button.'];
 $GLOBALS['TL_LANG']['tl_survey']['button_href'] = ['Button target'];
-
-$GLOBALS['TL_LANG']['tl_survey']['frozen_disabled'] = 'The survey contains records and cannot be frozen.';
-$GLOBALS['TL_LANG']['tl_survey']['frozen_survey'] = 'Frozen surveys cannot be edited to ensure consistent data records.';

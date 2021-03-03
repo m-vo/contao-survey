@@ -14,34 +14,26 @@ use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Contao\Input;
-use Contao\Message;
-use Doctrine\ORM\EntityManagerInterface;
 use Mvo\ContaoSurvey\Repository\RecordRepository;
 use Mvo\ContaoSurvey\Repository\SurveyRepository;
-use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Terminal42\ServiceAnnotationBundle\ServiceAnnotationInterface;
-use Twig\Environment;
 
-class Survey implements ServiceAnnotationInterface
+class Survey
 {
     private SurveyRepository $surveyRepository;
     private RecordRepository $recordRepository;
-    private EntityManagerInterface $entityManager;
-    private FormFactoryInterface $formFactory;
-    private Environment $twig;
     private ContaoFramework $framework;
     private TranslatorInterface $translator;
+    private Session $session;
 
-    public function __construct(SurveyRepository $surveyRepository, RecordRepository $recordRepository, EntityManagerInterface $entityManager, FormFactoryInterface $formFactory, TranslatorInterface $translator, Environment $twig, ContaoFramework $framework)
+    public function __construct(SurveyRepository $surveyRepository, RecordRepository $recordRepository, ContaoFramework $framework, TranslatorInterface $translator, Session $session)
     {
         $this->surveyRepository = $surveyRepository;
         $this->recordRepository = $recordRepository;
-        $this->entityManager = $entityManager;
-        $this->formFactory = $formFactory;
-        $this->twig = $twig;
         $this->framework = $framework;
         $this->translator = $translator;
+        $this->session = $session;
     }
 
     /**
@@ -70,11 +62,10 @@ class Survey implements ServiceAnnotationInterface
 
         $GLOBALS['TL_DCA']['tl_survey']['fields']['frozen']['eval']['disabled'] = true;
 
-        $this->framework->initialize();
-
-        /** @var Adapter<Message> $message */
-        $message = $this->framework->getAdapter(Message::class);
-        $message->addInfo($this->translator->trans('tl_survey.frozen_disabled', [], 'contao_tl_survey'));
+        $this->session->getFlashBag()->add(
+            'contao.BE.info',
+            $this->translator->trans('MSC.surveyFreezeDisabled', [], 'contao_default')
+        );
     }
 
     /**

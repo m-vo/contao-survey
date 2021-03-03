@@ -17,6 +17,3 @@ $GLOBALS['TL_LANG']['tl_survey']['details_legend'] = 'Details zur Danke-Seite';
 $GLOBALS['TL_LANG']['tl_survey']['note_submission'] = ['Nachricht', 'Fügen Sie eine "Danke"-Nachricht hinzu, die nach erfolgreichem Absenden angezeigt wird.'];
 $GLOBALS['TL_LANG']['tl_survey']['button_label'] = ['Button Bezeichner', 'Fügen Sie einen optionalen Button hinzu.'];
 $GLOBALS['TL_LANG']['tl_survey']['button_href'] = ['Button Ziel'];
-
-$GLOBALS['TL_LANG']['tl_survey']['frozen_disabled'] = 'Die Umfrage hat bestehende Ergebnisse und kann nicht eingefroren werden.';
-$GLOBALS['TL_LANG']['tl_survey']['frozen_survey'] = 'Eingefrorene Umfragen können nicht bearbeitet werden, um konsistente Umfrageergebnisse zu gewährleisten.';

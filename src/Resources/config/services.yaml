@@ -155,11 +155,9 @@ services:
     arguments:
       - '@mvo.survey.repository.survey'
       - '@mvo.survey.repository.record'
-      - '@doctrine.orm.entity_manager'
-      - '@form.factory'
-      - '@translator'
-      - '@twig'
       - '@contao.framework'
+      - '@translator'
+      - '@session'
 
   mvo.survey.listener.datacontainer.frozen_survey:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\FrozenSurvey
@@ -169,8 +167,8 @@ services:
       - '@mvo.survey.repository.survey'
       - '@mvo.survey.repository.section'
       - '@request_stack'
-      - '@contao.framework'
       - '@translator'
+      - '@session'
 
   mvo.survey.listener.datacontainer.section:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveySection
