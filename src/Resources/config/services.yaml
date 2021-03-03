@@ -58,7 +58,7 @@ services:
     class: Mvo\ContaoSurvey\EventListener\ClearSessionListener
     arguments:
       - '@mvo.survey.session_storage'
-      - 300
+      - '%mvo_survey.session_max_idle_time%'
     tags:
       - { name: 'kernel.event_listener', event: 'kernel.request', priority: -800 }
 

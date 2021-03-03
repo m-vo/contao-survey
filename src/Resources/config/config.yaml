@@ -1,4 +1,6 @@
 mvo_contao_survey:
+  session_max_idle_time: 600
+
   types:
     matrix:
       question: Mvo\ContaoSurvey\Entity\QuestionMatrix

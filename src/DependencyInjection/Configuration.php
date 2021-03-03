@@ -23,6 +23,10 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->getRootNode()
             ->children()
+                ->integerNode('session_max_idle_time')
+                    ->min(0)
+                    ->info('Set the number of seconds without interaction after which the survey session will be destroyed. Set to 0 for no limit.')
+                ->end()
                 ->arrayNode('types')
                     ->info('Define survey types to be registered.')
                     ->useAttributeAsKey('name')
