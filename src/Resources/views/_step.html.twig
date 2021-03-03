@@ -74,7 +74,7 @@
                 {{ form_widget(form.reset, {label: 'form.reset_all'|trans(), attr: {class: 'reset'}}) }}
             </div>
         {% endblock %}
-        <input type="hidden" name="REQUEST_TOKEN" value="{{ contao_csrf_token }}">
+        <input type="hidden" name="REQUEST_TOKEN" value="{{ '{{request_token}}' }}">
         {{ form_end(form) }}
     </section>
 {% endblock content %}

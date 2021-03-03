@@ -22,7 +22,6 @@ use Mvo\ContaoSurvey\Form\SurveyManagerFactory;
 use Mvo\ContaoSurvey\Repository\SurveyRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Csrf\CsrfTokenManager;
 
 /**
  * @ContentElement(category="includes")
@@ -33,17 +32,13 @@ class SurveyFragment extends AbstractContentElementController
     private SurveyManagerFactory $managerFactory;
     private ScopeMatcher $scopeMatcher;
     private EntityManager $entityManager;
-    private CsrfTokenManager $csrfTokenManager;
-    private string $csrfTokenName;
 
-    public function __construct(SurveyRepository $surveyRepository, SurveyManagerFactory $managerFactory, ScopeMatcher $scopeMatcher, EntityManager $entityManager, CsrfTokenManager $csrfTokenManager, string $csrfTokenName)
+    public function __construct(SurveyRepository $surveyRepository, SurveyManagerFactory $managerFactory, ScopeMatcher $scopeMatcher, EntityManager $entityManager)
     {
         $this->surveyRepository = $surveyRepository;
         $this->managerFactory = $managerFactory;
         $this->scopeMatcher = $scopeMatcher;
         $this->entityManager = $entityManager;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->csrfTokenName = $csrfTokenName;
     }
 
     protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
@@ -111,9 +106,6 @@ class SurveyFragment extends AbstractContentElementController
                 'section' => $currentStep->getSection(),
                 'mandatory' => $currentStep->isMandatory(),
             ],
-
-            // we cannot disable Contao's CSRF token protection for fragments, so we just pass the token
-            'contao_csrf_token' => $this->csrfTokenManager->getToken($this->csrfTokenName)->getValue(),
         ]);
     }
 
