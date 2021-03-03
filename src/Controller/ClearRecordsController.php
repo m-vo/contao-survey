@@ -37,7 +37,7 @@ class ClearRecordsController extends AbstractController
     }
 
     /**
-     * @Route("_mvo_survey/records/{id}",
+     * @Route("_mvo_survey/records/{id}/clear",
      *     name="mvo_survey_clear_records",
      *     defaults={
      *          "_scope" = "backend",

@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-class ExportController extends AbstractController
+class ExportRecordsController extends AbstractController
 {
     private Security $security;
     private SurveyRepository $surveyRepository;

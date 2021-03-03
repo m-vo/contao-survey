@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-class BackendHelper extends AbstractController
+class DisplayRecordsController extends AbstractController
 {
     private QuestionRepository $questionRepository;
     private Registry $registry;
@@ -32,28 +32,23 @@ class BackendHelper extends AbstractController
     }
 
     /**
-     * @Route("_mvo_survey/survey_record/{id}",
-     *     name="mvo_survey_question_record",
+     * @Route("_mvo_survey/question/{id}",
+     *     name="mvo_survey_question",
      *     defaults={
      *          "_scope" = "backend",
      *          "_token_check" = true,
      *     }
      * )
      */
-    public function surveyRecord(Request $request, int $id): Response
+    public function question(Request $request, int $id): Response
     {
         if (!$this->security->isGranted('ROLE_USER')) {
             throw $this->createAccessDeniedException();
         }
 
         $stateParameter = $request->get('state');
-        $state = null !== $stateParameter ? (bool) $stateParameter : null;
+        $overwriteState = null !== $stateParameter ? (bool) $stateParameter : null;
 
-        return $this->createSurveyRecordResponse($id, $state);
-    }
-
-    private function createSurveyRecordResponse(int $id, bool $overwriteState = null): Response
-    {
         /** @var Question|null $question */
         $question = $this->questionRepository->find($id);
 

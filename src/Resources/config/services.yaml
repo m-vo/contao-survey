@@ -106,7 +106,7 @@ services:
       - { name: mvo.survey.report.exporter }
 
   # contao backend
-  Mvo\ContaoSurvey\Controller\BackendHelper:
+  Mvo\ContaoSurvey\Controller\DisplayRecordsController:
     public: true
     arguments:
       - '@mvo.survey.repository.question'
@@ -125,7 +125,7 @@ services:
     calls:
       - [setContainer, ['@service_container']]
 
-  Mvo\ContaoSurvey\Controller\ExportController:
+  Mvo\ContaoSurvey\Controller\ExportRecordsController:
     public: true
     arguments:
       - '@security.helper'
