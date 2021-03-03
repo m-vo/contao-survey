@@ -14,7 +14,6 @@ use Ausi\SlugGenerator\SlugOptions;
 use Mvo\ContaoSurvey\Report\ExporterInterface;
 use Mvo\ContaoSurvey\Repository\SurveyRepository;
 use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -81,7 +80,7 @@ class ExportRecordsController extends AbstractController
     {
         try {
             $exporter = $this->exporterLocator->get($name);
-        } catch (NotFoundExceptionInterface $exception) {
+        } catch (\Throwable $exception) {
             throw new BadRequestHttpException(sprintf('Unsupported exporter  "%s".', $name), $exception);
         }
 

@@ -30,5 +30,12 @@
                 <file name="vendor/doctrine/orm/lib/Doctrine/ORM/EntityRepository.php"/>
             </errorLevel>
         </InvalidDocblock>
+        <!-- allow calling ContaoFramework methods -->
+        <InternalMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Contao\CoreBundle\Framework\ContaoFramework::initialize"/>
+                <referencedMethod name="Contao\CoreBundle\Framework\ContaoFramework::getAdapter"/>
+            </errorLevel>
+        </InternalMethod>
     </issueHandlers>
 </psalm>
