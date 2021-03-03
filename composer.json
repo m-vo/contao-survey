@@ -36,7 +36,7 @@
     "symfony/security-csrf": "^4.4|^5.0",
     "symfony/validator": "^4.4|^5.0",
     "symfony/framework-bundle": "^4.4|^5.0",
-    "twig/twig": "^2.0",
+    "twig/twig": "^2.0|^3.0",
     "league/csv": "^9.6",
     "psr/container": "^1.0.0"
   },
