@@ -17,11 +17,26 @@
   ],
   "require": {
     "php": ">=7.4",
+    "ausi/slug-generator": "^1.1",
     "contao/core-bundle": "^4.10",
+    "doctrine/collections": "^1.5",
+    "doctrine/doctrine-bundle": "^1.8 || ^2.0",
+    "doctrine/orm": "^2.6.3",
+    "doctrine/persistence": "^2.0",
+    "symfony/config": "^4.4|^5.0",
+    "symfony/translation-contracts": "^2.3",
     "symfony/twig-bundle": "^4.4|^5.0",
+    "symfony/dependency-injection": "^4.4|^5.0",
+    "symfony/expression-language": "^4.4|^5.0",
     "symfony/form": "^4.4|^5.0",
+    "symfony/http-kernel": "^4.4|^5.0",
+    "symfony/http-foundation": "^4.4|^5.0",
+    "symfony/options-resolver": "^4.4|^5.0",
+    "symfony/security-core": "^4.4|^5.0",
+    "symfony/security-csrf": "^4.4|^5.0",
     "symfony/validator": "^4.4|^5.0",
     "symfony/framework-bundle": "^4.4|^5.0",
+    "twig/twig": "^2.0|^3.0",
     "league/csv": "^9.6",
     "psr/container": "^1.0.0"
   },
@@ -50,6 +65,9 @@
     }
   },
   "scripts": {
+    "composer-require-checker": [
+      "vendor-bin/composer-require-checker/vendor/bin/composer-require-checker check --config-file=composer-require-checker.json"
+    ],
     "cs": [
       "vendor-bin/ecs/vendor/bin/ecs check src tests --config vendor-bin/ecs/config/default.php --fix --ansi"
     ],
@@ -60,6 +78,7 @@
       "vendor/bin/phpunit --colors=always"
     ],
     "chain": [
+      "@composer-require-checker",
       "@cs",
       "@psalm",
       "@tests"
