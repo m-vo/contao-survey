@@ -37,16 +37,16 @@ class ExportController extends AbstractController
     }
 
     /**
-     * @Route("_mvo_survey/export/{format}/{id}",
+     * @Route("_mvo_survey/export/{exporterName}/{id}",
      *     name="mvo_survey_export",
      *     defaults={
-     *          "format" = "csv",
+     *          "exporterName" = "csv",
      *          "_scope" = "backend",
      *          "_token_check" = true,
      *     }
      * )
      */
-    public function export(string $format, int $id): Response
+    public function export(string $exporterName, int $id): Response
     {
         if (!$this->security->isGranted('ROLE_USER')) {
             throw $this->createAccessDeniedException();
@@ -58,7 +58,7 @@ class ExportController extends AbstractController
             throw $this->createNotFoundException('Survey not found.');
         }
 
-        $exporter = $this->getExporter($format);
+        $exporter = $this->getExporter($exporterName);
         $filename = sprintf(
             '%s_%s.%s',
             $this->slugGenerator->generate(
@@ -77,16 +77,16 @@ class ExportController extends AbstractController
         ]);
     }
 
-    private function getExporter(string $format): ExporterInterface
+    private function getExporter(string $name): ExporterInterface
     {
         try {
-            $exporter = $this->exporterLocator->get($format);
+            $exporter = $this->exporterLocator->get($name);
         } catch (NotFoundExceptionInterface $exception) {
-            throw new BadRequestHttpException(sprintf('Unsupported export format "%s".', $format), $exception);
+            throw new BadRequestHttpException(sprintf('Unsupported exporter  "%s".', $name), $exception);
         }
 
         if (!$exporter instanceof ExporterInterface) {
-            throw new \RuntimeException(sprintf('Registered exporter of format "%s" is not an instance of "%s"', $format, ExporterInterface::class));
+            throw new \RuntimeException(sprintf('Registered exporter "%s" is not an instance of "%s"', $name, ExporterInterface::class));
         }
 
         return $exporter;
