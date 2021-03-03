@@ -32,6 +32,13 @@ services:
     tags:
       - { name: 'doctrine.repository_service' }
 
+  mvo.survey.repository.section:
+    class: Mvo\ContaoSurvey\Repository\SectionRepository
+    arguments:
+      - '@doctrine'
+    tags:
+      - { name: 'doctrine.repository_service' }
+
   # entity registration
   mvo.survey.listener.class_metadata:
     class: Mvo\ContaoSurvey\EventListener\ClassMetadataListener
@@ -106,6 +113,16 @@ services:
     calls:
       - [setContainer, ['@service_container']]
 
+  Mvo\ContaoSurvey\Controller\ClearRecordsController:
+    public: true
+    arguments:
+      - '@security.helper'
+      - '@mvo.survey.repository.survey'
+      - '@doctrine.orm.entity_manager'
+      - '@translator'
+    calls:
+      - [setContainer, ['@service_container']]
+
   Mvo\ContaoSurvey\Controller\ExportController:
     public: true
     arguments:
@@ -134,7 +151,24 @@ services:
     tags:
       - { name: 'terminal42_service_annotation' }
     arguments:
+      - '@mvo.survey.repository.survey'
       - '@mvo.survey.repository.record'
+      - '@doctrine.orm.entity_manager'
+      - '@form.factory'
+      - '@translator'
+      - '@twig'
+      - '@contao.framework'
+
+  mvo.survey.listener.datacontainer.frozen_survey:
+    class: Mvo\ContaoSurvey\EventListener\DataContainer\FrozenSurvey
+    tags:
+      - { name: 'terminal42_service_annotation' }
+    arguments:
+      - '@mvo.survey.repository.survey'
+      - '@mvo.survey.repository.section'
+      - '@request_stack'
+      - '@contao.framework'
+      - '@translator'
 
   mvo.survey.listener.datacontainer.section:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveySection

@@ -48,11 +48,16 @@ class Survey extends DcaDefault
     private Collection $sections;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mvo\ContaoSurvey\Entity\Record", mappedBy="survey")
+     * @ORM\OneToMany(targetEntity="Mvo\ContaoSurvey\Entity\Record", mappedBy="survey", orphanRemoval=true)
      *
      * @var Collection<Question>
      */
     private Collection $records;
+
+    /**
+     * @ORM\Column(name="frozen", type="boolean", options={"default": false})
+     */
+    private bool $frozen;
 
     public function __construct()
     {
@@ -121,5 +126,20 @@ class Survey extends DcaDefault
     public function getButtonLabel(): string
     {
         return $this->buttonLabel;
+    }
+
+    public function isFrozen(): bool
+    {
+        return $this->frozen;
+    }
+
+    public function clearRecords(): void
+    {
+        $this->records->clear();
+    }
+
+    public function hasRecords(): bool
+    {
+        return $this->records->count() > 0;
     }
 }

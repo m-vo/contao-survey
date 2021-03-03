@@ -39,6 +39,10 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                     'icon' => 'visible.svg',
                     'attributes' => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
                 ],
+                'show' => [
+                    'href' => 'act=show',
+                    'icon' => 'show.svg',
+                ],
             ],
         ],
         'palettes' => [

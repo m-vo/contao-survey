@@ -16,5 +16,9 @@ element:
 thanks:
   headline: 'Thanks!'
 
+frozen:
+  headline: 'Survey not frozen'
+  message: 'The survey is not frozen and therefore may not be submitted.'
+
 error:
   duplicate_question_name: 'The name "%name%" is already used in the survey.'

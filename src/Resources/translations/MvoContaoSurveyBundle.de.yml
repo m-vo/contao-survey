@@ -16,5 +16,9 @@ element:
 thanks:
   headline: 'Vielen Dank!'
 
+frozen:
+  headline: 'Umfrage nicht eingefroren'
+  message: 'Nur eingefrorene Umfragen dürfen beantwortet werden.'
+
 error:
   duplicate_question_name: 'Der Name "%name%" wird bereits in der Umfrage verwendet.'

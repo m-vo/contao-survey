@@ -68,6 +68,14 @@ class SurveyFragment extends AbstractContentElementController
             ]);
         }
 
+        if (!$survey->isFrozen()) {
+            return $this->render('@MvoContaoSurvey/_frozen.html.twig', [
+                'headline' => $model->survey_headline ?: $survey->getTitle(),
+                'survey' => $survey,
+                'class' => 'survey survey--frozen',
+            ]);
+        }
+
         $manager = $this->managerFactory->__invoke($survey);
         $manager->form->handleRequest($request);
 

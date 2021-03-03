@@ -39,6 +39,10 @@ $GLOBALS['TL_DCA']['tl_survey_section'] =
                     'icon' => 'delete.svg',
                     'attributes' => 'onclick="if(!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\'))return false;Backend.getScrollOffset()"',
                 ],
+                'show' => [
+                    'href' => 'act=show',
+                    'icon' => 'show.svg',
+                ],
             ],
         ],
         'palettes' => [

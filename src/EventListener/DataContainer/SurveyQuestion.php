@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\EventListener\DataContainer;
 
+use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\BackendUser;
 use Contao\Controller;
 use Contao\CoreBundle\Exception\AccessDeniedException;
@@ -28,8 +29,8 @@ use Twig\Environment;
 class SurveyQuestion implements ServiceAnnotationInterface
 {
     private QuestionRepository $questionRepository;
+    private Registry           $registry;
     private EntityManagerInterface $entityManager;
-    private Registry $registry;
     private TranslatorInterface $translator;
     private Environment $twig;
 
