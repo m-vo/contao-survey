@@ -63,7 +63,10 @@ class ClearRecordsController extends AbstractController
         $this->entityManager->persist($survey);
         $this->entityManager->flush();
 
-        $this->addFlash('contao.BE.info', $this->translator->trans('MSC.surveyClearRecordsSuccess', ['id' => $id], 'contao_default'));
+        $this->addFlash(
+            'contao.BE.info',
+            $this->translator->trans('MSC.surveyClearRecordsSuccess', ['title' => $survey->getTitle()], 'contao_default')
+        );
 
         return $this->redirectToRoute('contao_backend', ['do' => 'survey', 'ref' => $request->attributes->get('_contao_referer_id')]);
     }
