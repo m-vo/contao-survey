@@ -54,12 +54,21 @@ services:
       - 'mvo.survey'
       - '/'
 
+  mvo.survey.listener.clear_session:
+    class: Mvo\ContaoSurvey\EventListener\ClearSessionListener
+    arguments:
+      - '@mvo.survey.session_storage'
+      - 300
+    tags:
+      - { name: 'kernel.event_listener', event: 'kernel.request', priority: -800 }
+
   mvo.survey.form.manager_factory:
     class: Mvo\ContaoSurvey\Form\SurveyManagerFactory
     arguments:
       - '@form.factory'
       - '@mvo.survey.registry'
       - '@mvo.survey.session_storage'
+      - '@session'
 
   # form types
   mvo.survey.form.type.survey_step:
