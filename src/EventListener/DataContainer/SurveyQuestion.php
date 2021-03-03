@@ -22,10 +22,9 @@ use Mvo\ContaoSurvey\Entity\Question;
 use Mvo\ContaoSurvey\Registry;
 use Mvo\ContaoSurvey\Repository\QuestionRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Terminal42\ServiceAnnotationBundle\ServiceAnnotationInterface;
 use Twig\Environment;
 
-class SurveyQuestion implements ServiceAnnotationInterface
+class SurveyQuestion
 {
     private QuestionRepository $questionRepository;
     private Registry $registry;
