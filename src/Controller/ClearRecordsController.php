@@ -37,7 +37,7 @@ class ClearRecordsController extends AbstractController
     }
 
     /**
-     * @Route("_mvo_survey/records/{id}",
+     * @Route("_mvo_survey/records/{id}/clear",
      *     name="mvo_survey_clear_records",
      *     defaults={
      *          "_scope" = "backend",
@@ -63,7 +63,10 @@ class ClearRecordsController extends AbstractController
         $this->entityManager->persist($survey);
         $this->entityManager->flush();
 
-        $this->addFlash('contao.BE.info', $this->translator->trans('MSC.surveyClearRecordsSuccess', ['id' => $id], 'contao_default'));
+        $this->addFlash(
+            'contao.BE.info',
+            $this->translator->trans('MSC.surveyClearRecordsSuccess', ['title' => $survey->getTitle()], 'contao_default')
+        );
 
         return $this->redirectToRoute('contao_backend', ['do' => 'survey', 'ref' => $request->attributes->get('_contao_referer_id')]);
     }

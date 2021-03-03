@@ -9,15 +9,13 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\EventListener\DataContainer;
 
-use Contao\CoreBundle\Framework\Adapter;
-use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
-use Contao\Message;
 use Mvo\ContaoSurvey\Entity\Survey as SurveyEntity;
 use Mvo\ContaoSurvey\Repository\SectionRepository;
 use Mvo\ContaoSurvey\Repository\SurveyRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FrozenSurvey
@@ -25,15 +23,15 @@ class FrozenSurvey
     private SurveyRepository $surveyRepository;
     private SectionRepository $sectionRepository;
     private RequestStack $requestStack;
-    private ContaoFramework $framework;
     private TranslatorInterface $translator;
+    private Session $session;
 
-    public function __construct(SurveyRepository $surveyRepository, SectionRepository $sectionRepository, RequestStack $requestStack, ContaoFramework $framework, TranslatorInterface $translator)
+    public function __construct(SurveyRepository $surveyRepository, SectionRepository $sectionRepository, RequestStack $requestStack, TranslatorInterface $translator, Session $session)
     {
         $this->surveyRepository = $surveyRepository;
         $this->sectionRepository = $sectionRepository;
         $this->requestStack = $requestStack;
-        $this->framework = $framework;
+        $this->session = $session;
         $this->translator = $translator;
     }
 
@@ -83,10 +81,9 @@ class FrozenSurvey
             $GLOBALS['TL_DCA'][$table]['list']['operations']['delete']
         );
 
-        /** @var Adapter<Message> */
-        $message = $this->framework->getAdapter(Message::class);
-        $message->addInfo(
-            $this->translator->trans('tl_survey.frozen_survey', [], 'contao_tl_survey')
+        $this->session->getFlashBag()->add(
+            'contao.BE.info',
+            $this->translator->trans('MSC.surveyFrozen', [], 'contao_default')
         );
     }
 

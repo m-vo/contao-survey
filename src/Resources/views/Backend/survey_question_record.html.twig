@@ -1,4 +1,4 @@
-<div class="record" data-js-record-source="{{ path('mvo_survey_question_record', {id: question.id}) }}">
+<div class="record" data-js-record-source="{{ path('mvo_survey_question', {id: question.id}) }}">
     {% set class = 'cte_type ' ~ (question.published ? 'published' : 'unpublished') %}
 
     <div class="survey_question_type {{ class }}">
