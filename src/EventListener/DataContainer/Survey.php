@@ -16,7 +16,6 @@ use Contao\DataContainer;
 use Contao\Input;
 use Contao\Message;
 use Doctrine\ORM\EntityManagerInterface;
-use Mvo\ContaoSurvey\Form\ClearRecordsFormType;
 use Mvo\ContaoSurvey\Repository\RecordRepository;
 use Mvo\ContaoSurvey\Repository\SurveyRepository;
 use Symfony\Component\Form\FormFactoryInterface;

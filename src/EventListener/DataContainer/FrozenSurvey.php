@@ -23,7 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class FrozenSurvey
 {
     private SurveyRepository $surveyRepository;
-    private SectionRepository  $sectionRepository;
+    private SectionRepository $sectionRepository;
     private RequestStack $requestStack;
     private ContaoFramework $framework;
     private TranslatorInterface $translator;
