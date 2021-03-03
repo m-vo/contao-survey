@@ -120,6 +120,8 @@ services:
       - '@mvo.survey.repository.survey'
       - '@doctrine.orm.entity_manager'
       - '@translator'
+    calls:
+      - [setContainer, ['@service_container']]
 
   Mvo\ContaoSurvey\Controller\ExportController:
     public: true
