@@ -32,7 +32,7 @@ class AnswerMatrixType extends AbstractType
             'choices' => $question->getChoices(),
         ];
 
-        foreach ($question->getRows() as $label => $value) {
+        foreach ($question->getRows() as $value) {
             $builder->add('row_'.$value, ChoiceType::class, $fieldOptions);
         }
     }

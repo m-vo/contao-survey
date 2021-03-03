@@ -57,7 +57,7 @@ class Section extends DcaDefault
     /**
      * @ORM\OneToMany(targetEntity="Question", mappedBy="section")
      *
-     * @var Collection<Question>
+     * @var Collection<int, Question>
      */
     private Collection $questions;
 
@@ -77,7 +77,7 @@ class Section extends DcaDefault
     }
 
     /**
-     * @return Question[]
+     * @return array<Question>
      */
     public function getQuestions(): array
     {

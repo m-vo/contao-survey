@@ -7,6 +7,8 @@ declare(strict_types=1);
  * @license MIT
  */
 
+use Mvo\ContaoSurvey\Entity\QuestionText;
+
 $GLOBALS['TL_LANG']['tl_survey_question']['header_legend'] = 'Meta data';
 $GLOBALS['TL_LANG']['tl_survey_question']['question'] = ['Question / Title'];
 $GLOBALS['TL_LANG']['tl_survey_question']['name'] = ['Name', 'A unique field name that is used in reports and when defining dependencies.'];
@@ -28,8 +30,8 @@ $GLOBALS['TL_LANG']['tl_survey_question']['add_user_option'] = ['Add user option
 $GLOBALS['TL_LANG']['tl_survey_question']['user_option_label'] = ['User option label', 'Add an optional label to be displayed before the user option. To surround it use \'%\' as a placeholder for the input field.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['allow_multiple'] = ['Allow multiple', 'Allow to select multiple options.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['text_validation'] = ['Validation', 'Choose how to validate this input field.'];
-$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][\Mvo\ContaoSurvey\Entity\QuestionText::VALIDATION__NONE] = 'None';
-$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][\Mvo\ContaoSurvey\Entity\QuestionText::VALIDATION__AGE] = 'Age';
+$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][QuestionText::VALIDATION__NONE] = 'None';
+$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][QuestionText::VALIDATION__AGE] = 'Age';
 
 $GLOBALS['TL_LANG']['tl_survey_question']['expert_legend'] = 'Expert settings';
 $GLOBALS['TL_LANG']['tl_survey_question']['constraint_expression'] = ['Constraint expression', 'Add a criteria in form of a constraint expression.'];

@@ -36,7 +36,7 @@ abstract class Question extends DcaDefault
     /**
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
      *
-     * @var Collection<Answer>
+     * @var Collection<int, Answer>
      */
     private Collection $answers;
 

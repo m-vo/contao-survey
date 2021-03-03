@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\Entity;
 
-use function array_merge;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -43,14 +42,14 @@ class Survey extends DcaDefault
     /**
      * @ORM\OneToMany(targetEntity="Section", mappedBy="survey")
      *
-     * @var Collection<Section>
+     * @var Collection<int, Section>
      */
     private Collection $sections;
 
     /**
      * @ORM\OneToMany(targetEntity="Mvo\ContaoSurvey\Entity\Record", mappedBy="survey", orphanRemoval=true)
      *
-     * @var Collection<Question>
+     * @var Collection<int, Record>
      */
     private Collection $records;
 
@@ -66,7 +65,7 @@ class Survey extends DcaDefault
     }
 
     /**
-     * @return Section[]
+     * @return array<Section>
      */
     public function getSections(): array
     {
@@ -101,7 +100,7 @@ class Survey extends DcaDefault
     }
 
     /**
-     * @return Record[]
+     * @return array<Record>
      */
     public function getRecords(): array
     {

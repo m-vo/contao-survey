@@ -20,14 +20,14 @@ class DataCollector
         $questionsInOrder = $survey->getQuestions();
         $dataDefinitions = $this->getDataDefinitions($questionsInOrder);
 
-        /** @var string[] $headers */
+        /** @var array<string> $headers */
         $headers = $this->createHeaders($dataDefinitions);
 
         // add additional columns for running number (index) and date
         array_unshift($headers, '#', '@');
         $index = 1;
 
-        /** @var array<string[]> $rows */
+        /** @var array<array<string>> $rows */
         $rows = array_map(
             function (Record $record) use ($dataDefinitions, $questionsInOrder, &$index) {
                 $values = $this->formatValues(

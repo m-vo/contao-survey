@@ -15,9 +15,6 @@ use Mvo\ContaoSurvey\Entity\Question;
 
 /**
  * @method Question|null find($id, $lockMode = null, $lockVersion = null)
- * @method Question|null findOneBy(array $criteria, array $orderBy = null)
- * @method Question[]    findAll()
- * @method Question[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class QuestionRepository extends ServiceEntityRepository
 {
@@ -27,7 +24,7 @@ class QuestionRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Question[]
+     * @return array<Question>
      */
     public function findBefore(Question $question): array
     {
@@ -35,7 +32,8 @@ class QuestionRepository extends ServiceEntityRepository
             ->where('sq.sorting < :sorting')
             ->andWhere('sq.timestamp > 0')
             ->setParameter('sorting', $question->getSorting())
-            ->orderBy('sq.sorting');
+            ->orderBy('sq.sorting')
+        ;
 
         return $qb->getQuery()->execute();
     }
@@ -51,7 +49,8 @@ class QuestionRepository extends ServiceEntityRepository
             ->andWhere('sq.id != :questionId')
             ->setParameter('surveyId', $question->getSection()->getSurvey()->getId())
             ->setParameter('name', $name)
-            ->setParameter('questionId', $question->getId());
+            ->setParameter('questionId', $question->getId())
+        ;
 
         return $qb->getQuery()->getSingleScalarResult() > 0;
     }

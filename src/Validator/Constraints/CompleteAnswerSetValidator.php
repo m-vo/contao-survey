@@ -28,30 +28,30 @@ class CompleteAnswerSetValidator extends ConstraintValidator
         $this->constraintExpressionEvaluator = $constraintExpressionEvaluator;
     }
 
-    public function validate($answers, Constraint $constraint): void
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof CompleteAnswerSet) {
             throw new UnexpectedTypeException($constraint, CompleteAnswerSet::class);
         }
 
-        if (empty($answers)) {
+        if (empty($value)) {
             return;
         }
 
-        if ($answers instanceof ArrayCollection) {
-            $answers = $answers->toArray();
-        } elseif (!\is_array($answers)) {
-            throw new UnexpectedValueException($answers, 'array|ArrayCollection');
+        if ($value instanceof ArrayCollection) {
+            $value = $value->toArray();
+        } elseif (!\is_array($value)) {
+            throw new UnexpectedValueException($value, 'array|ArrayCollection');
         }
 
-        foreach ($answers as $answer) {
+        foreach ($value as $answer) {
             if (!$answer instanceof Answer) {
-                throw new UnexpectedValueException($answers, 'array of Entity\Answer');
+                throw new UnexpectedValueException($value, 'array of Entity\Answer');
             }
         }
 
-        $this->validateSurvey($answers);
-        $this->validateAnswers($answers);
+        $this->validateSurvey($value);
+        $this->validateAnswers($value);
     }
 
     private function validateSurvey(array $answers): void
@@ -61,7 +61,7 @@ class CompleteAnswerSetValidator extends ConstraintValidator
             $answers
         );
 
-        /** @var Survey[] $surveys */
+        /** @var array<Survey> $surveys */
         $surveys = array_unique(
             array_map(
                 static fn (Question $question) => $question->getSection()->getSurvey(),
@@ -72,7 +72,8 @@ class CompleteAnswerSetValidator extends ConstraintValidator
         if (1 !== \count($surveys)) {
             $this->context
                 ->buildViolation('Associated survey of related questions must match.')
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 
@@ -95,7 +96,8 @@ class CompleteAnswerSetValidator extends ConstraintValidator
         if (\count($availableQuestionIds) !== \count(array_unique($availableQuestionIds))) {
             $this->context
                 ->buildViolation('There cannot be multiple answers to a single question in the result set.')
-                ->addViolation();
+                ->addViolation()
+            ;
         }
 
         /** @var Question $question */
@@ -107,14 +109,16 @@ class CompleteAnswerSetValidator extends ConstraintValidator
             if (!$skip && !$available) {
                 $this->context
                     ->buildViolation("Answer to question '{$question->getName()}' must be in the result set.")
-                    ->addViolation();
+                    ->addViolation()
+                ;
             }
 
             // skipped but still in set
             if ($skip && $available) {
                 $this->context
                     ->buildViolation("Answer to skipped question '{$question->getName()}' cannot be in the result set.")
-                    ->addViolation();
+                    ->addViolation()
+                ;
             }
         }
 
@@ -122,7 +126,8 @@ class CompleteAnswerSetValidator extends ConstraintValidator
         if (!empty(array_diff($availableQuestionIds, $surveyQuestionIds))) {
             $this->context
                 ->buildViolation('Additional answers cannot be in the result set.')
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

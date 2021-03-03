@@ -9,6 +9,9 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey;
 
+use Mvo\ContaoSurvey\Entity\Answer;
+use Mvo\ContaoSurvey\Entity\Question;
+
 class Registry
 {
     private array $types = [];
@@ -37,7 +40,7 @@ class Registry
 
     // todo: simplify + refactor methods for code reuse
 
-    public function getFormTypeClassForAnswer(Entity\Answer $answer): string
+    public function getFormTypeClassForAnswer(Answer $answer): string
     {
         foreach ($this->answerClasses as $index => $class) {
             if (!is_a($answer, $class)) {
@@ -50,7 +53,7 @@ class Registry
         throw new \InvalidArgumentException('Class of given answer is not a registered survey type.');
     }
 
-    public function getAnswerTypeFromQuestion(Entity\Question $question): string
+    public function getAnswerTypeFromQuestion(Question $question): string
     {
         foreach ($this->questionClasses as $index => $class) {
             if (!is_a($question, $class)) {
@@ -63,7 +66,7 @@ class Registry
         throw new \InvalidArgumentException('Class of given question is not a registered survey type.');
     }
 
-    public function getTypeForQuestion(Entity\Question $question)
+    public function getTypeForQuestion(Question $question)
     {
         foreach ($this->questionClasses as $index => $class) {
             if (!is_a($question, $class)) {
@@ -79,16 +82,12 @@ class Registry
     public function getQuestionClassMapping(): array
     {
         /** @var array $mapping */
-        $mapping = array_combine($this->types, $this->questionClasses);
-
-        return $mapping;
+        return array_combine($this->types, $this->questionClasses);
     }
 
     public function getAnswerClassMapping(): array
     {
         /** @var array $mapping */
-        $mapping = array_combine($this->types, $this->answerClasses);
-
-        return $mapping;
+        return array_combine($this->types, $this->answerClasses);
     }
 }

@@ -19,7 +19,8 @@ class Parser
     {
         $rootNode = (new ExpressionLanguage())
             ->parse($expression, $fields)
-            ->getNodes();
+            ->getNodes()
+        ;
 
         return $this->getFields($rootNode);
     }

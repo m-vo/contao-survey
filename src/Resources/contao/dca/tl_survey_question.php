@@ -7,6 +7,8 @@ declare(strict_types=1);
  * @license MIT
  */
 
+use Mvo\ContaoSurvey\Entity\QuestionText;
+
 $GLOBALS['TL_DCA']['tl_survey_question'] =
     [
         'config' => [
@@ -184,8 +186,8 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                 'inputType' => 'select',
                 'reference' => &$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'],
                 'options' => [
-                    \Mvo\ContaoSurvey\Entity\QuestionText::VALIDATION__NONE,
-                    \Mvo\ContaoSurvey\Entity\QuestionText::VALIDATION__AGE,
+                    QuestionText::VALIDATION__NONE,
+                    QuestionText::VALIDATION__AGE,
                 ],
                 'eval' => [
                     'tl_class' => 'w50',

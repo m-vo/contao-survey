@@ -19,10 +19,14 @@ class DataContainer
 
     private ?string $value = null;
 
-    /** @var array<int, string> */
+    /**
+     * @var array<int, string>
+     */
     private array $optionLabelsById = [];
 
-    /** @var array<int, bool|string|null> */
+    /**
+     * @var array<int, bool|string|null>
+     */
     private array $optionValuesById = [];
 
     public function __construct(string $label)
