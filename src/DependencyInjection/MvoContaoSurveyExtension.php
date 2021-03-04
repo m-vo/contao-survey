@@ -32,10 +32,10 @@ class MvoContaoSurveyExtension extends Extension
         $container->setParameter('mvo_survey.session_max_idle_time', $config['session_max_idle_time']);
 
         // register configured survey types
-        foreach ($config['types'] as $key => $item) {
+        foreach ($config['types'] as $item) {
             $container
                 ->getDefinition('mvo.survey.registry')
-                ->addMethodCall('add', [$key, $item['question'], $item['answer'], $item['form']])
+                ->addMethodCall('add', [$item['question']::getType(), $item['question'], $item['answer'], $item['form']])
             ;
         }
     }

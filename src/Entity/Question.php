@@ -27,6 +27,8 @@ use Mvo\ContaoSurvey\Report\DataContainer;
  */
 abstract class Question extends DcaDefault
 {
+    public const TYPE = null;
+
     /**
      * @ORM\ManyToOne(targetEntity="Section", inversedBy="questions")
      * @ORM\JoinColumn(name="pid", referencedColumnName="id", onDelete="CASCADE", nullable=true)
@@ -88,6 +90,10 @@ abstract class Question extends DcaDefault
     public function __construct()
     {
         $this->answers = new ArrayCollection();
+
+        if (!\is_string(static::TYPE)) {
+            throw new \RuntimeException('Type constant has to be defined as a string');
+        }
     }
 
     public function __toString(): string
@@ -103,6 +109,11 @@ abstract class Question extends DcaDefault
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public static function getType(): string
+    {
+        return static::TYPE;
     }
 
     public function getSorting(): int

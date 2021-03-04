@@ -17,6 +17,8 @@ use Mvo\ContaoSurvey\Report\DataContainer;
  */
 class QuestionRating extends Question
 {
+    public const TYPE = 'rating';
+
     /**
      * @ORM\Column(name="rating_range", type="integer", options={"unsigned": true})
      */

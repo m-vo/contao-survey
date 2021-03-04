@@ -18,6 +18,8 @@ use Mvo\ContaoSurvey\Report\DataContainer;
  */
 class QuestionMatrix extends Question
 {
+    public const TYPE = 'matrix';
+
     /**
      * @ORM\Column(name="matrix_columns", type="blob", length=256, nullable=true)
      *

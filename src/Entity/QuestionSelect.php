@@ -18,6 +18,7 @@ use Mvo\ContaoSurvey\Report\DataContainer;
  */
 class QuestionSelect extends Question
 {
+    public const TYPE = 'select';
     public const USER_OPTION_VALUE = -1;
 
     /**

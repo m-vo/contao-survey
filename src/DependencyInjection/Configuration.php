@@ -29,7 +29,6 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('types')
                     ->info('Define survey types to be registered.')
-                    ->useAttributeAsKey('name')
                     ->arrayPrototype()
                         ->children()
                             ->scalarNode('question')

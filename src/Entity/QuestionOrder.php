@@ -18,6 +18,8 @@ use Mvo\ContaoSurvey\Report\DataContainer;
  */
 class QuestionOrder extends Question
 {
+    public const TYPE = 'order';
+
     /**
      * @ORM\Column(name="options", type="blob", length=256, nullable=true)
      *

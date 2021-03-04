@@ -17,6 +17,8 @@ use Mvo\ContaoSurvey\Report\DataContainer;
  */
 class QuestionLongText extends Question
 {
+    public const TYPE = 'longtext';
+
     protected function defineData(DataContainer $container): void
     {
         $container->defineValue(DataContainer::EMPTY_LABEL);

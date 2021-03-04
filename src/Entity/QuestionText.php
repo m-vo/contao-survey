@@ -17,6 +17,7 @@ use Mvo\ContaoSurvey\Report\DataContainer;
  */
 class QuestionText extends Question
 {
+    public const TYPE = 'text';
     public const VALIDATION__NONE = 0;
     public const VALIDATION__AGE = 1;
 
