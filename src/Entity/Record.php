@@ -35,6 +35,8 @@ class Record
     /**
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="record", cascade={"persist"})
      * @CompleteAnswerSet()
+     *
+     * @var Collection<int, Answer>
      */
     private Collection $answers;
 
@@ -73,5 +75,16 @@ class Record
     public function getAnswers(): array
     {
         return $this->answers->toArray();
+    }
+
+    public function getAnswerOfQuestion(Question $question): ?Answer
+    {
+        foreach ($this->getAnswers() as $answer) {
+            if ($answer->getQuestion() === $question) {
+                return $answer;
+            }
+        }
+
+        return null;
     }
 }
