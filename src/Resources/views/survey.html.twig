@@ -1,8 +1,9 @@
-<div class="{{ class }}">
-    <h2>
-        {%- block headline %}
-            {{- headline -}}
-        {% endblock -%}
-    </h2>
+<div class="{% block wrapper_classes %}{{ class }}{% endblock %}">
+    {% if headline %}
+        <h2 class="{% block headline_classes %}{% endblock %}">
+            {%- block headline %}{{ headline }}{% endblock -%}
+        </h2>
+    {% endif %}
+
     {% block content %}{% endblock %}
 </div>

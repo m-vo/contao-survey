@@ -72,16 +72,11 @@ class QuestionSelect extends Question
 
     public function getUserOptionLabels(): array
     {
-        if (empty($this->userOptionLabel)) {
-            return [null, null];
-        }
+        $parts = array_map('trim', explode('%', $this->userOptionLabel, 2));
 
-        [$left, $right] = explode('%', $this->userOptionLabel, 2);
-
-        return array_map(
-            static fn ($v) => null !== $v ? trim($v) : null,
-            [$left, $right]
-        );
+        return [
+            $parts[0], $parts[1] ?? null,
+        ];
     }
 
     protected function defineData(DataContainer $container): void

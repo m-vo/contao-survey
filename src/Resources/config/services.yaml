@@ -150,6 +150,7 @@ services:
       - '@mvo.survey.form.manager_factory'
       - '@contao.routing.scope_matcher'
       - '@doctrine.orm.entity_manager'
+      - '@mvo.survey.registry'
     tags:
       - { name: 'terminal42_service_annotation' }
     calls:

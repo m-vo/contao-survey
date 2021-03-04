@@ -1,0 +1,10 @@
+{% extends '@MvoContaoSurvey/Form/Question.html.twig' %}
+
+{% block form_row %}
+    <div class="survey_answer survey_answer--text">
+        {% set text_form = form.children|first %}
+        {{ form_errors(text_form) }}
+        {{ form_label(text_form) }}
+        {{ form_widget(text_form) }}
+    </div>
+{%- endblock -%}

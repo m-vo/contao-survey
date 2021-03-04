@@ -2,7 +2,7 @@
 {% trans_default_domain 'MvoContaoSurveyBundle' %}
 
 {% block content %}
-    <h3>{{ 'frozen.headline'|trans() }}</h3>
+    <h3 class="{% block sub_headline_classes %}{% endblock %}">{{ 'frozen.headline'|trans() }}</h3>
 
-    <p>{{ 'frozen.message'|trans() }}</p>
+    <p class="{% block description_classes %}{% endblock %}">{{ 'frozen.message'|trans() }}</p>
 {% endblock %}

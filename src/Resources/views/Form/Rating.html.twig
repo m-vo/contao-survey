@@ -1,0 +1,8 @@
+{% extends '@MvoContaoSurvey/Form/Question.html.twig' %}
+
+{% block form_row %}
+    <div class="survey_answer survey_answer--rating">
+        {# todo: nullable star rating #}
+        {{ form_row(form) }}
+    </div>
+{%- endblock -%}

@@ -1,0 +1,12 @@
+{% trans_default_domain 'MvoContaoSurveyBundle' %}
+{% use "form_div_layout.html.twig" %}
+
+{# Label #}
+{%- block form_label -%}
+    {% include '@MvoContaoSurvey/Form/Theme/Label.html.twig' %}
+{%- endblock -%}
+
+{# Errors #}
+{%- block form_errors -%}
+    {% include '@MvoContaoSurvey/Form/Theme/Errors.html.twig' %}
+{%- endblock -%}

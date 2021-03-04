@@ -1,0 +1,40 @@
+{% trans_default_domain 'MvoContaoSurveyBundle' %}
+{% extends '@MvoContaoSurvey/Form/Question.html.twig' %}
+
+{% block form_row %}
+    <div class="survey_answer survey_answer--matrix" x-data>
+        <table>
+            <thead>
+            <tr>
+                <td><span class="note_scroll hidden">{{ 'element.scroll_note'|trans() }}</span></td>
+                {% for option in form.vars.matrix_columns %}
+                    <td class="option" data-option="{{ loop.index0 }}"
+                        @click="$el.querySelectorAll('[data-option=\'{{ loop.index0 }}\'] input').forEach(i => {i.checked = true})">
+                        {{ option|raw }}
+                    </td>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in form.children %}
+                {% set error = row.vars.errors|length > 0 %}
+                <tr {% if error %} class="error"{% endif %}>
+                    <th>
+                        {%- if error -%}
+                            {{- form_errors(row) -}}
+                        {%- endif -%}
+                        {{- form.vars.matrix_rows[loop.index0]|raw -}}
+                    </th>
+                    {% set row_index = loop.index0 %}
+                    {% for column in row.children %}
+                        <td data-option="{{ loop.index0 }}"
+                            @click="const target = $event.target.querySelector('input'); if(target){target.checked = true}">
+                            {{- form_widget(column) -}}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{%- endblock -%}

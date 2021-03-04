@@ -19,6 +19,7 @@ use Mvo\ContaoSurvey\Entity\Record;
 use Mvo\ContaoSurvey\Entity\Survey;
 use Mvo\ContaoSurvey\Form\SurveyManager;
 use Mvo\ContaoSurvey\Form\SurveyManagerFactory;
+use Mvo\ContaoSurvey\Registry;
 use Mvo\ContaoSurvey\Repository\SurveyRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,20 +33,19 @@ class SurveyFragment extends AbstractContentElementController
     private SurveyManagerFactory $managerFactory;
     private ScopeMatcher $scopeMatcher;
     private EntityManager $entityManager;
+    private Registry $registry;
 
-    public function __construct(SurveyRepository $surveyRepository, SurveyManagerFactory $managerFactory, ScopeMatcher $scopeMatcher, EntityManager $entityManager)
+    public function __construct(SurveyRepository $surveyRepository, SurveyManagerFactory $managerFactory, ScopeMatcher $scopeMatcher, EntityManager $entityManager, Registry $registry)
     {
         $this->surveyRepository = $surveyRepository;
         $this->managerFactory = $managerFactory;
         $this->scopeMatcher = $scopeMatcher;
         $this->entityManager = $entityManager;
+        $this->registry = $registry;
     }
 
     protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
     {
-        // load form helper asset
-        $GLOBALS['TL_JAVASCRIPT']['like_widget'] = 'bundles/mvocontaosurvey/survey_frontend.js';
-
         /** @var Survey|null $survey */
         $survey = $this->surveyRepository->find((int) $model->survey);
 
@@ -106,6 +106,9 @@ class SurveyFragment extends AbstractContentElementController
                 'section' => $currentStep->getSection(),
                 'mandatory' => $currentStep->isMandatory(),
             ],
+
+            // meta
+            'registry' => $this->registry,
         ]);
     }
 
