@@ -29,9 +29,6 @@ $GLOBALS['TL_LANG']['tl_survey_question']['rating_range'] = ['Rating Bereich', '
 $GLOBALS['TL_LANG']['tl_survey_question']['add_user_option'] = ['Benutzer-Option hinzufügen', 'Der Benutzer kann selbst eine Option hinzufügen.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['user_option_label'] = ['Bezeichner der Benutzer-Option', 'Fügen Sie der Benutzer-Option einen optionalen Bezeichner hinzu. Zum Umschließen kann \'%\' als Platzhalter für das Eingabefeld verwendet werden.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['allow_multiple'] = ['Mehrfachauswahl zulassen', 'Es können mehrere Optionen gewählt werden.'];
-$GLOBALS['TL_LANG']['tl_survey_question']['text_validation'] = ['Validierung', 'Wählen Sie wie die Eingabe validiert werden soll.'];
-$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][QuestionText::VALIDATION__NONE] = 'Keine';
-$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][QuestionText::VALIDATION__AGE] = 'Alter';
 
 $GLOBALS['TL_LANG']['tl_survey_question']['expert_legend'] = 'Experten-Einstellungen';
 $GLOBALS['TL_LANG']['tl_survey_question']['constraint_expression'] = ['Constraint Expression', 'Fügen Sie ein Anzeigekriterium in Form einer Expression hinzu.'];

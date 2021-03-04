@@ -78,6 +78,11 @@ services:
     tags:
       - { name: 'form.type' }
 
+  mvo.survey.form.type.age:
+    class: Mvo\ContaoSurvey\Form\AnswerType\AnswerAgeType
+    tags:
+      - { name: 'form.type' }
+
   mvo.survey.form.type.matrix:
     class: Mvo\ContaoSurvey\Form\AnswerType\AnswerMatrixType
     tags:

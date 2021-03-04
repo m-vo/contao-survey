@@ -9,13 +9,20 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\Entity;
 
+/*
+ * @author  Moritz Vondano
+ * @license MIT
+ */
+
+namespace Mvo\ContaoSurvey\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Mvo\ContaoSurvey\Report\DataContainer;
 
 /**
  * @ORM\Entity()
  */
-class QuestionText extends Question
+class QuestionAge extends Question
 {
     protected function defineData(DataContainer $container): void
     {
