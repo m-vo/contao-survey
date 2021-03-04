@@ -62,6 +62,9 @@ class SurveyStepFormType extends AbstractType
         $resolver->setDefaults([
             'first_step' => false,
             'last_step' => false,
+
+            // We're already using Contao's CSRF token mechanism
+            'csrf_protection' => false,
         ]);
     }
 }

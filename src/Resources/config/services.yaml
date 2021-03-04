@@ -54,12 +54,21 @@ services:
       - 'mvo.survey'
       - '/'
 
+  mvo.survey.listener.clear_session:
+    class: Mvo\ContaoSurvey\EventListener\ClearSessionListener
+    arguments:
+      - '@mvo.survey.session_storage'
+      - '%mvo_survey.session_max_idle_time%'
+    tags:
+      - { name: 'kernel.event_listener', event: 'kernel.request', priority: -800 }
+
   mvo.survey.form.manager_factory:
     class: Mvo\ContaoSurvey\Form\SurveyManagerFactory
     arguments:
       - '@form.factory'
       - '@mvo.survey.registry'
       - '@mvo.survey.session_storage'
+      - '@session'
 
   # form types
   mvo.survey.form.type.survey_step:
@@ -141,8 +150,6 @@ services:
       - '@mvo.survey.form.manager_factory'
       - '@contao.routing.scope_matcher'
       - '@doctrine.orm.entity_manager'
-      - '@contao.csrf.token_manager'
-      - '%contao.csrf_token_name%'
     tags:
       - { name: 'terminal42_service_annotation' }
     calls:

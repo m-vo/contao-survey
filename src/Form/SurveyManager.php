@@ -12,10 +12,12 @@ namespace Mvo\ContaoSurvey\Form;
 use Mvo\ContaoSurvey\Entity\Answer;
 use Mvo\ContaoSurvey\Entity\Question;
 use Mvo\ContaoSurvey\Entity\Survey;
+use Mvo\ContaoSurvey\EventListener\ClearSessionListener;
 use Mvo\ContaoSurvey\Registry;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SurveyManager
 {
@@ -26,6 +28,7 @@ class SurveyManager
     private FormFactoryInterface $formFactory;
     private Registry $registry;
     private NamespacedAttributeBag $storage;
+    private SessionInterface $session;
 
     private Survey $survey;
 
@@ -42,11 +45,12 @@ class SurveyManager
     private int $currentStep;
     private int $totalSteps;
 
-    public function __construct(Survey $survey, FormFactoryInterface $formFactory, Registry $registry, NamespacedAttributeBag $storage)
+    public function __construct(Survey $survey, FormFactoryInterface $formFactory, Registry $registry, NamespacedAttributeBag $storage, SessionInterface $session)
     {
         $this->formFactory = $formFactory;
         $this->registry = $registry;
         $this->storage = $storage;
+        $this->session = $session;
 
         $this->bind($survey);
     }
@@ -183,6 +187,8 @@ class SurveyManager
 
     private function bind(Survey $survey): void
     {
+        $this->initStorage();
+
         $this->survey = $survey;
         $this->buildSteps();
 
@@ -237,6 +243,13 @@ class SurveyManager
         return $answer;
     }
 
+    private function initStorage(): void
+    {
+        $this->session->start();
+
+        $this->storage->set(ClearSessionListener::SESSION_LAST_USED_KEY, time());
+    }
+
     /**
      * Retrieve step from storage, fallback to '0'.
      */
@@ -289,8 +302,6 @@ class SurveyManager
     private function resetStorage(): void
     {
         $this->storage->remove((string) $this->survey->getId());
-
-        // todo: should we completely clear the storage after a certain time?
     }
 
     private function checkQuestionSetUntouched(): bool
