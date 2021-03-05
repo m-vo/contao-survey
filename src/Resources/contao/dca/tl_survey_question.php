@@ -65,7 +65,6 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                 'inputType' => 'text',
                 'search' => true,
                 'eval' => [
-                    'mandatory' => true,
                     'nospace' => true,
                     'rgxp' => 'fieldname',
                     'maxlength' => 50,

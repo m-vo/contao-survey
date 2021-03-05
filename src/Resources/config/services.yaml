@@ -198,3 +198,9 @@ services:
       - '@mvo.survey.registry'
       - '@translator'
       - '@twig'
+      - '@mvo.survey.slug_generator'
+
+  mvo.survey.slug_generator:
+    class: Ausi\SlugGenerator\SlugGenerator
+    arguments:
+      - '%mvo_survey.slug_generator_options%'
