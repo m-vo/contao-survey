@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\EventListener\DataContainer;
 
+use Ausi\SlugGenerator\SlugGeneratorInterface;
 use Contao\BackendUser;
 use Contao\Controller;
 use Contao\CoreBundle\Exception\AccessDeniedException;
@@ -31,14 +32,16 @@ class SurveyQuestion
     private EntityManagerInterface $entityManager;
     private TranslatorInterface $translator;
     private Environment $twig;
+    private SlugGeneratorInterface $slugGenerator;
 
-    public function __construct(QuestionRepository $questionRepository, EntityManagerInterface $entityManager, Registry $registry, TranslatorInterface $translator, Environment $twig)
+    public function __construct(QuestionRepository $questionRepository, EntityManagerInterface $entityManager, Registry $registry, TranslatorInterface $translator, Environment $twig, SlugGeneratorInterface $slugGenerator)
     {
         $this->questionRepository = $questionRepository;
         $this->entityManager = $entityManager;
         $this->registry = $registry;
         $this->translator = $translator;
         $this->twig = $twig;
+        $this->slugGenerator = $slugGenerator;
     }
 
     /**
@@ -130,7 +133,32 @@ class SurveyQuestion
     /**
      * @Callback(table="tl_survey_question", target="fields.name.save")
      */
-    public function validateName(string $name, DataContainer $dc): string
+    public function generateAndValidateName(string $name, DataContainer $dc): string
+    {
+        if ('' === $name) {
+            return $this->generateName($dc);
+        }
+
+        return $this->validateName($name, $dc);
+    }
+
+    private function generateName(DataContainer $dc): string
+    {
+        $question = $this->getQuestion((int) $dc->id);
+        $name = $this->slugGenerator->generate($question->getQuestion());
+        $base = $name;
+        $duplicateCheck = function (string $name) use ($question): bool {
+            return $this->questionRepository->isNameAlreadyUsed($name, $question);
+        };
+
+        for ($count = 2; $duplicateCheck($name); ++$count) {
+            $name = $base.'-'.$count;
+        }
+
+        return $name;
+    }
+
+    private function validateName(string $name, DataContainer $dc): string
     {
         $question = $this->getQuestion((int) $dc->id);
 

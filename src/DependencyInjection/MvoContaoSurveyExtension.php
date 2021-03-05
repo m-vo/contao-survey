@@ -30,6 +30,7 @@ class MvoContaoSurveyExtension extends Extension
 
         // set parameters
         $container->setParameter('mvo_survey.session_max_idle_time', $config['session_max_idle_time']);
+        $container->setParameter('mvo_survey.slug_generator_options', $config['slug_generator']);
 
         // register configured survey types
         foreach ($config['types'] as $key => $item) {
