@@ -1,0 +1,50 @@
+{% trans_default_domain 'MvoContaoSurveyBundle' %}
+{% form_theme current_step.form '@MvoContaoSurvey/Form/Theme/default_theme.html.twig' %}
+{# @var question \Mvo\ContaoSurvey\Entity\Question #}
+
+{% block header %}
+    <div class="{% block header_classes %}{% endblock %}">
+        <h2 class="{% block question_classes %}mb-1 font-bold{% endblock %}">
+            {{- question.question|raw -}}
+            {%- block mandatory -%}
+                {%- if question.mandatory -%}
+                    <span class="{% block mandatory_classes %}ml-0.5 font-bold text-blue-700{% endblock %}">*</span>
+                {%- endif -%}
+            {%- endblock -%}
+        </h2>
+        {% if question.description %}
+            <div class="{% block description_classes %}{% endblock %}">
+                {{ question.description|raw }}
+            </div>
+        {% endif %}
+        {% if question.image %}
+            {% block image %}
+                {{ contao_figure(question.image, picture_config({width: 600, height: 450, resizeMode: 'proportional', densities: '0.5,1,2'})) }}
+            {% endblock %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block form %}
+    <fieldset data-survey class="{% block fieldset_classes %}mt-3 p-4 border-2{% endblock %}" x-data>
+        {% block form_legend %}
+            {% if question.instruction %}
+                <legend class="{% block legend_classes %}text-sm text-gray-600{% endblock %}">{{ question.instruction|raw }}</legend>
+            {% endif %}
+        {% endblock %}
+
+        {# Form field(s) #}
+        {% set form = form[question.name] %}
+        {% block form_row %}
+            {{ form_row(form) }}
+        {% endblock %}
+
+        {% block form_reset %}
+            <button class="{% block form_reset_classes %}mt-3 px-3 py-1 border-2{% endblock %}"
+                    type="button" title="{{ 'form.button.clear_current_title'|trans() }}"
+                    @click="$el.querySelectorAll('input').forEach(i => { i.checked = false; i.value = i.defaultValue; });">
+                {{ 'form.button.clear_current'|trans() }}
+            </button>
+        {% endblock %}
+    </fieldset>
+{% endblock %}

@@ -35,7 +35,13 @@ class MvoContaoSurveyExtension extends Extension
         foreach ($config['types'] as $key => $item) {
             $container
                 ->getDefinition('mvo.survey.registry')
-                ->addMethodCall('add', [$key, $item['question'], $item['answer'], $item['form']])
+                ->addMethodCall('add', [
+                    $key,
+                    $item['question'],
+                    $item['answer'],
+                    $item['form'],
+                    $item['form_template'],
+                ])
             ;
         }
     }

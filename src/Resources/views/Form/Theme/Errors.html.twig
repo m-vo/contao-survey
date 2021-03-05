@@ -1,0 +1,9 @@
+{%- if errors|length > 0 -%}
+    <div class="{% block wrapper_classes %}mb-1 text-sm{% endblock %}">
+        <ul class="{% block list_classes %}flex flex-col{% endblock %}">
+            {%- for error in errors -%}
+                <li class="{% block error_classes %}text-red-600{% endblock %}">{{ error.message }}</li>
+            {%- endfor -%}
+        </ul>
+    </div>
+{%- endif -%}

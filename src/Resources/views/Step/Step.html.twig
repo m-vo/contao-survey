@@ -1,0 +1,35 @@
+{% trans_default_domain 'MvoContaoSurveyBundle' %}
+
+{% set section = current_step.section %}
+{% set form = current_step.form %}
+
+<section class="{% block step_classes %}p-4 flex flex-col space-y-4{% endblock %}"
+         data-step="{{ current_step.index }}"
+         data-total-steps="{{ total_steps }}"
+         data-grouped="{{ section.groupQuestions }}">
+
+    {# Header #}
+    {% include '@MvoContaoSurvey/Step/SectionHeader.html.twig' %}
+
+    {% set form_classes %}{% block form_classes %}{% endblock %}{% endset %}
+        {{ form_start(form, {
+            'action': path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')),
+            'attr': {'novalidate': 'novalidate', class: form_classes}
+        }) }}
+
+        {# Questions #}
+        <div class="{% block questions_wrapper_classes %}flex flex-col space-y-8{% endblock %}">
+            {% for question in current_step.questions %}
+                {% set form_template = registry.formTemplateForQuestion(question)|default('@MvoContaoSurvey/Form/Question.html.twig') %}
+                <div class="{% block question_wrapper_classes %}{% endblock %}" data-mandatory="{{ question.mandatory }}">
+                    {% include form_template %}
+                </div>
+            {% endfor %}
+        </div>
+
+        {# Navigation #}
+        {% include '@MvoContaoSurvey/Step/Navigation.html.twig' %}
+
+        <input type="hidden" name="REQUEST_TOKEN" value="{{ '{{request_token}}' }}">
+    {{ form_end(form) }}
+</section>

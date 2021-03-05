@@ -1,12 +1,21 @@
 {% extends '@MvoContaoSurvey/survey.html.twig' %}
 {% trans_default_domain 'MvoContaoSurveyBundle' %}
+{# @var survey \Mvo\ContaoSurvey\Entity\Survey #}
 
 {% block content %}
-    <h3>{{ 'thanks.headline'|trans() }}</h3>
-    {{ survey.noteAfterSubmission|raw }}
+        <h3 class="{% block sub_headline_classes %}{% endblock %}">{{ 'thanks.headline'|trans() }}</h3>
+        {% if survey.noteAfterSubmission %}
+            <div class="{% block submission_note_classes %}{% endblock %}">
+                {{ survey.noteAfterSubmission|raw }}
+            </div>
+        {% endif %}
+    {% endblock %}
+
     {% if survey.buttonLabel -%}
-        <div class="button">
-            <a href="{{ survey.buttonHref }}">{{ survey.buttonLabel }}</a>
+        <div class="{% block link_outer_classes %}{% endblock %}">
+            <a class="{% block link_inner_classes %}{% endblock %}" href="{{ survey.buttonHref }}">
+                {{- survey.buttonLabel -}}
+            </a>
         </div>
     {%- endif %}
 {% endblock %}

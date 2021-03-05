@@ -1,0 +1,36 @@
+{% trans_default_domain 'MvoContaoSurveyBundle' %}
+{% extends '@MvoContaoSurvey/Form/Question.html.twig' %}
+
+{% block form_row %}
+    <div class="{% block answer_classes %}survey_answer survey_answer--select{% endblock %}" x-data>
+        {% for child in form.children %}
+            {{ form_errors(child) }}
+        {% endfor %}
+        {% for child in form.values.children %}
+            <div class="option" x-ref="s_{{ loop.index0 }}"
+                 @click="const userOption = $refs.s_{{ loop.index0 }}.querySelector('input.user_option--value'); if(userOption){userOption.focus()}">
+                {{ form_widget(child) }}
+                {% if child.vars.value != -1 %}
+                    {{ form_label(child) }}
+                {% else %}
+                    {% set placeholder = 'element.user_option_placeholder'|trans() %}
+                    {% set user_option_labels = form.vars.data.question.userOptionLabels %}
+                    <div class="inline-flex flex-row user_option{% if form.user_option.vars.errors|length > 0 %} error{% endif %}"
+                        @click="$refs.s_{{ loop.index0 }}.querySelector('input').checked=true">
+                        {% if user_option_labels[0] -%}
+                            <span class="mr-2 user_option--prefix">{{ user_option_labels[0] }}</span>
+                        {%- endif %}
+                        {{- form_widget(form.user_option, {attr: {
+                            placeholder: placeholder,
+                            class: 'user_option--value'
+                        }}) -}}
+                        {% if user_option_labels[1] -%}
+                            <span class="ml-2 user_option--postfix">{{ user_option_labels[1] }}</span>
+                        {%- endif %}
+                        <label for="{{ child.vars.id }}" class="invisible">{{ placeholder }}</label>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{%- endblock -%}

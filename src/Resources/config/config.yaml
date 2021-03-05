@@ -6,28 +6,34 @@ mvo_contao_survey:
       question: Mvo\ContaoSurvey\Entity\QuestionMatrix
       answer: Mvo\ContaoSurvey\Entity\AnswerMatrix
       form: Mvo\ContaoSurvey\Form\AnswerType\AnswerMatrixType
-    
+      form_template: '@MvoContaoSurvey/Form/Matrix.html.twig'
+
     order:
       question: Mvo\ContaoSurvey\Entity\QuestionOrder
       answer: Mvo\ContaoSurvey\Entity\AnswerOrder
       form: Mvo\ContaoSurvey\Form\AnswerType\AnswerOrderType
-      
+      form_template: '@MvoContaoSurvey/Form/Order.html.twig'
+
     rating:
       question: Mvo\ContaoSurvey\Entity\QuestionRating
       answer: Mvo\ContaoSurvey\Entity\AnswerRating
       form: Mvo\ContaoSurvey\Form\AnswerType\AnswerRatingType
-      
+      form_template: '@MvoContaoSurvey/Form/Rating.html.twig'
+
     select:
       question: Mvo\ContaoSurvey\Entity\QuestionSelect
       answer: Mvo\ContaoSurvey\Entity\AnswerSelect
       form: Mvo\ContaoSurvey\Form\AnswerType\AnswerSelectType
-      
+      form_template: '@MvoContaoSurvey/Form/Select.html.twig'
+
     text:
       question: Mvo\ContaoSurvey\Entity\QuestionText
       answer: Mvo\ContaoSurvey\Entity\AnswerText
       form: Mvo\ContaoSurvey\Form\AnswerType\AnswerTextType
+      form_template: '@MvoContaoSurvey/Form/Text.html.twig'
 
     longtext:
       question: Mvo\ContaoSurvey\Entity\QuestionLongText
       answer: Mvo\ContaoSurvey\Entity\AnswerLongText
       form: Mvo\ContaoSurvey\Form\AnswerType\AnswerLongTextType
+      form_template: '@MvoContaoSurvey/Form/LongText.html.twig'

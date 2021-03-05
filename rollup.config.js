@@ -5,10 +5,10 @@ import scss from 'rollup-plugin-scss'
 import typescript from '@rollup/plugin-typescript';
 import {terser} from "rollup-plugin-terser";
 
-export default ['frontend', 'backend'].map((name, index) => ({
-    input: `layout/${name}/survey.ts`,
+export default {
+    input: `layout/backend/survey.ts`,
     output: {
-        file: `src/Resources/public/survey_${name}.js`,
+        file: `src/Resources/public/survey_backend.js`,
         format: 'iife',
         intro: 'const global = window;'
     },
@@ -20,4 +20,4 @@ export default ['frontend', 'backend'].map((name, index) => ({
         terser(),
         scss(),
     ]
-}));
+};

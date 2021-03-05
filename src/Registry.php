@@ -19,8 +19,9 @@ class Registry
     private array $questionClasses = [];
     private array $answerClasses = [];
     private array $formTypeClasses = [];
+    private array $formTemplates = [];
 
-    public function add(string $type, string $questionClass, string $answerClass, string $formTypeClass): void
+    public function add(string $type, string $questionClass, string $answerClass, string $formTypeClass, ?string $formTemplate): void
     {
         if (\in_array($type, $this->types, true)) {
             throw new \InvalidArgumentException("Type $type is already registered");
@@ -31,14 +32,13 @@ class Registry
         $this->questionClasses[] = $questionClass;
         $this->answerClasses[] = $answerClass;
         $this->formTypeClasses[] = $formTypeClass;
+        $this->formTemplates[] = $formTemplate;
     }
 
     public function getTypes(): array
     {
         return $this->types;
     }
-
-    // todo: simplify + refactor methods for code reuse
 
     public function getFormTypeClassForAnswer(Answer $answer): string
     {
@@ -66,7 +66,7 @@ class Registry
         throw new \InvalidArgumentException('Class of given question is not a registered survey type.');
     }
 
-    public function getTypeForQuestion(Question $question)
+    public function getTypeForQuestion(Question $question): string
     {
         foreach ($this->questionClasses as $index => $class) {
             if (!is_a($question, $class)) {
@@ -74,6 +74,19 @@ class Registry
             }
 
             return $this->types[$index];
+        }
+
+        throw new \InvalidArgumentException('Class of given question is not a registered survey type.');
+    }
+
+    public function getFormTemplateForQuestion(Question $question): ?string
+    {
+        foreach ($this->questionClasses as $index => $class) {
+            if (!is_a($question, $class)) {
+                continue;
+            }
+
+            return $this->formTemplates[$index];
         }
 
         throw new \InvalidArgumentException('Class of given question is not a registered survey type.');

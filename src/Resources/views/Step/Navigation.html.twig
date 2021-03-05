@@ -1,0 +1,50 @@
+{% trans_default_domain 'MvoContaoSurveyBundle' %}
+
+<nav class="{% block nav_classes %}mt-8{% endblock %}">
+    {# Note about skipping questions #}
+    {% block note %}
+        {% if not current_step.mandatory %}
+            <div class="{% block note_skip_classes %}mb-2 text-sm{% endblock %}">
+                {{ 'form.skip'|trans({'%count%': current_step.questions|length}) }}
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {# Navigation buttons: <- / -> / submit #}
+    {% block buttons %}
+        <div class="{% block button_row_classes %}flex flex-row space-x-2{% endblock %}">
+            {% set button_classes %}{% block button_classes %}px-3 py-2 bg-gray-200 hover:bg-gray-300 transition-colors{% endblock %}{% endset %}
+
+            {% if form.previous is defined %}
+                {{ form_widget(form.previous, {
+                    label: 'form.button.previous'|trans(),
+                    attr: {class: button_classes}
+                }) }}
+            {% endif %}
+
+            {% if current_step.is_last %}
+                {{ form_widget(form.next, {
+                    label: 'form.button.submit'|trans(),
+                    attr: {class: button_classes}
+                }) }}
+            {% else %}
+                {{ form_widget(form.next, {
+                    label: 'form.button.next'|trans(),
+                    attr: {class: button_classes}
+                }) }}
+            {% endif %}
+        </div>
+    {% endblock %}
+
+    {# Reset #}
+    {% block reset %}
+        {% set reset_button_classes %}{% block reset_button_classes %}text-blue-700{% endblock %}{% endset %}
+
+        <div class="{% block reset_wrapper_classes %}mt-4 text-gray-500{% endblock %}">
+            <span class="{% block reset_note_classes %}{% endblock %}">
+                {{ 'form.note_reset_all'|trans() }}
+            </span>
+            {{ form_widget(form.reset, {label: 'form.reset_all'|trans(), attr: {class: reset_button_classes}}) }}
+        </div>
+    {% endblock %}
+</nav>

@@ -1,0 +1,31 @@
+<header class="{% block header_classes %}{% endblock %}">
+    {# Progress bar #}
+    {% block progress %}
+        {% set x_of_y = current_step.index ~ '/' ~ total_steps %}
+
+        <div class="{% block progress_wrapper_classes %}my-4{% endblock %}"
+             style="--percent: {{ 100 * current_step.index / total_steps }}%; --percent-previous: {{ 100 * (current_step.index - 1) / total_steps }}%"
+             title="{{ x_of_y }}">
+            <div class="{% block progress_bar_outer_classes %}bg-gray-300{% endblock %}">
+                <div class="{% block progress_bar_inner_classes %}bg-blue-500 h-1{% endblock %}"
+                     style="width: var(--percent);"></div>
+            </div>
+            <span class="{% block progress_text_classes %}text-sm text-gray-500{% endblock %}">{{ x_of_y }}</span>
+        </div>
+    {% endblock %}
+
+    {# Textual #}
+    {% block textual %}
+        {# @var section \Mvo\ContaoSurvey\Entity\Section #}
+        {% if section.title or section.description %}
+            <div class="{% block textual_classes %}{% endblock %}">
+                {% if section.title %}
+                    <h1 class="{% block headline_classes %}text-lg font-semibold{% endblock %}">{{ section.title }}</h1>
+                {% endif %}
+                {% if section.description %}
+                    <div class="{% block description_classes %}{% endblock %}">{{ section.description|raw }}</div>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endblock %}
+</header>
