@@ -2,7 +2,7 @@
 {% extends '@MvoContaoSurvey/Form/Question.html.twig' %}
 
 {% block form_row %}
-    <div class="survey_answer survey_answer--select" x-data>
+    <div class="{% block answer_classes %}survey_answer survey_answer--select{% endblock %}" x-data>
         {% for child in form.children %}
             {{ form_errors(child) }}
         {% endfor %}

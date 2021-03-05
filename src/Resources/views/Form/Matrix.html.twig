@@ -2,18 +2,18 @@
 {% extends '@MvoContaoSurvey/Form/Question.html.twig' %}
 
 {% block form_row %}
-    <div class="survey_answer survey_answer--matrix" x-data>
+    <div class="{% block answer_classes %}survey_answer survey_answer--matrix{% endblock %}" x-data>
         <table>
             <thead>
-            <tr>
-                <td><span class="note_scroll hidden">{{ 'element.scroll_note'|trans() }}</span></td>
-                {% for option in form.vars.matrix_columns %}
-                    <td class="option" data-option="{{ loop.index0 }}"
-                        @click="$el.querySelectorAll('[data-option=\'{{ loop.index0 }}\'] input').forEach(i => {i.checked = true})">
-                        {{ option|raw }}
-                    </td>
-                {% endfor %}
-            </tr>
+                <tr>
+                    <td><span class="note_scroll hidden">{{ 'element.scroll_note'|trans() }}</span></td>
+                    {% for option in form.vars.matrix_columns %}
+                        <td class="option" data-option="{{ loop.index0 }}"
+                            @click="$el.querySelectorAll('[data-option=\'{{ loop.index0 }}\'] input').forEach(i => {i.checked = true})">
+                            {{ option|raw }}
+                        </td>
+                    {% endfor %}
+                </tr>
             </thead>
             <tbody>
             {% for row in form.children %}
