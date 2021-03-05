@@ -135,38 +135,35 @@ class SurveyQuestion
      */
     public function generateAndValidateName(string $name, DataContainer $dc): string
     {
+        $question = $this->getQuestion((int) $dc->id);
+
         if ('' === $name) {
-            return $this->generateName($dc);
+            $name = $this->generateName($question);
         }
 
-        return $this->validateName($name, $dc);
+        $this->validateName($name, $question);
+
+        return $name;
     }
 
-    private function generateName(DataContainer $dc): string
+    private function generateName(Question $question): string
     {
-        $question = $this->getQuestion((int) $dc->id);
         $name = $this->slugGenerator->generate($question->getQuestion());
         $base = $name;
-        $duplicateCheck = function (string $name) use ($question): bool {
-            return $this->questionRepository->isNameAlreadyUsed($name, $question);
-        };
 
-        for ($count = 2; $duplicateCheck($name); ++$count) {
-            $name = $base.'-'.$count;
+        // avoid collisions
+        for ($suffix = 2; $this->questionRepository->isNameAlreadyUsed($name, $question); ++$suffix) {
+            $name = "$base-$suffix";
         }
 
         return $name;
     }
 
-    private function validateName(string $name, DataContainer $dc): string
+    private function validateName(string $name, Question $question): void
     {
-        $question = $this->getQuestion((int) $dc->id);
-
         if ($this->questionRepository->isNameAlreadyUsed($name, $question)) {
             throw new \InvalidArgumentException($this->translator->trans('error.duplicate_question_name', ['%name%' => $name], 'MvoContaoSurveyBundle'));
         }
-
-        return $name;
     }
 
     private function getQuestion(int $id): Question
