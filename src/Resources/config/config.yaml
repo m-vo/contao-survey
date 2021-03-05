@@ -2,6 +2,12 @@ mvo_contao_survey:
   session_max_idle_time: 600
 
   types:
+    age:
+      question: Mvo\ContaoSurvey\Entity\QuestionAge
+      answer: Mvo\ContaoSurvey\Entity\AnswerAge
+      form: Mvo\ContaoSurvey\Form\AnswerType\AnswerAgeType
+      form_template: '@MvoContaoSurvey/Form/Age.html.twig'
+
     matrix:
       question: Mvo\ContaoSurvey\Entity\QuestionMatrix
       answer: Mvo\ContaoSurvey\Entity\AnswerMatrix

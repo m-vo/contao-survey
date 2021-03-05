@@ -7,6 +7,7 @@ declare(strict_types=1);
  * @license MIT
  */
 
+$GLOBALS['TL_LANG']['survey_question_type']['age'] = 'Alter';
 $GLOBALS['TL_LANG']['survey_question_type']['matrix'] = 'Matrix';
 $GLOBALS['TL_LANG']['survey_question_type']['order'] = 'Reihenfolge';
 $GLOBALS['TL_LANG']['survey_question_type']['rating'] = 'Rating';

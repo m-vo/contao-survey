@@ -29,9 +29,6 @@ $GLOBALS['TL_LANG']['tl_survey_question']['rating_range'] = ['Rating range', 'De
 $GLOBALS['TL_LANG']['tl_survey_question']['add_user_option'] = ['Add user option', 'Allow the user to specify an extra option herself.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['user_option_label'] = ['User option label', 'Add an optional label to be displayed before the user option. To surround it use \'%\' as a placeholder for the input field.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['allow_multiple'] = ['Allow multiple', 'Allow to select multiple options.'];
-$GLOBALS['TL_LANG']['tl_survey_question']['text_validation'] = ['Validation', 'Choose how to validate this input field.'];
-$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][QuestionText::VALIDATION__NONE] = 'None';
-$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'][QuestionText::VALIDATION__AGE] = 'Age';
 
 $GLOBALS['TL_LANG']['tl_survey_question']['expert_legend'] = 'Expert settings';
 $GLOBALS['TL_LANG']['tl_survey_question']['constraint_expression'] = ['Constraint expression', 'Add a criteria in form of a constraint expression.'];

@@ -7,8 +7,6 @@ declare(strict_types=1);
  * @license MIT
  */
 
-use Mvo\ContaoSurvey\Entity\QuestionText;
-
 $GLOBALS['TL_DCA']['tl_survey_question'] =
     [
         'config' => [
@@ -56,7 +54,6 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
             'type_order' => 'options',
             'type_rating' => 'rating_range',
             'type_select' => 'options,allow_multiple,add_user_option',
-            'type_text' => 'text_validation',
             'add_user_option' => 'user_option_label',
         ],
         'fields' => [
@@ -181,19 +178,6 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                 'save_callback' => [static fn ($v) => '1' === $v],
                 // Keep this for MySQL Strict mode. Otherwise Contao would save an empty string
                 'sql' => ['type' => 'boolean', 'default' => false],
-            ],
-            'text_validation' => [
-                'inputType' => 'select',
-                'reference' => &$GLOBALS['TL_LANG']['tl_survey_question']['text_validation_'],
-                'options' => [
-                    QuestionText::VALIDATION__NONE,
-                    QuestionText::VALIDATION__AGE,
-                ],
-                'eval' => [
-                    'tl_class' => 'w50',
-                    'mandatory' => true,
-                    'isAssociative' => true,
-                ],
             ],
             'constraint_expression' => [
                 'inputType' => 'text',

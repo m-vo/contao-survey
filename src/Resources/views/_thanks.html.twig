@@ -3,13 +3,12 @@
 {# @var survey \Mvo\ContaoSurvey\Entity\Survey #}
 
 {% block content %}
-        <h3 class="{% block sub_headline_classes %}{% endblock %}">{{ 'thanks.headline'|trans() }}</h3>
-        {% if survey.noteAfterSubmission %}
-            <div class="{% block submission_note_classes %}{% endblock %}">
-                {{ survey.noteAfterSubmission|raw }}
-            </div>
-        {% endif %}
-    {% endblock %}
+    <h3 class="{% block sub_headline_classes %}{% endblock %}">{{ 'thanks.headline'|trans() }}</h3>
+    {% if survey.noteAfterSubmission %}
+        <div class="{% block submission_note_classes %}{% endblock %}">
+            {{ survey.noteAfterSubmission|raw }}
+        </div>
+    {% endif %}
 
     {% if survey.buttonLabel -%}
         <div class="{% block link_outer_classes %}{% endblock %}">

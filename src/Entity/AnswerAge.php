@@ -17,25 +17,25 @@ use Mvo\ContaoSurvey\Report\DataContainer;
  *
  * @property QuestionText $question
  */
-class AnswerText extends Answer
+class AnswerAge extends Answer
 {
     /**
-     * @ORM\Column(name="user_value_text", type="text", nullable=true)
+     * @ORM\Column(name="value_int", type="integer", nullable=true)
      */
-    private ?string $text = null;
+    private ?int $valueInt = null;
 
-    public function getText(): ?string
+    public function getAge(): ?int
     {
-        return $this->text;
+        return $this->valueInt;
     }
 
-    public function setText(?string $text): void
+    public function setAge(?int $age): void
     {
-        $this->text = $text;
+        $this->valueInt = $age;
     }
 
     public function exportData(DataContainer $container): void
     {
-        $container->setValue($this->getText());
+        $container->setValue($this->getAge());
     }
 }
