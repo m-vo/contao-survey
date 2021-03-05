@@ -11,7 +11,7 @@ use Mvo\ContaoSurvey\Entity\QuestionText;
 
 $GLOBALS['TL_LANG']['tl_survey_question']['header_legend'] = 'Meta data';
 $GLOBALS['TL_LANG']['tl_survey_question']['question'] = ['Question / Title'];
-$GLOBALS['TL_LANG']['tl_survey_question']['name'] = ['Name', 'A unique field name that is used in reports and when defining dependencies.'];
+$GLOBALS['TL_LANG']['tl_survey_question']['name'] = ['Alias', 'A unique field name that is used in reports and when defining dependencies.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['description'] = ['Description', 'Add an optional description.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['image'] = ['Image', 'Add an optional image.'];
 $GLOBALS['TL_LANG']['tl_survey_question']['instruction'] = ['Instruction', 'Add an optional instruction how to fill out the form.'];
