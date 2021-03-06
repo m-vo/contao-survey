@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\EventListener\DataContainer;
 
+use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
@@ -28,8 +29,9 @@ class Survey
     private TranslatorInterface $translator;
     private Session $session;
     private Environment $twig;
+    private bool $protectEditing;
 
-    public function __construct(SurveyRepository $surveyRepository, RecordRepository $recordRepository, ContaoFramework $framework, TranslatorInterface $translator, Session $session, Environment $twig)
+    public function __construct(SurveyRepository $surveyRepository, RecordRepository $recordRepository, ContaoFramework $framework, TranslatorInterface $translator, Session $session, Environment $twig, bool $protectEditing)
     {
         $this->surveyRepository = $surveyRepository;
         $this->recordRepository = $recordRepository;
@@ -37,13 +39,23 @@ class Survey
         $this->translator = $translator;
         $this->session = $session;
         $this->twig = $twig;
+        $this->protectEditing = $protectEditing;
     }
 
     /**
      * @Callback(table="tl_survey", target="config.onload")
      */
-    public function disableFrozenCheckbox(DataContainer $dataContainer): void
+    public function frozenCheckbox(DataContainer $dataContainer): void
     {
+        if (!$this->protectEditing) {
+            PaletteManipulator::create()
+                ->removeField('frozen')
+                ->applyToPalette('default', 'tl_survey')
+            ;
+
+            return;
+        }
+
         $this->framework->initialize();
 
         /** @var Adapter<Input> $inputAdapter */
@@ -85,6 +97,7 @@ class Survey
                 'name' => $label,
                 'count' => $submittedRecordsCount,
                 'frozen' => (bool) $row['frozen'],
+                'protect_editing' => $this->protectEditing,
             ]
         );
     }

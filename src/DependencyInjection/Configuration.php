@@ -78,6 +78,10 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->booleanNode('protect_editing')
+                    ->info('If enabled, surveys must be frozen (= editing locked) before they can be used in the frontend.')
+                    ->defaultTrue()
+                ->end()
             ->end()
         ;
 

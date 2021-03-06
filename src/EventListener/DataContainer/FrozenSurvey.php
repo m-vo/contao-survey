@@ -25,14 +25,16 @@ class FrozenSurvey
     private RequestStack $requestStack;
     private TranslatorInterface $translator;
     private Session $session;
+    private bool $protectEditing;
 
-    public function __construct(SurveyRepository $surveyRepository, SectionRepository $sectionRepository, RequestStack $requestStack, TranslatorInterface $translator, Session $session)
+    public function __construct(SurveyRepository $surveyRepository, SectionRepository $sectionRepository, RequestStack $requestStack, TranslatorInterface $translator, Session $session, bool $protectEditing)
     {
         $this->surveyRepository = $surveyRepository;
         $this->sectionRepository = $sectionRepository;
         $this->requestStack = $requestStack;
         $this->session = $session;
         $this->translator = $translator;
+        $this->protectEditing = $protectEditing;
     }
 
     /**
@@ -40,6 +42,10 @@ class FrozenSurvey
      */
     public function freezeSection(DataContainer $dataContainer): void
     {
+        if (!$this->protectEditing) {
+            return;
+        }
+
         $survey = $this->surveyRepository->find($this->getParentId());
 
         if (null === $survey) {
@@ -54,6 +60,10 @@ class FrozenSurvey
      */
     public function freezeQuestion(DataContainer $dataContainer): void
     {
+        if (!$this->protectEditing) {
+            return;
+        }
+
         $section = $this->sectionRepository->find($this->getParentId());
 
         if (null === $section) {
