@@ -83,7 +83,7 @@ class FrozenSurvey
 
         $this->session->getFlashBag()->add(
             'contao.BE.info',
-            $this->translator->trans('MSC.surveyFrozen', [], 'contao_default')
+            $this->translator->trans('frozen.frozen_edit', [], 'MvoContaoSurveyBundle')
         );
     }
 

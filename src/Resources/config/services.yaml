@@ -171,6 +171,7 @@ services:
       - '@contao.framework'
       - '@translator'
       - '@session'
+      - '@twig'
 
   mvo.survey.listener.datacontainer.frozen_survey:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\FrozenSurvey
@@ -185,6 +186,8 @@ services:
 
   mvo.survey.listener.datacontainer.section:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveySection
+    arguments:
+      - '@twig'
     tags:
       - { name: 'terminal42_service_annotation' }
 

@@ -15,4 +15,36 @@
     color: $color-muted;
     margin-left: $default-margin;
   }
+
+  .survey_records {
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    padding: $default-margin;
+    margin-top: 2 * $default-margin;
+    margin-bottom: $default-margin;
+
+    .survey_records_count {
+      color: $color-muted;
+    }
+  }
+
+  .survey_flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    > * + * {
+      margin-left: $default-margin;
+    }
+  }
+
+  .survey_flex-col {
+    display: inline-flex;
+    flex-direction: column;
+    justify-items: center;
+
+    > * + * {
+      margin-top: $default-margin;
+    }
+  }
 }
