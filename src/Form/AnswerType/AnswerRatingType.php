@@ -11,7 +11,7 @@ namespace Mvo\ContaoSurvey\Form\AnswerType;
 
 use Mvo\ContaoSurvey\Entity\QuestionRating;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\RangeType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -22,14 +22,22 @@ class AnswerRatingType extends AbstractType
         /** @var QuestionRating $question */
         $question = $builder->getData()->getQuestion();
 
-        $builder->add('rating', RangeType::class, [
+        $total = $question->getRange();
+        $range = range(1, $question->getRange());
+
+        $choices = array_combine(
+            array_map(
+                static fn (int $i) => "$i / $total",
+                $range,
+            ),
+            $range
+        );
+
+        $builder->add('rating', ChoiceType::class, [
+            'choices' => $choices,
+            'expanded' => true,
             'required' => $question->isMandatory(),
             'constraints' => $question->isMandatory() ? [new NotBlank()] : [],
-            'attr' => [
-                'min' => 1,
-                'max' => $question->getRange(),
-                'step' => 1,
-            ],
         ]);
     }
 

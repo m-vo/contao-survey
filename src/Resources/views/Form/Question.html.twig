@@ -42,7 +42,7 @@
         {% block form_reset %}
             <button class="{% block form_reset_classes %}mt-3 px-3 py-1 border-2{% endblock %}"
                     type="button" title="{{ 'form.button.clear_current_title'|trans() }}"
-                    @click="$el.querySelectorAll('input').forEach(i => { i.checked = false; i.value = i.defaultValue; });">
+                    @click="$el.querySelectorAll('input').forEach(i => {i.checked=false; i.value=i.defaultValue; i.dispatchEvent(new Event('reset'))})">
                 {{ 'form.button.clear_current'|trans() }}
             </button>
         {% endblock %}
