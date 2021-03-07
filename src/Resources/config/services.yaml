@@ -156,6 +156,7 @@ services:
       - '@contao.routing.scope_matcher'
       - '@doctrine.orm.entity_manager'
       - '@mvo.survey.registry'
+      - '%mvo_survey.protect_editing%'
     tags:
       - { name: 'terminal42_service_annotation' }
     calls:
@@ -171,6 +172,8 @@ services:
       - '@contao.framework'
       - '@translator'
       - '@session'
+      - '@twig'
+      - '%mvo_survey.protect_editing%'
 
   mvo.survey.listener.datacontainer.frozen_survey:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\FrozenSurvey
@@ -182,9 +185,12 @@ services:
       - '@request_stack'
       - '@translator'
       - '@session'
+      - '%mvo_survey.protect_editing%'
 
   mvo.survey.listener.datacontainer.section:
     class: Mvo\ContaoSurvey\EventListener\DataContainer\SurveySection
+    arguments:
+      - '@twig'
     tags:
       - { name: 'terminal42_service_annotation' }
 

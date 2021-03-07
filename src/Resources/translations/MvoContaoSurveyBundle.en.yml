@@ -19,6 +19,15 @@ thanks:
 frozen:
   headline: 'Survey not frozen'
   message: 'The survey is not frozen and therefore may not be submitted.'
+  disabled: 'The survey contains records and cannot be frozen.'
+  frozen_edit: 'Frozen surveys cannot be edited to ensure consistent data records.'
+
+records:
+  count: '{0}No results|{1}1 result|[2, +Inf[%count% results'
+  export: 'Export results of survey ID %id%'
+  clear: 'Clear all records of survey ID %id%'
+  clear_confirm: 'Do you really want to delete all records of survey "%name%"?'
+  clear_success: 'Deleted all records of survey "%name%".'
 
 error:
   duplicate_question_name: 'The name "%name%" is already used in the survey.'

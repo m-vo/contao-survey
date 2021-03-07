@@ -8,3 +8,23 @@
   .tl_listing_container .survey_answer_count {
     color: #999;
     margin-left: 0.3em; }
+  .tl_listing_container .survey_records {
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    padding: 0.3em;
+    margin-top: 0.6em;
+    margin-bottom: 0.3em; }
+    .tl_listing_container .survey_records .survey_records_count {
+      color: #999; }
+  .tl_listing_container .survey_flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center; }
+    .tl_listing_container .survey_flex-row > * + * {
+      margin-left: 0.3em; }
+  .tl_listing_container .survey_flex-col {
+    display: inline-flex;
+    flex-direction: column;
+    justify-items: center; }
+    .tl_listing_container .survey_flex-col > * + * {
+      margin-top: 0.3em; }

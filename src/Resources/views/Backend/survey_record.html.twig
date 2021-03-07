@@ -1,0 +1,49 @@
+{% trans_default_domain 'MvoContaoSurveyBundle' %}
+
+<div class="survey_flex-row">
+    {% if protect_editing%}
+        {% if frozen %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                 viewBox="0 0 24 24" stroke-width="1.5" stroke="#bbbbbb" fill="none" stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M10 4l2 1l2 -1m-2 -2v6.5l3 1.72"/>
+                <path d="M10 4l2 1l2 -1m-2 -2v6.5l3 1.72" transform="rotate(60 12 12)"/>
+                <path d="M10 4l2 1l2 -1m-2 -2v6.5l3 1.72" transform="rotate(120 12 12)"/>
+                <path d="M10 4l2 1l2 -1m-2 -2v6.5l3 1.72" transform="rotate(180 12 12)"/>
+                <path d="M10 4l2 1l2 -1m-2 -2v6.5l3 1.72" transform="rotate(240 12 12)"/>
+                <path d="M10 4l2 1l2 -1m-2 -2v6.5l3 1.72" transform="rotate(300 12 12)"/>
+            </svg>
+        {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                 viewBox="0 0 24 24" stroke-width="1.5" stroke="#bbbbbb" fill="none" stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <rect x="5" y="11" width="14" height="10" rx="2"/>
+                <circle cx="12" cy="16" r="1"/>
+                <path d="M8 11v-5a4 4 0 0 1 8 0"/>
+            </svg>
+        {% endif %}
+    {% endif %}
+    <div>
+        <div>{{ name }}</div>
+        <div class="survey_records survey_flex-col">
+            <div class="survey_records_count">
+                {{ 'records.count'|trans({'%count%': count}) }}
+            </div>
+            <div>
+                <a href="{{ path('mvo_survey_export', {id: id}) }}">
+                    <img src="bundles/mvocontaosurvey/icons/export.svg" width="20" height="20"
+                         title="{{ 'records.export'|trans({'%id%': id}) }}"
+                         alt="{{ 'records.export'|trans({'%id%': id}) }}">
+                </a>
+                <a href="{{ path('mvo_survey_clear_records', {id: id}) }}"
+                   onclick="if(!confirm('{{ 'records.clear_confirm'|trans({'%name%': name}) }}'))return false;Backend.getScrollOffset()">
+                    <img src="bundles/mvocontaosurvey/icons/clear.svg" width="20" height="20"
+                         title="{{ 'records.clear'|trans({'%id%': id}) }}"
+                         alt="{{ 'records.clear'|trans({'%id%': id}) }}">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

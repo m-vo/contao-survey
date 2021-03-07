@@ -25,22 +25,13 @@ $GLOBALS['TL_DCA']['tl_survey'] =
             ],
             'global_operations' => [],
             'operations' => [
-                'sections' => [
-                    'href' => 'table=tl_survey_section',
-                    'icon' => 'edit.svg',
-                ],
                 'edit' => [
                     'href' => 'act=edit',
                     'icon' => 'header.svg',
                 ],
-                'csv_export' => [
-                    'icon' => 'bundles/mvocontaosurvey/icons/csv.svg',
-                    'route' => 'mvo_survey_export',
-                ],
-                'clearRecords' => [
-                    'route' => 'mvo_survey_clear_records',
-                    'icon'  => 'deleteAll.svg',
-                    'attributes' => 'onclick="if(!confirm(\''.$GLOBALS['TL_LANG']['MSC']['surveyClearRecordsConfirm'].'\'))return false;Backend.getScrollOffset()"',
+                'sections' => [
+                    'href' => 'table=tl_survey_section',
+                    'icon' => 'bundles/mvocontaosurvey/icons/sections.svg',
                 ],
                 'delete' => [
                     'href' => 'act=delete',

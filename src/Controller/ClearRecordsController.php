@@ -65,7 +65,7 @@ class ClearRecordsController extends AbstractController
 
         $this->addFlash(
             'contao.BE.info',
-            $this->translator->trans('MSC.surveyClearRecordsSuccess', ['title' => $survey->getTitle()], 'contao_default')
+            $this->translator->trans('records.clear_success', ['%name%' => $survey->getTitle()], 'MvoContaoSurveyBundle')
         );
 
         return $this->redirectToRoute('contao_backend', ['do' => 'survey', 'ref' => $request->attributes->get('_contao_referer_id')]);

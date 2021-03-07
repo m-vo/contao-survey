@@ -19,6 +19,15 @@ thanks:
 frozen:
   headline: 'Umfrage nicht eingefroren'
   message: 'Nur eingefrorene Umfragen dürfen beantwortet werden.'
+  disabled: 'Die Umfrage hat bestehende Ergebnisse und kann nicht eingefroren werden.'
+  frozen_edit: 'Eingefrorene Umfragen können nicht bearbeitet werden, um konsistente Umfrageergebnisse zu gewährleisten.'
+
+records:
+  count: '{0}Keine Ergebnisse|{1}1 Ergebnis|[2, +Inf[%count% Ergebnisse'
+  export: 'Ergebnisse der Umfrage ID %id% exportieren'
+  clear: 'Ergebnisse der Umfrage ID %id% zurücksetzen'
+  clear_confirm: 'Möchten Sie wirklich alle Ergebnisse der Umfrage "%name%" löschen?'
+  clear_success: 'Alle Ergebnisse der Umfrage "%name%" wurden gelöscht.'
 
 error:
   duplicate_question_name: 'Der Name "%name%" wird bereits in der Umfrage verwendet.'

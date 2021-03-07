@@ -34,14 +34,16 @@ class SurveyFragment extends AbstractContentElementController
     private ScopeMatcher $scopeMatcher;
     private EntityManager $entityManager;
     private Registry $registry;
+    private bool $protectEditing;
 
-    public function __construct(SurveyRepository $surveyRepository, SurveyManagerFactory $managerFactory, ScopeMatcher $scopeMatcher, EntityManager $entityManager, Registry $registry)
+    public function __construct(SurveyRepository $surveyRepository, SurveyManagerFactory $managerFactory, ScopeMatcher $scopeMatcher, EntityManager $entityManager, Registry $registry, bool $protectEditing)
     {
         $this->surveyRepository = $surveyRepository;
         $this->managerFactory = $managerFactory;
         $this->scopeMatcher = $scopeMatcher;
         $this->entityManager = $entityManager;
         $this->registry = $registry;
+        $this->protectEditing = $protectEditing;
     }
 
     protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
@@ -63,7 +65,7 @@ class SurveyFragment extends AbstractContentElementController
             ]);
         }
 
-        if (!$survey->isFrozen()) {
+        if ($this->protectEditing && !$survey->isFrozen()) {
             return $this->render('@MvoContaoSurvey/_frozen.html.twig', [
                 'headline' => $model->survey_headline ?: $survey->getTitle(),
                 'survey' => $survey,

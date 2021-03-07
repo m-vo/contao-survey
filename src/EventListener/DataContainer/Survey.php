@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\EventListener\DataContainer;
 
+use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
@@ -18,6 +19,7 @@ use Mvo\ContaoSurvey\Repository\RecordRepository;
 use Mvo\ContaoSurvey\Repository\SurveyRepository;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class Survey
 {
@@ -26,21 +28,34 @@ class Survey
     private ContaoFramework $framework;
     private TranslatorInterface $translator;
     private Session $session;
+    private Environment $twig;
+    private bool $protectEditing;
 
-    public function __construct(SurveyRepository $surveyRepository, RecordRepository $recordRepository, ContaoFramework $framework, TranslatorInterface $translator, Session $session)
+    public function __construct(SurveyRepository $surveyRepository, RecordRepository $recordRepository, ContaoFramework $framework, TranslatorInterface $translator, Session $session, Environment $twig, bool $protectEditing)
     {
         $this->surveyRepository = $surveyRepository;
         $this->recordRepository = $recordRepository;
         $this->framework = $framework;
         $this->translator = $translator;
         $this->session = $session;
+        $this->twig = $twig;
+        $this->protectEditing = $protectEditing;
     }
 
     /**
      * @Callback(table="tl_survey", target="config.onload")
      */
-    public function disableFrozenCheckbox(DataContainer $dataContainer): void
+    public function frozenCheckbox(DataContainer $dataContainer): void
     {
+        if (!$this->protectEditing) {
+            PaletteManipulator::create()
+                ->removeField('frozen')
+                ->applyToPalette('default', 'tl_survey')
+            ;
+
+            return;
+        }
+
         $this->framework->initialize();
 
         /** @var Adapter<Input> $inputAdapter */
@@ -64,7 +79,7 @@ class Survey
 
         $this->session->getFlashBag()->add(
             'contao.BE.info',
-            $this->translator->trans('MSC.surveyFreezeDisabled', [], 'contao_default')
+            $this->translator->trans('frozen.disabled', [], 'MvoContaoSurveyBundle')
         );
     }
 
@@ -75,6 +90,15 @@ class Survey
     {
         $submittedRecordsCount = $this->recordRepository->countBySurveyId((int) $row['id']);
 
-        return sprintf('%s <span class="survey_answer_count">(%d)</span>', $label, $submittedRecordsCount);
+        return $this->twig->render(
+            '@MvoContaoSurvey/Backend/survey_record.html.twig',
+            [
+                'id' => (int) $row['id'],
+                'name' => $label,
+                'count' => $submittedRecordsCount,
+                'frozen' => (bool) $row['frozen'],
+                'protect_editing' => $this->protectEditing,
+            ]
+        );
     }
 }
