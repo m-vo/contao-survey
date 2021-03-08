@@ -29,7 +29,7 @@ class RangeWidget extends TextField
         );
 
         $inputField = sprintf(
-            '<input name="%s" id="%s" value="%d"%s onfocus="Backend.getScrollOffset()" %s>',
+            '<input style="padding:0.75em" name="%s" id="%s" value="%d"%s onfocus="Backend.getScrollOffset()" %s>',
             $this->strName,
             "ctrl_{$this->strId}",
             $value,
@@ -38,11 +38,11 @@ class RangeWidget extends TextField
         );
 
         $outputField = sprintf(
-            '<output id="%s">%d</output>',
+            '<output style="padding-left:0.5em" id="%s">%d</output>',
             $outputId,
             $value
         );
 
-        return $inputField.$outputField;
+        return '<div style="display:flex; align-items: center">'.$inputField.$outputField.'</div>';
     }
 }
