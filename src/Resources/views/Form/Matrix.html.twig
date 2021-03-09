@@ -2,18 +2,21 @@
 {% extends '@MvoContaoSurvey/Form/Question.html.twig' %}
 
 {% block form_row %}
-    <div class="{% block answer_classes %}survey_answer survey_answer--matrix{% endblock %}" x-data>
-        <table>
+    <div class="{% block answer_classes %}survey_answer survey_answer--matrix{% endblock %}"
+         x-data x-init="checkSize=()=>{$refs.scroll.classList.toggle('hidden',$el.scrollWidth<=$el.clientWidth)}; (new ResizeObserver(checkSize)).observe($el); checkSize()">
+        <table class="hyphenate">
             <thead>
-                <tr>
-                    <td><span class="note_scroll hidden">{{ 'element.scroll_note'|trans() }}</span></td>
-                    {% for option in form.vars.matrix_columns %}
-                        <td class="option" data-option="{{ loop.index0 }}"
-                            @click="$el.querySelectorAll('[data-option=\'{{ loop.index0 }}\'] input').forEach(i => {i.checked = true})">
-                            {{ option|raw }}
-                        </td>
-                    {% endfor %}
-                </tr>
+            <tr>
+                <td>
+                    <div class="note_scroll hidden text-sm italic text-gray-500" x-ref="scroll">{{ 'element.scroll_note'|trans() }}</div>
+                </td>
+                {% for option in form.vars.matrix_columns %}
+                    <td class="option" data-option="{{ loop.index0 }}"
+                        @click="$el.querySelectorAll('[data-option=\'{{ loop.index0 }}\'] input').forEach(i => {i.checked = true})">
+                        {{ option|raw }}
+                    </td>
+                {% endfor %}
+            </tr>
             </thead>
             <tbody>
             {% for row in form.children %}
