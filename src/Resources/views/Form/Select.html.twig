@@ -15,7 +15,7 @@
                 {% else %}
                     {% set placeholder = 'element.user_option_placeholder'|trans() %}
                     {% set user_option_labels = form.vars.data.question.userOptionLabels %}
-                    <div class="inline-flex flex-row user_option{% if form.user_option.vars.errors|length > 0 %} error{% endif %}"
+                    <div class="inline-flex flex-row items-baseline user_option{% if form.user_option.vars.errors|length > 0 %} error{% endif %}"
                         @click="$refs.s_{{ loop.index0 }}.querySelector('input').checked=true">
                         {% if user_option_labels[0] -%}
                             <span class="mr-2 user_option--prefix">{{ user_option_labels[0] }}</span>
