@@ -1,7 +1,7 @@
 form:
   button:
     clear_current: '↺'
-    clear_current_title: 'Diesen Schritt zurücksetzen'
+    clear_current_title: 'Diese Frage zurücksetzen'
     next: 'Weiter'
     previous: 'Zurück'
     submit: 'Absenden'
