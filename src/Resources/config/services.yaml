@@ -156,6 +156,7 @@ services:
       - '@contao.routing.scope_matcher'
       - '@doctrine.orm.entity_manager'
       - '@mvo.survey.registry'
+      - '@event_dispatcher'
       - '%mvo_survey.protect_editing%'
     tags:
       - { name: 'terminal42_service_annotation' }
