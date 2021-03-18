@@ -11,6 +11,7 @@ $GLOBALS['TL_LANG']['tl_survey']['sections'] = ['Abschnitte bearbeiten', 'Abschn
 
 $GLOBALS['TL_LANG']['tl_survey']['title'] = ['Titel', 'Geben Sie den Titel dieser Umfrage ein.'];
 $GLOBALS['TL_LANG']['tl_survey']['frozen'] = ['Umfrage einfrieren', 'Bearbeitung dieser Umfrage sperren. Nur eingefrorene Umfragen werden im Frontend ausgegeben.'];
+$GLOBALS['TL_LANG']['tl_survey']['store_records'] = ['Ergebnisse speichern', 'Ergebnisse werden in der Datenbank gespeichert.'];
 $GLOBALS['TL_LANG']['tl_survey']['details_legend'] = 'Details zur Danke-Seite';
 $GLOBALS['TL_LANG']['tl_survey']['note_submission'] = ['Nachricht', 'Fügen Sie eine "Danke"-Nachricht hinzu, die nach erfolgreichem Absenden angezeigt wird.'];
 $GLOBALS['TL_LANG']['tl_survey']['button_label'] = ['Button Bezeichner', 'Fügen Sie einen optionalen Button hinzu.'];
