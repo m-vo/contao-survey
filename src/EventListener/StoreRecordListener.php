@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+/*
+ * @author  Moritz Vondano
+ * @license MIT
+ */
+
 namespace Mvo\ContaoSurvey\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,6 +27,10 @@ class StoreRecordListener
      */
     public function __invoke(SurveySubmittedEvent $event): void
     {
+        if (!$event->getSurvey()->isStoreRecords()) {
+            return;
+        }
+
         $this->entityManager->persist($event->getRecord());
         $this->entityManager->flush();
     }

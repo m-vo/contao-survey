@@ -14,7 +14,6 @@ use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController
 use Contao\CoreBundle\Routing\ScopeMatcher;
 use Contao\CoreBundle\ServiceAnnotation\ContentElement;
 use Contao\Template;
-use Doctrine\ORM\EntityManager;
 use Mvo\ContaoSurvey\Entity\Record;
 use Mvo\ContaoSurvey\Entity\Survey;
 use Mvo\ContaoSurvey\Event\SurveySubmittedEvent;
