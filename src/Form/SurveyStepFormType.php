@@ -14,6 +14,8 @@ use Mvo\ContaoSurvey\Registry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
 
@@ -62,9 +64,17 @@ class SurveyStepFormType extends AbstractType
         $resolver->setDefaults([
             'first_step' => false,
             'last_step' => false,
+            'protect_editing' => true,
 
             // We're already using Contao's CSRF token mechanism
             'csrf_protection' => false,
         ]);
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        parent::buildView($view, $form, $options);
+
+        $view->vars['protect_editing'] = $options['protect_editing'];
     }
 }

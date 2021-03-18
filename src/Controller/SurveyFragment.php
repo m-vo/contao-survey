@@ -12,6 +12,7 @@ namespace Mvo\ContaoSurvey\Controller;
 use Contao\ContentModel;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
 use Contao\CoreBundle\Routing\ScopeMatcher;
+use Contao\CoreBundle\Security\Authentication\Token\TokenChecker;
 use Contao\CoreBundle\ServiceAnnotation\ContentElement;
 use Contao\Template;
 use Mvo\ContaoSurvey\Entity\Record;
@@ -35,15 +36,17 @@ class SurveyFragment extends AbstractContentElementController
     private ScopeMatcher $scopeMatcher;
     private Registry $registry;
     private EventDispatcherInterface $eventDispatcher;
+    private TokenChecker $tokenChecker;
     private bool $protectEditing;
 
-    public function __construct(SurveyRepository $surveyRepository, SurveyManagerFactory $managerFactory, ScopeMatcher $scopeMatcher, Registry $registry, EventDispatcherInterface $eventDispatcher, bool $protectEditing)
+    public function __construct(SurveyRepository $surveyRepository, SurveyManagerFactory $managerFactory, ScopeMatcher $scopeMatcher, Registry $registry, TokenChecker $tokenChecker, EventDispatcherInterface $eventDispatcher, bool $protectEditing)
     {
         $this->surveyRepository = $surveyRepository;
         $this->managerFactory = $managerFactory;
         $this->scopeMatcher = $scopeMatcher;
         $this->registry = $registry;
         $this->eventDispatcher = $eventDispatcher;
+        $this->tokenChecker = $tokenChecker;
         $this->protectEditing = $protectEditing;
     }
 
@@ -66,7 +69,7 @@ class SurveyFragment extends AbstractContentElementController
             ]);
         }
 
-        if ($this->protectEditing && !$survey->isFrozen()) {
+        if ($this->protectEditing && !$survey->isFrozen() && !$this->tokenChecker->isPreviewMode()) {
             return $this->render('@MvoContaoSurvey/_frozen.html.twig', [
                 'headline' => $model->survey_headline ?: $survey->getTitle(),
                 'survey' => $survey,
@@ -78,7 +81,7 @@ class SurveyFragment extends AbstractContentElementController
 
         $manager->form->handleRequest($request);
 
-        if ($this->proceedUntilCompleted($manager)) {
+        if ($this->proceedUntilCompleted($manager) && (!$this->protectEditing || $survey->isFrozen())) {
             $record = new Record($survey, $manager->getAnswers());
             $manager->reset();
             $this->eventDispatcher->dispatch(new SurveySubmittedEvent($survey, $record, $model));
