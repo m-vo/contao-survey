@@ -97,7 +97,7 @@ $GLOBALS['TL_DCA']['tl_survey'] =
                 'inputType' => 'checkbox',
                 'filter' => true,
                 'eval' => [
-                    'tl_class' => 'w50 m12',
+                    'tl_class' => 'clr w50 m12',
                 ],
                 'default' => true,
                 'save_callback' => [static fn ($v) => '1' === $v],
