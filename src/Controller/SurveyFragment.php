@@ -17,7 +17,7 @@ use Contao\Template;
 use Doctrine\ORM\EntityManager;
 use Mvo\ContaoSurvey\Entity\Record;
 use Mvo\ContaoSurvey\Entity\Survey;
-use Mvo\ContaoSurvey\Event\SurveyRecordStoredEvent;
+use Mvo\ContaoSurvey\Event\SurveySubmittedEvent;
 use Mvo\ContaoSurvey\Form\SurveyManager;
 use Mvo\ContaoSurvey\Form\SurveyManagerFactory;
 use Mvo\ContaoSurvey\Registry;
@@ -34,17 +34,15 @@ class SurveyFragment extends AbstractContentElementController
     private SurveyRepository $surveyRepository;
     private SurveyManagerFactory $managerFactory;
     private ScopeMatcher $scopeMatcher;
-    private EntityManager $entityManager;
     private Registry $registry;
     private EventDispatcherInterface $eventDispatcher;
     private bool $protectEditing;
 
-    public function __construct(SurveyRepository $surveyRepository, SurveyManagerFactory $managerFactory, ScopeMatcher $scopeMatcher, EntityManager $entityManager, Registry $registry, EventDispatcherInterface $eventDispatcher, bool $protectEditing)
+    public function __construct(SurveyRepository $surveyRepository, SurveyManagerFactory $managerFactory, ScopeMatcher $scopeMatcher, Registry $registry, EventDispatcherInterface $eventDispatcher, bool $protectEditing)
     {
         $this->surveyRepository = $surveyRepository;
         $this->managerFactory = $managerFactory;
         $this->scopeMatcher = $scopeMatcher;
-        $this->entityManager = $entityManager;
         $this->registry = $registry;
         $this->eventDispatcher = $eventDispatcher;
         $this->protectEditing = $protectEditing;
@@ -82,9 +80,9 @@ class SurveyFragment extends AbstractContentElementController
         $manager->form->handleRequest($request);
 
         if ($this->proceedUntilCompleted($manager)) {
-            $record = $this->storeRecord($survey, $manager->getAnswers());
+            $record = new Record($survey, $manager->getAnswers());
             $manager->reset();
-            $this->eventDispatcher->dispatch(new SurveyRecordStoredEvent($survey, $record, $model));
+            $this->eventDispatcher->dispatch(new SurveySubmittedEvent($survey, $record, $model));
 
             return $this->render('@MvoContaoSurvey/_thanks.html.twig', [
                 'headline' => $headline,
@@ -147,17 +145,5 @@ class SurveyFragment extends AbstractContentElementController
 
         // form contains errors
         return false;
-    }
-
-    private function storeRecord(Survey $survey, array $answers): Record
-    {
-        $record = new Record($survey, $answers);
-
-        // todo validate
-
-        $this->entityManager->persist($record);
-        $this->entityManager->flush();
-
-        return $record;
     }
 }

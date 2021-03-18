@@ -62,6 +62,13 @@ services:
     tags:
       - { name: 'kernel.event_listener', event: 'kernel.request', priority: -800 }
 
+  mvo.survey.listener.store_record:
+    class: Mvo\ContaoSurvey\EventListener\StoreRecordListener
+    arguments:
+      - '@doctrine.orm.entity_manager'
+    tags:
+      - { name: 'kernel.event_listener', event: 'Mvo\ContaoSurvey\Event\SurveySubmittedEvent', priority: 128 }
+
   mvo.survey.form.manager_factory:
     class: Mvo\ContaoSurvey\Form\SurveyManagerFactory
     arguments:
@@ -154,7 +161,6 @@ services:
       - '@mvo.survey.repository.survey'
       - '@mvo.survey.form.manager_factory'
       - '@contao.routing.scope_matcher'
-      - '@doctrine.orm.entity_manager'
       - '@mvo.survey.registry'
       - '@event_dispatcher'
       - '%mvo_survey.protect_editing%'

@@ -16,7 +16,7 @@ use Mvo\ContaoSurvey\Entity\Survey;
 /**
  * @psalm-immutable
  */
-final class SurveyRecordStoredEvent
+final class SurveySubmittedEvent
 {
     private Survey $survey;
 
