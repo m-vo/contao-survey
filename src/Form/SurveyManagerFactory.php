@@ -21,13 +21,15 @@ class SurveyManagerFactory
     private Registry $registry;
     private NamespacedAttributeBag $namespacedAttributeBag;
     private SessionInterface $session;
+    private bool $protectEditing;
 
-    public function __construct(FormFactoryInterface $formFactory, Registry $registry, NamespacedAttributeBag $namespacedAttributeBag, SessionInterface $session)
+    public function __construct(FormFactoryInterface $formFactory, Registry $registry, NamespacedAttributeBag $namespacedAttributeBag, SessionInterface $session, bool $protectEditing)
     {
         $this->formFactory = $formFactory;
         $this->registry = $registry;
         $this->namespacedAttributeBag = $namespacedAttributeBag;
         $this->session = $session;
+        $this->protectEditing = $protectEditing;
     }
 
     public function __invoke(Survey $survey): SurveyManager
@@ -37,7 +39,8 @@ class SurveyManagerFactory
             $this->formFactory,
             $this->registry,
             $this->namespacedAttributeBag,
-            $this->session
+            $this->session,
+            $this->protectEditing
         );
     }
 }

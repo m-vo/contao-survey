@@ -23,10 +23,12 @@
             {% endif %}
 
             {% if current_step.is_last %}
-                {{ form_widget(form.next, {
-                    label: 'form.button.submit'|trans(),
-                    attr: {class: button_classes}
-                }) }}
+                {% if not form.vars.protect_editing %}
+                    {{ form_widget(form.next, {
+                        label: 'form.button.submit'|trans(),
+                        attr: {class: button_classes}
+                    }) }}
+                {% endif %}
             {% else %}
                 {{ form_widget(form.next, {
                     label: 'form.button.next'|trans(),

@@ -44,13 +44,15 @@ class SurveyManager
 
     private int $currentStep;
     private int $totalSteps;
+    private bool $protectEditing;
 
-    public function __construct(Survey $survey, FormFactoryInterface $formFactory, Registry $registry, NamespacedAttributeBag $storage, SessionInterface $session)
+    public function __construct(Survey $survey, FormFactoryInterface $formFactory, Registry $registry, NamespacedAttributeBag $storage, SessionInterface $session, bool $protectEditing)
     {
         $this->formFactory = $formFactory;
         $this->registry = $registry;
         $this->storage = $storage;
         $this->session = $session;
+        $this->protectEditing = $protectEditing;
 
         $this->bind($survey);
     }
@@ -228,6 +230,7 @@ class SurveyManager
             [
                 'first_step' => $this->isFirstStep(),
                 'last_step' => $this->isLastStep(),
+                'protect_editing' => $this->protectEditing && !$survey->isFrozen(),
             ]
         );
     }
