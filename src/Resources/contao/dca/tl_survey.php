@@ -102,7 +102,7 @@ $GLOBALS['TL_DCA']['tl_survey'] =
                 'default' => true,
                 'save_callback' => [static fn ($v) => '1' === $v],
                 // Keep this for MySQL Strict mode. Otherwise Contao would save an empty string
-                'sql' => ['type' => 'boolean', 'default' => false],
+                'sql' => ['type' => 'boolean', 'default' => true],
             ],
         ],
     ];
