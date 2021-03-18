@@ -27,6 +27,7 @@
     {% endif %}
     <div>
         <div>{{ name }}</div>
+        {% if store_records or count > 0 %}
         <div class="survey_records survey_flex-col">
             <div class="survey_records_count">
                 {{ 'records.count'|trans({'%count%': count}) }}
@@ -45,5 +46,6 @@
                 </a>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>

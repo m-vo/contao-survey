@@ -40,6 +40,11 @@ class Survey extends DcaDefault
     private string $buttonLabel = '';
 
     /**
+     * @ORM\Column(name="store_records", type="boolean", options={"default": true})
+     */
+    private bool $storeRecords = true;
+
+    /**
      * @ORM\OneToMany(targetEntity="Section", mappedBy="survey")
      *
      * @var Collection<int, Section>
@@ -130,6 +135,11 @@ class Survey extends DcaDefault
     public function isFrozen(): bool
     {
         return $this->frozen;
+    }
+
+    public function isStoreRecords(): bool
+    {
+        return $this->storeRecords;
     }
 
     public function clearRecords(): void

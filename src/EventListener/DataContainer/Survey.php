@@ -98,6 +98,7 @@ class Survey
                 'count' => $submittedRecordsCount,
                 'frozen' => (bool) $row['frozen'],
                 'protect_editing' => $this->protectEditing,
+                'store_records' => (bool) $row['store_records'],
             ]
         );
     }
