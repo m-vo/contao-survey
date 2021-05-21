@@ -30,6 +30,15 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                     'href' => 'act=edit',
                     'icon' => 'edit.svg',
                 ],
+                'copy'     => [
+                    'href'  => 'act=copy',
+                    'icon'  => 'copy.gif',
+                ],
+                'cut'    => [
+                    'href'       => 'act=paste&amp;mode=cut',
+                    'icon'       => 'cut.gif',
+                    'attributes' => 'onclick="Backend.getScrollOffset()"',
+                ],
                 'delete' => [
                     'href' => 'act=delete',
                     'icon' => 'delete.svg',
@@ -65,6 +74,7 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                 'inputType' => 'text',
                 'search' => true,
                 'eval' => [
+                    'doNotCopy' => true,
                     'nospace' => true,
                     'rgxp' => 'fieldname',
                     'maxlength' => 50,
