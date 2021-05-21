@@ -32,11 +32,11 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                 ],
                 'copy'     => [
                     'href'  => 'act=copy',
-                    'icon'  => 'copy.gif',
+                    'icon'  => 'copy.svg',
                 ],
                 'cut'    => [
                     'href'       => 'act=paste&amp;mode=cut',
-                    'icon'       => 'cut.gif',
+                    'icon'       => 'cut.svg',
                     'attributes' => 'onclick="Backend.getScrollOffset()"',
                 ],
                 'delete' => [
