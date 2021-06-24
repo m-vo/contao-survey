@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                     'nospace' => true,
                     'rgxp' => 'fieldname',
                     'maxlength' => 255,
-                    'tl_class' => 'w50',
+                    'tl_class' => 'clr long',
                 ],
             ],
             'question' => [
@@ -87,7 +87,7 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                 'eval' => [
                     'mandatory' => true,
                     'maxlength' => 255,
-                    'tl_class' => 'w50',
+                    'tl_class' => 'clr long',
                 ],
             ],
             'description' => [
