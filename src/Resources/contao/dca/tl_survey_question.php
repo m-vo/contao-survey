@@ -77,7 +77,7 @@ $GLOBALS['TL_DCA']['tl_survey_question'] =
                     'doNotCopy' => true,
                     'nospace' => true,
                     'rgxp' => 'fieldname',
-                    'maxlength' => 50,
+                    'maxlength' => 255,
                     'tl_class' => 'w50',
                 ],
             ],

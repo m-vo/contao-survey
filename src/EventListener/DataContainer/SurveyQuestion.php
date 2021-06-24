@@ -18,6 +18,7 @@ use Contao\DataContainer;
 use Contao\Image;
 use Contao\Input;
 use Contao\StringUtil;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mvo\ContaoSurvey\Entity\Question;
 use Mvo\ContaoSurvey\Registry;
@@ -33,8 +34,9 @@ class SurveyQuestion
     private TranslatorInterface $translator;
     private Environment $twig;
     private SlugGeneratorInterface $slugGenerator;
+    private Connection $connection;
 
-    public function __construct(QuestionRepository $questionRepository, EntityManagerInterface $entityManager, Registry $registry, TranslatorInterface $translator, Environment $twig, SlugGeneratorInterface $slugGenerator)
+    public function __construct(QuestionRepository $questionRepository, EntityManagerInterface $entityManager, Registry $registry, TranslatorInterface $translator, Environment $twig, SlugGeneratorInterface $slugGenerator, Connection $connection)
     {
         $this->questionRepository = $questionRepository;
         $this->entityManager = $entityManager;
@@ -42,6 +44,7 @@ class SurveyQuestion
         $this->translator = $translator;
         $this->twig = $twig;
         $this->slugGenerator = $slugGenerator;
+        $this->connection = $connection;
     }
 
     /**
@@ -136,9 +139,10 @@ class SurveyQuestion
     public function generateAndValidateName(string $name, DataContainer $dc): string
     {
         $question = $this->getQuestion((int) $dc->id);
+        $maxlength = $this->getMaxLengthOfNameField();
 
         if ('' === $name) {
-            $name = $this->generateName($question);
+            $name = $this->generateName($question, $maxlength);
         }
 
         $this->validateName($name, $question);
@@ -146,13 +150,21 @@ class SurveyQuestion
         return $name;
     }
 
-    private function generateName(Question $question): string
+    private function generateName(Question $question, int $maxlength): string
     {
         $name = $this->slugGenerator->generate($question->getQuestion());
         $base = $name;
+        $baseLength = \strlen($base);
 
         // avoid collisions
         for ($suffix = 2; $this->questionRepository->isNameAlreadyUsed($name, $question); ++$suffix) {
+            // check if name would be too long
+            if ($maxlength - $baseLength < \strlen((string) $suffix) + 1) {
+                $name = substr($base, 0, $maxlength - $baseLength - 2)."-$suffix";
+
+                continue;
+            }
+
             $name = "$base-$suffix";
         }
 
@@ -176,5 +188,22 @@ class SurveyQuestion
         }
 
         return $question;
+    }
+
+    private function getMaxLengthOfNameField(): int
+    {
+        $columns = $this->connection->getSchemaManager()->listTableColumns('tl_survey_question');
+
+        if (!isset($columns['name'])) {
+            throw new \RuntimeException('Column "name" does not exist.');
+        }
+
+        $length = $columns['name']->getLength();
+
+        if (null === $length) {
+            throw new \RuntimeException('Could not determine length of field "name".');
+        }
+
+        return $length;
     }
 }
