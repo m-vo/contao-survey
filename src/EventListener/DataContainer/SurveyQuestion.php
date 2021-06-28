@@ -154,18 +154,10 @@ class SurveyQuestion
     {
         $name = $this->slugGenerator->generate($question->getQuestion());
         $base = $name;
-        $baseLength = \strlen($base);
 
         // avoid collisions
         for ($suffix = 2; $this->questionRepository->isNameAlreadyUsed($name, $question); ++$suffix) {
-            // check if name would be too long
-            if ($maxlength - $baseLength < \strlen((string) $suffix) + 1) {
-                $name = substr($base, 0, $maxlength - $baseLength - 2)."-$suffix";
-
-                continue;
-            }
-
-            $name = "$base-$suffix";
+            $name = substr($base, 0, $maxlength - \strlen((string) $suffix) - 1)."-$suffix";
         }
 
         return $name;
