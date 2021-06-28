@@ -214,6 +214,7 @@ services:
       - '@translator'
       - '@twig'
       - '@mvo.survey.slug_generator'
+      - '@database_connection'
 
   mvo.survey.slug_generator:
     class: Ausi\SlugGenerator\SlugGenerator
