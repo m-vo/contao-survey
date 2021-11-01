@@ -9,19 +9,16 @@ declare(strict_types=1);
 
 namespace Mvo\ContaoSurvey\EventListener;
 
-use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class ClearSessionListener
 {
     public const SESSION_LAST_USED_KEY = '_last_used';
 
-    private NamespacedAttributeBag $storage;
     private int $maxIdleTime;
 
-    public function __construct(NamespacedAttributeBag $storage, int $maxIdleTime)
+    public function __construct(int $maxIdleTime)
     {
-        $this->storage = $storage;
         $this->maxIdleTime = $maxIdleTime;
     }
 
@@ -45,10 +42,11 @@ class ClearSessionListener
             return;
         }
 
-        $lastUsed = $this->storage->get(self::SESSION_LAST_USED_KEY);
+        $session = $request->getSession();
+        $lastUsed = $session->get(self::SESSION_LAST_USED_KEY);
 
         if (null !== $lastUsed && ($lastUsed + $this->maxIdleTime < time())) {
-            $this->storage->clear();
+            $session->clear();
         }
     }
 }
