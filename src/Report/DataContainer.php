@@ -46,7 +46,7 @@ class DataContainer
         $this->optionLabelsById = array_flip($labelOptionMap);
     }
 
-    public function setValue($value, ?int $optionId = null): void
+    public function setValue($value, int $optionId = null): void
     {
         $value = null === $value ? $value : (string) $value;
 

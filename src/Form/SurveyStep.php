@@ -11,7 +11,6 @@ namespace Mvo\ContaoSurvey\Form;
 
 use Mvo\ContaoSurvey\Entity\Question;
 use Mvo\ContaoSurvey\Entity\Section;
-use RuntimeException;
 
 class SurveyStep
 {
@@ -52,7 +51,7 @@ class SurveyStep
     public function getQuestion(string $questionName): Question
     {
         if (!isset($this->questions[$questionName])) {
-            throw new RuntimeException(sprintf('Question named "%s" does not belong to the step', $questionName));
+            throw new \RuntimeException(sprintf('Question named "%s" does not belong to the step', $questionName));
         }
 
         return $this->questions[$questionName];
