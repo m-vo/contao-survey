@@ -109,7 +109,8 @@ class SurveyQuestion
 
         foreach ($this->registry->getTypes() as $type) {
             $options[$type] = $this->translator->trans(
-                'survey_question_type.'.$type, [],
+                'survey_question_type.'.$type,
+                [],
                 'contao_survey'
             );
         }

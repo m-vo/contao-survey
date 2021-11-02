@@ -48,16 +48,15 @@ services:
       - { name: 'doctrine.event_listener', event: 'loadClassMetadata' }
 
   # form handling
-  mvo.survey.session_storage:
-    class: Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag
+
+  mvo.survey.storage.session:
+    class: Mvo\ContaoSurvey\Storage\SessionStorage
     arguments:
-      - 'mvo.survey'
-      - '/'
+      - '@request_stack'
 
   mvo.survey.listener.clear_session:
     class: Mvo\ContaoSurvey\EventListener\ClearSessionListener
     arguments:
-      - '@mvo.survey.session_storage'
       - '%mvo_survey.session_max_idle_time%'
     tags:
       - { name: 'kernel.event_listener', event: 'kernel.request', priority: -800 }
@@ -74,8 +73,7 @@ services:
     arguments:
       - '@form.factory'
       - '@mvo.survey.registry'
-      - '@mvo.survey.session_storage'
-      - '@session'
+      - '@mvo.survey.storage.session'
       - '%mvo_survey.protect_editing%'
 
   # form types

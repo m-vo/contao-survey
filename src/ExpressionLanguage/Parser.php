@@ -25,6 +25,9 @@ class Parser
         return $this->getFields($rootNode);
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function getFields(Node $node): array
     {
         $identifiers = [];

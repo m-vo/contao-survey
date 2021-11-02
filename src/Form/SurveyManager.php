@@ -12,12 +12,10 @@ namespace Mvo\ContaoSurvey\Form;
 use Mvo\ContaoSurvey\Entity\Answer;
 use Mvo\ContaoSurvey\Entity\Question;
 use Mvo\ContaoSurvey\Entity\Survey;
-use Mvo\ContaoSurvey\EventListener\ClearSessionListener;
 use Mvo\ContaoSurvey\Registry;
+use Mvo\ContaoSurvey\Storage\StorageInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SurveyManager
 {
@@ -27,8 +25,7 @@ class SurveyManager
 
     private FormFactoryInterface $formFactory;
     private Registry $registry;
-    private NamespacedAttributeBag $storage;
-    private SessionInterface $session;
+    private StorageInterface $storage;
 
     private Survey $survey;
 
@@ -46,12 +43,11 @@ class SurveyManager
     private int $totalSteps;
     private bool $protectEditing;
 
-    public function __construct(Survey $survey, FormFactoryInterface $formFactory, Registry $registry, NamespacedAttributeBag $storage, SessionInterface $session, bool $protectEditing)
+    public function __construct(Survey $survey, FormFactoryInterface $formFactory, Registry $registry, StorageInterface $storage, bool $protectEditing)
     {
         $this->formFactory = $formFactory;
         $this->registry = $registry;
         $this->storage = $storage;
-        $this->session = $session;
         $this->protectEditing = $protectEditing;
 
         $this->bind($survey);
@@ -189,7 +185,7 @@ class SurveyManager
 
     private function bind(Survey $survey): void
     {
-        $this->initStorage();
+        $this->storage->initialize();
 
         $this->survey = $survey;
         $this->buildSteps();
@@ -246,24 +242,17 @@ class SurveyManager
         return $answer;
     }
 
-    private function initStorage(): void
-    {
-        $this->session->start();
-
-        $this->storage->set(ClearSessionListener::SESSION_LAST_USED_KEY, time());
-    }
-
     /**
      * Retrieve step from storage, fallback to '0'.
      */
     private function loadStepIndex(): int
     {
-        return $this->storage->get($this->survey->getId().'/step', 0);
+        return $this->storage->getStepIndex($this->survey->getId());
     }
 
     private function storeStep(int $stepIndex): void
     {
-        $this->storage->set($this->survey->getId().'/step', $stepIndex);
+        $this->storage->setStepIndex($this->survey->getId(), $stepIndex);
     }
 
     /**
@@ -273,7 +262,7 @@ class SurveyManager
     {
         // step answers given (or skipped) so far
         /** @var array<int,array<string,Answer|null>|null> $answers */
-        $answers = $this->storage->get($this->survey->getId().'/answers', []);
+        $answers = $this->storage->getAllAnswers($this->survey->getId());
 
         foreach ($answers as $stepIndex => $stepAnswers) {
             if (null === $stepAnswers) {
@@ -299,21 +288,21 @@ class SurveyManager
      */
     private function storeAnswers(int $step, ?array $answers): void
     {
-        $this->storage->set($this->survey->getId().'/answers/'.$step, $answers);
+        $this->storage->setAnswersForStep($this->survey->getId(), $step, $answers);
     }
 
     private function resetStorage(): void
     {
-        $this->storage->remove((string) $this->survey->getId());
+        $this->storage->reset($this->survey->getId());
     }
 
     private function checkQuestionSetUntouched(): bool
     {
         $hash = md5(implode('|', $this->steps));
-        $currentHash = $this->storage->get($this->survey->getId().'/hash');
+        $currentHash = $this->storage->getHash($this->survey->getId());
 
         if (null === $currentHash) {
-            $this->storage->set($this->survey->getId().'/hash', $hash);
+            $this->storage->setHash($this->survey->getId(), $hash);
 
             return true;
         }

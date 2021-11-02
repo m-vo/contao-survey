@@ -11,24 +11,21 @@ namespace Mvo\ContaoSurvey\Form;
 
 use Mvo\ContaoSurvey\Entity\Survey;
 use Mvo\ContaoSurvey\Registry;
+use Mvo\ContaoSurvey\Storage\StorageInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SurveyManagerFactory
 {
     private FormFactoryInterface $formFactory;
     private Registry $registry;
-    private NamespacedAttributeBag $namespacedAttributeBag;
-    private SessionInterface $session;
+    private StorageInterface $storage;
     private bool $protectEditing;
 
-    public function __construct(FormFactoryInterface $formFactory, Registry $registry, NamespacedAttributeBag $namespacedAttributeBag, SessionInterface $session, bool $protectEditing)
+    public function __construct(FormFactoryInterface $formFactory, Registry $registry, StorageInterface $storage, bool $protectEditing)
     {
         $this->formFactory = $formFactory;
         $this->registry = $registry;
-        $this->namespacedAttributeBag = $namespacedAttributeBag;
-        $this->session = $session;
+        $this->storage = $storage;
         $this->protectEditing = $protectEditing;
     }
 
@@ -38,8 +35,7 @@ class SurveyManagerFactory
             $survey,
             $this->formFactory,
             $this->registry,
-            $this->namespacedAttributeBag,
-            $this->session,
+            $this->storage,
             $this->protectEditing
         );
     }
