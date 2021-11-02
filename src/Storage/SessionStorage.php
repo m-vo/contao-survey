@@ -64,6 +64,8 @@ class SessionStorage implements StorageInterface
 
     public function reset(int $surveyId): void
     {
-        $this->session->remove(self::ATTRIBUTE_PREFIX.$surveyId);
+        $this->session->remove(self::ATTRIBUTE_PREFIX.$surveyId.'/step');
+        $this->session->remove(self::ATTRIBUTE_PREFIX.$surveyId.'/answers');
+        $this->session->remove(self::ATTRIBUTE_PREFIX.$surveyId.'/hash');
     }
 }
