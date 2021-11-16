@@ -36,6 +36,7 @@ class AnswerRating extends Answer
 
     public function exportData(DataContainer $container): void
     {
-        $container->setValue($this->getRating());
+        // Use 1-based index
+        $container->setValue($this->getRating() + 1);
     }
 }

@@ -38,6 +38,8 @@ class AnswerRatingType extends AbstractType
             'expanded' => true,
             'required' => $question->isMandatory(),
             'constraints' => $question->isMandatory() ? [new NotBlank()] : [],
+            // Disable placeholder, so we're not getting additional options
+            'placeholder' => null,
         ]);
     }
 
