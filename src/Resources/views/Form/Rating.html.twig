@@ -3,15 +3,14 @@
 {% block form_row %}
     <div class="{% block answer_classes %}survey_answer survey_answer--rating{% endblock %}">
         {% set options = form.rating.children %}
-        {% set activeOption = form.rating.children|filter(c => c.vars.checked)|first|default(0) %}
+        {% set activeOption = options|filter(c => c.vars.checked)|first.vars.value|default(-1) %}
 
         {# Star rating, rendered as radio inputs where selecting option `n` marks options `1..n-1` as active #}
         <div class="{% block rating_wrapper_classes %}flex flex-row space-x-1{% endblock %}"
-             x-data="{value: {{ activeOption ? activeOption.vars.value : 0 }}}">
+             x-data="{value: {{ activeOption }}}">
             {% for option in options %}
-                {% set value = option.vars.value|default(0) %}
+                {% set value = option.vars.value %}
                 {% set label = option.vars.label %}
-
                 <div class="{% block input_wrapper_classes %}{% endblock %}">
                     <input class="{% block input_classes %}hidden{% endblock %}" type="radio" id="{{ option.vars.id }}" name="{{ option.vars.full_name }}"
                            value="{{ value }}" :class="{'active': value>={{ value }}}" x-model="value" @reset="value=0"
