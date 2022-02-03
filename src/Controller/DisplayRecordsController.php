@@ -46,8 +46,7 @@ class DisplayRecordsController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
-        $stateParameter = $request->get('state');
-        $overwriteState = null !== $stateParameter ? (bool) $stateParameter : null;
+        $overwriteState = $request->query->has('state') ? (bool) $request->query->get('state') : null;
 
         /** @var Question|null $question */
         $question = $this->questionRepository->find($id);

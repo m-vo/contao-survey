@@ -90,5 +90,12 @@
       "@chain",
       "yarn build"
     ]
+  },
+  "config": {
+    "allow-plugins": {
+      "contao-components/installer": true,
+      "bamarni/composer-bin-plugin": true,
+      "contao/manager-plugin": true
+    }
   }
 }

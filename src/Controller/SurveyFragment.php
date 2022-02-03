@@ -22,6 +22,7 @@ use Mvo\ContaoSurvey\Form\SurveyManager;
 use Mvo\ContaoSurvey\Form\SurveyManagerFactory;
 use Mvo\ContaoSurvey\Registry;
 use Mvo\ContaoSurvey\Repository\SurveyRepository;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -127,14 +128,20 @@ class SurveyFragment extends AbstractContentElementController
         }
 
         // reset (back to the first step)
-        if ($manager->form['reset']->isClicked()) {
+        /** @var SubmitButton $resetButton */
+        $resetButton = $manager->form['reset'];
+
+        if ($resetButton->isClicked()) {
             $manager->reset();
 
             return false;
         }
 
         // back to the previous step
-        if (isset($manager->form['previous']) && $manager->form['previous']->isClicked() && $manager->previousStep()) {
+        /** @var SubmitButton|null $backButton */
+        $backButton = $manager->form['previous'] ?? null;
+
+        if ($backButton && $backButton->isClicked() && $manager->previousStep()) {
             return false;
         }
 
